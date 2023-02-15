@@ -1,0 +1,2 @@
+C:/Users/Lily/code/2501/project/bin/CMakeFiles/2501proj.dir
+C:/Users/Lily/code/2501/project/bin/CMakeFiles/ALL_BUILD.dir
