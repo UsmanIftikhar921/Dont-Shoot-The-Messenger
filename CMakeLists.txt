@@ -10,12 +10,9 @@ set(HDRS
     game.h
     game_object.h
     player_game_object.h
-    explosion_game_object.h
     shader.h
     geometry.h
     sprite.h
-    enemy_game_object.h
-    collectible_game_object.h
     collidable_game_object.h
     collision_box.h
 )
@@ -26,11 +23,8 @@ set(SRCS
     game_object.cpp
     main.cpp
     player_game_object.cpp
-    explosion_game_object.cpp
     shader.cpp
     sprite.cpp
-    enemy_game_object.cpp
-    collectible_game_object.cpp
     collidable_game_object.cpp
     sprite_vertex_shader.glsl
     sprite_fragment_shader.glsl
