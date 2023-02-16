@@ -10,9 +10,6 @@
 #include "sprite.h"
 #include "shader.h"
 #include "player_game_object.h"
-#include "explosion_game_object.h"
-#include "collectible_game_object.h"
-#include "enemy_game_object.h"
 #include "game.h"
 #include "collision_box.h"
 
@@ -23,8 +20,8 @@ namespace game {
 
 // Globals that define the OpenGL window and viewport
 const char *window_title_g = "Game Demo";
-const unsigned int window_width_g = 800;
-const unsigned int window_height_g = 600;
+const unsigned int window_width_g = 1920;
+const unsigned int window_height_g = 1080;
 const glm::vec3 viewport_background_color_g(0.0, 0.0, 1.0);
 
 
@@ -118,23 +115,12 @@ void Game::Setup(void)
     game_objects_.push_back(new PlayerGameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]));
 
     // Setup other objects
-    game_objects_.push_back(new EnemyGameObject(glm::vec3(-1.0f, 1.0f, 0.0f), sprite_, &sprite_shader_, tex_[1]));
-    game_objects_.push_back(new EnemyGameObject(glm::vec3(1.0f, -0.5f, 0.0f), sprite_, &sprite_shader_, tex_[2]));
-	game_objects_.push_back(new EnemyGameObject(glm::vec3(-2.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[5]));
-	game_objects_.push_back(new EnemyGameObject(glm::vec3(2.0f, -3.0f, 0.0f), sprite_, &sprite_shader_, tex_[5]));
-	game_objects_.push_back(new EnemyGameObject(glm::vec3(0.0f, 3.0f, 0.0f), sprite_, &sprite_shader_, tex_[5]));
-
-	game_objects_.push_back(new CollectibleGameObject(glm::vec3(3.0f, 3.0f, 0.0f), sprite_, &sprite_shader_, tex_[7]));
-	game_objects_.push_back(new CollectibleGameObject(glm::vec3(-3.0f, -3.0f, 0.0f), sprite_, &sprite_shader_, tex_[7]));
-	game_objects_.push_back(new CollectibleGameObject(glm::vec3(3.0f, -2.0f, 0.0f), sprite_, &sprite_shader_, tex_[7]));
-	game_objects_.push_back(new CollectibleGameObject(glm::vec3(-3.0f, 2.0f, 0.0f), sprite_, &sprite_shader_, tex_[7]));
-	game_objects_.push_back(new CollectibleGameObject(glm::vec3(1.0f, -3.0f, 0.0f), sprite_, &sprite_shader_, tex_[7]));
     
 
     // Setup background
     // In this specific implementation, the background is always the
     // last object
-    GameObject *background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[3]);
+    GameObject *background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[2]);
     background->SetScale(10.0);
     game_objects_.push_back(background);
 }
@@ -174,6 +160,7 @@ void Game::SetAllTextures(void)
     // Load all textures that we will need
     glGenTextures(NUM_TEXTURES, tex_);
     SetTexture(tex_[0], (resources_directory_g+std::string("/textures/player_ship.png")).c_str());
+	SetTexture(tex_[1], (resources_directory_g + std::string("/textures/stars.png")).c_str());
     glBindTexture(GL_TEXTURE_2D, tex_[0]);
 }
 

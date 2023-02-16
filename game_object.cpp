@@ -7,7 +7,9 @@
 namespace game {
     
 
-    int GameObject::id_counter_ = 0;
+int GameObject::id_counter_ = 0;
+
+std::unordered_map<int, GameObject*> GameObject::id_map_;
 
 GameObject::GameObject(const glm::vec3 &position, Geometry *geom, Shader *shader, GLuint texture) 
 {

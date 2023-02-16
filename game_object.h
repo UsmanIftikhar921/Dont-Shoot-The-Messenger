@@ -50,9 +50,6 @@ namespace game {
             inline void SetVelocity(const glm::vec3& velocity) { velocity_ = velocity; }
 
         protected:
-
-			// Returns the next unique id
-			static int GetNextId(void);
             
             // Object's Transform Variables
             glm::vec3 position_;
@@ -78,8 +75,11 @@ namespace game {
 
 			// Static members
 
+            
+			// id counter
             static int id_counter_;
 
+			// Get next unique id and increment counter
             static int GetNextId(void) {
                 return id_counter_++;
             }

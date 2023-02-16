@@ -14,15 +14,7 @@ namespace game {
             // Update function for moving the player object around
             void Update(double delta_time) override;
 
-            bool RegisterHit(void) override;
-
-            void RegisterCollectible(void);
-
         private:
-            int hp_;
-			bool invincible_;
-			float invincible_timer_;
-			int collectibles_;
     }; // class PlayerGameObject
 
 } // namespace game

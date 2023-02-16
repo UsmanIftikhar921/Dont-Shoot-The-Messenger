@@ -1,6 +1,9 @@
 #include "collision_box.h"
 
 namespace game {
+
+	std::vector<CollisionBox*> CollisionBox::collision_boxes_;
+	
 		
 	CollisionBox::CollisionBox(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture, float radius, ObjType parent_type, int parent_id)
 		: GameObject(position, geom, shader, texture) {
