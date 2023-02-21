@@ -10,12 +10,22 @@ namespace game {
 		radius_ = radius;
 		parent_type_ = parent_type;
 		parent_id_ = parent_id;
+		type_ = ObjType::COLLISION_BOX;
 		
 		collisions_ = new std::vector<CollisionEvent*>();
 		collisions_this_frame_ = new std::vector<CollisionEvent*>();
 
+
 		// add this collision box to the static list of collision boxes
 		collision_boxes_.push_back(this);
+
+		// get string representation of collision_boxes_ for debugging
+		std::string str = "";
+		for (int i = 0; i < collision_boxes_.size(); i++) {
+			str += "(id: " + std::to_string(collision_boxes_.at(i)->parent_id_) + " | type: " + std::to_string(collision_boxes_.at(i)->parent_type_) + "), ";
+		}
+
+		
 	}
 
 	void CollisionBox::Update(double delta_time) {
@@ -64,7 +74,7 @@ namespace game {
 			new_event->type = other->parent_type_;
 			new_event->duration = 0.0f;
 			new_event->id = other->parent_id_;
-			collisions_this_frame_->push_back(new_event);
+			collisions_this_frame_->push_back(new_event);			
 		}
 	}
 

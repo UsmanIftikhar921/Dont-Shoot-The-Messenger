@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
+
 namespace game {
 
     // A class that stores a pair of vertex, fragment shaders

@@ -22,6 +22,7 @@ GameObject::GameObject(const glm::vec3 &position, Geometry *geom, Shader *shader
     shader_ = shader;
     texture_ = texture;
     type_ = ObjType::OBJ;
+    dbg_render_red_ = false;
 	unique_id_ = GetNextId();
 
     id_map_[unique_id_] = this;
@@ -40,6 +41,7 @@ void GameObject::Update(double delta_time) {
     
 	// Update all children
 	for (int i = 0; i < children_.size(); i++) {
+		children_[i]->SetVelocity(velocity_);
 		children_[i]->Update(delta_time);
 	}
 
@@ -65,6 +67,8 @@ void GameObject::Render(glm::mat4 view_matrix, double current_time){
 
     // Set the transformation matrix in the shader
     shader_->SetUniformMat4("transformation_matrix", transformation_matrix);
+
+	shader_->SetUniform1i("dbg_red", dbg_render_red_ ? 1 : 0);
 
     // Set up the geometry
     geometry_->SetGeometry(shader_->GetShaderProgram());

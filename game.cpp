@@ -6,12 +6,14 @@
 #include <iostream>
 
 #include <path_config.h>
+#include <string>
 
 #include "sprite.h"
 #include "shader.h"
 #include "player_game_object.h"
 #include "game.h"
 #include "collision_box.h"
+
 
 namespace game {
 
@@ -112,7 +114,8 @@ void Game::Setup(void)
 
     // Setup the player object (position, texture, vertex count)
     // Note that, in this specific implementation, the player object should always be the first object in the game object vector 
-    game_objects_.push_back(new PlayerGameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]));
+    game_objects_.push_back(new PlayerGameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0], 0.3));
+	game_objects_.push_back(new CollidableGameObject(glm::vec3(3.0f, 3.0f, 0.0f), sprite_, &sprite_shader_, tex_[2], 0.3));
 
     // Setup other objects
     
@@ -120,7 +123,7 @@ void Game::Setup(void)
     // Setup background
     // In this specific implementation, the background is always the
     // last object
-    GameObject *background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[2]);
+    GameObject *background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[1]);
     background->SetScale(10.0);
     game_objects_.push_back(background);
 }
@@ -161,6 +164,7 @@ void Game::SetAllTextures(void)
     glGenTextures(NUM_TEXTURES, tex_);
     SetTexture(tex_[0], (resources_directory_g+std::string("/textures/player_ship.png")).c_str());
 	SetTexture(tex_[1], (resources_directory_g + std::string("/textures/stars.png")).c_str());
+	SetTexture(tex_[2], (resources_directory_g + std::string("/textures/green_guy_ufo.png")).c_str());
     glBindTexture(GL_TEXTURE_2D, tex_[0]);
 }
 
@@ -224,6 +228,9 @@ void Game::Update(glm::mat4 view_matrix, double delta_time)
 
 void Game::Controls(double delta_time)
 {
+    
+	float move_speed = 1.0f;
+    
     // Get player game object
     GameObject *player = game_objects_[0];
     // Get current position
@@ -235,6 +242,30 @@ void Game::Controls(double delta_time)
     if (glfwGetKey(window_, GLFW_KEY_Q) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window_, true);
     }
+    
+    // move player with wasd keys
+    if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_PRESS) {
+        player->SetVelocity(dir * move_speed);
+    }
+    
+	else if (glfwGetKey(window_, GLFW_KEY_S) == GLFW_PRESS) {
+		player->SetVelocity(-dir * move_speed);
+	}
+
+    
+	else if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_PRESS) {
+		player->SetVelocity(-right * move_speed);
+	}
+
+    
+	else if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS) {
+		player->SetVelocity(right * move_speed);
+	}
+    else {
+		player->SetVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+    }
+
+
 }
 
 void Game::Exit(void) {
@@ -246,8 +277,6 @@ void Game::Exit(void) {
     std::cout << "Game over!" << std::endl;
 	exit(EXIT_SUCCESS);
 }
-
-
 
 } // namespace game
 

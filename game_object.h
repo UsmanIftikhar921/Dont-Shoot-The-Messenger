@@ -9,6 +9,7 @@
 #include "geometry.h"
 
 #include <unordered_map>
+#include <string>
 
 namespace game {
 
@@ -19,10 +20,9 @@ namespace game {
 
     enum ObjType {
         OBJ,
-        COLLECTIBLE,
         PLAYER,
-        ENEMY,
-		EXPLOSION,
+        COLLIDABLE,
+        COLLISION_BOX,
     };
     
     class GameObject {
@@ -49,6 +49,7 @@ namespace game {
             inline void SetScale(float scale) { scale_ = scale; }
             inline void SetVelocity(const glm::vec3& velocity) { velocity_ = velocity; }
 
+
         protected:
             
             // Object's Transform Variables
@@ -72,6 +73,8 @@ namespace game {
 
 			std::vector<GameObject*> children_;
 
+            bool dbg_render_red_;
+
 
 			// Static members
 
@@ -90,6 +93,17 @@ namespace game {
             static GameObject* GetObjById(int id) {
                 return id_map_[id];
             }
+
+			static std::string& GetEnumName(ObjType type) {
+				static std::string names[] = {
+					"OBJ",
+					"PLAYER",
+					"COLLIDABLE",
+					"COLLISION_BOX",
+				};
+				return names[type];
+			}
+
             
             
 

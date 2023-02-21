@@ -3,13 +3,12 @@
 namespace game {
 	CollidableGameObject::CollidableGameObject(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture, float collision_radius) : GameObject(position, geom, shader, texture)
 	{
-		collision_box_ = new CollisionBox(position, geom, shader, texture, collision_radius, type_, unique_id_);
+		collision_box_ = new CollisionBox(position, geom, shader, NULL, collision_radius, type_, unique_id_);
 		children_.push_back(collision_box_);
 	}
 
-	void CollidableGameObject::Update(double delta_time) {
-		collision_box_->Update(delta_time);
-		
+	void CollidableGameObject::Update(double delta_time) {		
+		dbg_render_red_ = false;
 		HandleCollisions();
 		
 		GameObject::Update(delta_time);
@@ -23,6 +22,12 @@ namespace game {
 	}
 
 	void CollidableGameObject::HandleCollisionEvent(CollisionEvent& event) {
-		// do nothing
+		switch (event.type) {
+
+		case ObjType::COLLIDABLE:
+			dbg_render_red_ = true;
+			break;
+
+		}
 	}
 }
