@@ -15,7 +15,7 @@ namespace game {
 	
 	class CollisionBox : public GameObject {
 	public:
-		CollisionBox(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture, float radius, ObjType parent_type, int parent_id);
+		CollisionBox(const glm::vec3& position, float radius, ObjType parent_type, int parent_id);
 		~CollisionBox();
 		
 		void Update(double delta_time) override;
@@ -28,8 +28,6 @@ namespace game {
 		inline std::vector<CollisionEvent> GetNewCollisions(void) { return new_collisions_;  }
 		
 		void CheckCollision(CollisionBox* other);
-
-		void Render(glm::mat4 view_matrix, double current_time) override;
 
 		
 		// Static methods

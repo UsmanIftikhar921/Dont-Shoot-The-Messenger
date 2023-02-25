@@ -11,7 +11,7 @@ namespace game {
 	}
 
 	void Collidable::InitCollisionBox(float collision_radius) {
-		collision_box_ = new CollisionBox(position_, geometry_, shader_, NULL, collision_radius, type_, unique_id_);
+		collision_box_ = new CollisionBox(position_, collision_radius, type_, unique_id_);
 		children_.push_back(collision_box_);
 	}
 

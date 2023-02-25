@@ -50,6 +50,10 @@ void GameObject::Update(double delta_time) {
 
 void GameObject::Render(glm::mat4 view_matrix, double current_time){
 
+	if (geometry_ == NULL || shader_ == NULL || texture_ == NULL) {
+		return;
+	}
+
     // Set up the shader
     shader_->Enable();
 
