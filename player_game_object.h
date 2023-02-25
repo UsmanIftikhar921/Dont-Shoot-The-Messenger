@@ -9,10 +9,12 @@ namespace game {
     class PlayerGameObject : public CollidableGameObject {
 
         public:
-            PlayerGameObject(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture, float collision_radius);
+            PlayerGameObject(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
 
             // Update function for moving the player object around
             void Update(double delta_time) override;
+
+            void HandleCollisionEvent(CollisionEvent& event) override;
 
         private:
     }; // class PlayerGameObject

@@ -114,8 +114,12 @@ void Game::Setup(void)
 
     // Setup the player object (position, texture, vertex count)
     // Note that, in this specific implementation, the player object should always be the first object in the game object vector 
-    game_objects_.push_back(new PlayerGameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0], 0.3));
-	game_objects_.push_back(new CollidableGameObject(glm::vec3(3.0f, 3.0f, 0.0f), sprite_, &sprite_shader_, tex_[2], 0.3));
+	PlayerGameObject* player = new PlayerGameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
+    player->InitCollisionBox();
+	CollidableGameObject* enemy = new CollidableGameObject(glm::vec3(1.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[2]);
+	enemy->InitCollisionBox();
+	game_objects_.push_back(player);
+	game_objects_.push_back(enemy);
 
     // Setup other objects
     

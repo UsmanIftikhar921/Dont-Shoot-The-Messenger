@@ -7,8 +7,8 @@ namespace game {
 	It overrides GameObject's update method, so that you can check for input to change the velocity of the player
 */
 
-	PlayerGameObject::PlayerGameObject(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture, float collision_radius)
-		: CollidableGameObject(position, geom, shader, texture, collision_radius){
+	PlayerGameObject::PlayerGameObject(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture)
+		: CollidableGameObject(position, geom, shader, texture){
 	type_ = PLAYER;
 }
 
@@ -20,6 +20,15 @@ void PlayerGameObject::Update(double delta_time) {
 	// Call the parent's update method to move the object in standard way, if desired
 	CollidableGameObject::Update(delta_time);
 }
+
+void PlayerGameObject::HandleCollisionEvent(CollisionEvent& event) {
+	switch (event.type) {
+	case ObjType::COLLIDABLE:
+		dbg_render_red_ = true;
+		break;
+	}
+}
+
 
 
 } // namespace game

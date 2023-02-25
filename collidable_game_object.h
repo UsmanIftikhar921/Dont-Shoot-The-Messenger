@@ -8,7 +8,9 @@ namespace game {
 	class CollidableGameObject : public GameObject
 	{
 	public:
-		CollidableGameObject(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture, float collision_radius);
+		CollidableGameObject(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
+
+		void InitCollisionBox(float collision_radius=0.3);
 
 		void Update(double delta_time) override;
 		
@@ -18,7 +20,7 @@ namespace game {
 		
 
 	protected:
-		CollisionBox* collision_box_;
+		CollisionBox * collision_box_;
 	};
 }
 

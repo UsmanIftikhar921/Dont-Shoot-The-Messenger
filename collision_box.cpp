@@ -11,10 +11,6 @@ namespace game {
 		parent_type_ = parent_type;
 		parent_id_ = parent_id;
 		type_ = ObjType::COLLISION_BOX;
-		
-		collisions_ = new std::vector<CollisionEvent*>();
-		collisions_this_frame_ = new std::vector<CollisionEvent*>();
-
 
 		// add this collision box to the static list of collision boxes
 		collision_boxes_.push_back(this);
@@ -27,55 +23,86 @@ namespace game {
 
 		
 	}
+	
+	CollisionBox::~CollisionBox() {
+		// remove this collision box from the static list of collision boxes
+		for (int i = 0; i < collision_boxes_.size(); i++) {
+			if (collision_boxes_.at(i) == this) {
+				collision_boxes_.erase(collision_boxes_.begin() + i);
+				break;
+			}
+		}
+	}
 
 	void CollisionBox::Update(double delta_time) {
+
 		UpdateCollisions(delta_time);
 		
-		
 		GameObject::Update(delta_time);
+		
+		PostUpdateCleanup();
 	}
 	
 	void CollisionBox::UpdateCollisions(double delta_time) {
-		std::vector<CollisionEvent*>* new_collisions = new std::vector<CollisionEvent*>();
-		for (int i = 0; i < collisions_this_frame_->size(); i++) {
+		// vector that will replace collisions_
+		std::vector<CollisionEvent> collisions_updated;
 
-			// vector that will replace collisions_
-			CollisionEvent* new_col = collisions_this_frame_->at(i);
-			// check if this collision is already in collisions_
-			for (int j = 0; j < collisions_->size(); j++) {
-				CollisionEvent* old_col = collisions_->at(j);
+		for (int i = 0; i < collisions_this_frame_.size(); i++) {
+			
+			CollisionEvent collision = collisions_this_frame_.at(i);
 
-				// if the collision is already in collisions_, update the durration
-				if (new_col->id == old_col->id) {
-					new_col->duration = old_col->duration + delta_time;
+			// Check if collision is ongoing, if so update the duration
+			bool collision_is_ongoing = false;
+			for (int j = 0; j < collisions_.size(); j++) {
+				CollisionEvent ongoing_collision = collisions_.at(j);
+				
+				if (collision.id == ongoing_collision.id) {
 
-					// remove new_col from collisions_this_frame_
-					collisions_this_frame_->erase(collisions_this_frame_->begin() + i);
-					i--;
+					collision_is_ongoing = true;
+					collision.duration = ongoing_collision.duration + delta_time;
 
-					// remove the old collision from collisions_ so that it isn't checked again
-					collisions_->erase(collisions_->begin() + j);
-					j--;
+					// Erase ongoing collision from collisions_ to prevent redundant checks of collisions this frame
+					collisions_.erase(collisions_.begin() + j);
+
+					break;
 				}
 
-				// add the new collision to the vector that will replace collisions_
-				new_collisions->push_back(new_col);
 			}
-		}
-		// replace collisions_ with the new vector 
-		collisions_ = new_collisions;
 
+			// If collision is ongoing, add it to the updated collisions vector
+			if (!collision_is_ongoing) {
+				new_collisions_.push_back(collision);
+			}
+			collisions_updated.push_back(collision);
+
+
+		}
+
+		// replace collisions_ with the new vector 
+		collisions_ = collisions_updated;
+
+
+	}
+
+	void CollisionBox::PostUpdateCleanup(void) {
+		// clear collisions_this_frame_
+		collisions_this_frame_.clear();
 	}
 
 	void CollisionBox::CheckCollision(CollisionBox* other) {
 		if (other->GetRadius() + radius_ > glm::distance(position_, other->GetPosition())) {
 			// Collision detected
-			CollisionEvent* new_event = new CollisionEvent();
-			new_event->type = other->parent_type_;
-			new_event->duration = 0.0f;
-			new_event->id = other->parent_id_;
-			collisions_this_frame_->push_back(new_event);			
+			CollisionEvent new_event;
+
+			new_event.type = other->parent_type_;
+			new_event.id = other->parent_id_;
+			new_event.duration = 0.0f;
+			collisions_this_frame_.push_back(new_event);			
 		}
+	}
+
+	void CollisionBox::Render(glm::mat4 view_matrix, double current_time) {
+		return;
 	}
 
 }

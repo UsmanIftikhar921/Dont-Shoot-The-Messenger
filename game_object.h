@@ -49,6 +49,16 @@ namespace game {
             inline void SetScale(float scale) { scale_ = scale; }
             inline void SetVelocity(const glm::vec3& velocity) { velocity_ = velocity; }
 
+            static std::string& GetEnumName(ObjType type) {
+                static std::string names[] = {
+                    "OBJ",
+                    "PLAYER",
+                    "COLLIDABLE",
+                    "COLLISION_BOX",
+                };
+                return names[type];
+            }
+
 
         protected:
             
@@ -94,15 +104,6 @@ namespace game {
                 return id_map_[id];
             }
 
-			static std::string& GetEnumName(ObjType type) {
-				static std::string names[] = {
-					"OBJ",
-					"PLAYER",
-					"COLLIDABLE",
-					"COLLISION_BOX",
-				};
-				return names[type];
-			}
 
             
             
