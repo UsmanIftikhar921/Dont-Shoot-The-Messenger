@@ -5,8 +5,8 @@ namespace game {
 	std::vector<CollisionBox*> CollisionBox::collision_boxes_;
 	
 		
-	CollisionBox::CollisionBox(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture, float radius, ObjType parent_type, int parent_id)
-		: GameObject(position, geom, shader, texture) {
+	CollisionBox::CollisionBox(const glm::vec3& position, float radius, ObjType parent_type, int parent_id)
+		: GameObject(position) {
 		radius_ = radius;
 		parent_type_ = parent_type;
 		parent_id_ = parent_id;
@@ -99,10 +99,6 @@ namespace game {
 			new_event.duration = 0.0f;
 			collisions_this_frame_.push_back(new_event);			
 		}
-	}
-
-	void CollisionBox::Render(glm::mat4 view_matrix, double current_time) {
-		return;
 	}
 
 }

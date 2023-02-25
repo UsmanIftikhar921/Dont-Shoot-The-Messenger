@@ -29,7 +29,7 @@ namespace game {
 
         public:
             // Constructor
-            GameObject(const glm::vec3 &position, Geometry *geom, Shader *shader, GLuint texture);
+            GameObject(const glm::vec3 &position, Geometry *geom=NULL, Shader *shader=NULL, GLuint texture=NULL);
             ~GameObject();
 
             // Update the GameObject's state. Can be overriden in children
