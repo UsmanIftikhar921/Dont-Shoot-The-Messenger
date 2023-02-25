@@ -1,14 +1,14 @@
-#ifndef COLLIDABLE_GAME_OBJECT_H_
-#define COLLIDABLE_GAME_OBJECT_H_
+#ifndef COLLIDABLE_H_
+#define COLLIDABLE_H_
 
 #include "game_object.h"
 #include "collision_box.h"
 
 namespace game {
-	class CollidableGameObject : public GameObject
+	class Collidable : public GameObject
 	{
 	public:
-		CollidableGameObject(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
+		Collidable(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
 
 		void InitCollisionBox(float collision_radius=0.3);
 

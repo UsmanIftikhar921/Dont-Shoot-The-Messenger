@@ -9,12 +9,13 @@ set(HDRS
     file_utils.h
     game.h
     game_object.h
-    player_game_object.h
+    player.h
     shader.h
     geometry.h
     sprite.h
-    collidable_game_object.h
+    collidable.h
     collision_box.h
+    renderable.h
 )
  
 set(SRCS
@@ -22,13 +23,14 @@ set(SRCS
     game.cpp
     game_object.cpp
     main.cpp
-    player_game_object.cpp
+    player.cpp
     shader.cpp
     sprite.cpp
-    collidable_game_object.cpp
+    collidable.cpp
     sprite_vertex_shader.glsl
     sprite_fragment_shader.glsl
     collision_box.cpp
+    renderable.cpp
 )
 
 # Add path name to configuration file

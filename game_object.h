@@ -15,7 +15,7 @@ namespace game {
 
     /*
         GameObject is responsible for handling the rendering and updating of one object in the game world
-        The update and render methods are virtual, so you can inherit them from GameObject and override the update or render functionality (see PlayerGameObject for reference)
+        The update and render methods are virtual, so you can inherit them from GameObject and override the update or render functionality (see Player for reference)
     */
 
     enum ObjType {

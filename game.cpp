@@ -10,7 +10,7 @@
 
 #include "sprite.h"
 #include "shader.h"
-#include "player_game_object.h"
+#include "player.h"
 #include "game.h"
 #include "collision_box.h"
 
@@ -114,9 +114,9 @@ void Game::Setup(void)
 
     // Setup the player object (position, texture, vertex count)
     // Note that, in this specific implementation, the player object should always be the first object in the game object vector 
-	PlayerGameObject* player = new PlayerGameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
+	Player* player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
     player->InitCollisionBox();
-	CollidableGameObject* enemy = new CollidableGameObject(glm::vec3(1.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[2]);
+	Collidable* enemy = new Collidable(glm::vec3(1.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[2]);
 	enemy->InitCollisionBox();
 	game_objects_.push_back(player);
 	game_objects_.push_back(enemy);
