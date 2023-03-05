@@ -3,16 +3,13 @@
 namespace game {
 	Collidable::Collidable(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture) : GameObject(position, geom, shader, texture)
 	{
-		// Note: because parent constructors are called first, the type of the collision box will always be set to COLLIDABLE for derrived classes on construction.
-		// Be sure to change it manually if desired
-		// Looking for a nicer way to do this
 		type_ = ObjType::COLLIDABLE;
 		collision_box_ = NULL; // InitCollisionBox will set in InitCollisionBox (can't be done in constructor because of issues with type_ in derrived classes)
 	}
 
-	void Collidable::InitCollisionBox(float collision_radius) {
-		collision_box_ = new CollisionBox(position_, collision_radius, type_, unique_id_);
-		children_.push_back(collision_box_);
+	void Collidable::InitCollisionBox(float collision_radius, Geometry* geom, Shader* shader, GLuint texture) {
+		collision_box_ = new CollisionBox(glm::vec3(0.0f), collision_radius, type_, unique_id_, geom, shader, texture);
+		AddChild(collision_box_);
 	}
 
 	void Collidable::Update(double delta_time) {		

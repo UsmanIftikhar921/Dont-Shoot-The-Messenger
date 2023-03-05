@@ -5,23 +5,15 @@ namespace game {
 	std::vector<CollisionBox*> CollisionBox::collision_boxes_;
 	
 		
-	CollisionBox::CollisionBox(const glm::vec3& position, float radius, ObjType parent_type, int parent_id)
-		: GameObject(position) {
+	CollisionBox::CollisionBox(const glm::vec3& position, float radius, ObjType parent_type, int parent_id, Geometry* geom, Shader* shader, GLuint texture) 
+		: GameObject(position, geom, shader, texture) {
 		radius_ = radius;
 		parent_type_ = parent_type;
 		parent_id_ = parent_id;
 		type_ = ObjType::COLLISION_BOX;
 
 		// add this collision box to the static list of collision boxes
-		collision_boxes_.push_back(this);
-
-		// get string representation of collision_boxes_ for debugging
-		std::string str = "";
-		for (int i = 0; i < collision_boxes_.size(); i++) {
-			str += "(id: " + std::to_string(collision_boxes_.at(i)->parent_id_) + " | type: " + std::to_string(collision_boxes_.at(i)->parent_type_) + "), ";
-		}
-
-		
+		collision_boxes_.push_back(this);		
 	}
 	
 	CollisionBox::~CollisionBox() {
@@ -42,7 +34,7 @@ namespace game {
 		
 		PostUpdateCleanup();
 	}
-	
+
 	void CollisionBox::UpdateCollisions(double delta_time) {
 		// vector that will replace collisions_
 		std::vector<CollisionEvent> collisions_updated;
@@ -90,7 +82,8 @@ namespace game {
 	}
 
 	void CollisionBox::CheckCollision(CollisionBox* other) {
-		if (other->GetRadius() + radius_ > glm::distance(position_, other->GetPosition())) {
+		float distance = glm::abs(glm::distance(global_position_, other->GetGlobalPosition()));
+		if (radius_ > distance) {
 			// Collision detected
 			CollisionEvent new_event;
 

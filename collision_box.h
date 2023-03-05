@@ -15,14 +15,14 @@ namespace game {
 	
 	class CollisionBox : public GameObject {
 	public:
-		CollisionBox(const glm::vec3& position, float radius, ObjType parent_type, int parent_id);
+		CollisionBox(const glm::vec3& position, float radius, ObjType parent_type, int parent_id, Geometry* geom, Shader* shader, GLuint texture);
 		~CollisionBox();
 		
 		void Update(double delta_time) override;
 
 		// Getters and Setters
 		inline float GetRadius(void) { return radius_; }
-		inline void SetRaidus(float radius) { radius_ = radius; }
+		inline void SetRadius(float radius) { radius_ = radius; }
 
 		inline std::vector<CollisionEvent> GetCollisions(void) { return collisions_; }
 		inline std::vector<CollisionEvent> GetNewCollisions(void) { return new_collisions_;  }

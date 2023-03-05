@@ -10,7 +10,7 @@ namespace game {
 	public:
 		Collidable(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
 
-		void InitCollisionBox(float collision_radius=0.3);
+		void InitCollisionBox(float collision_radius, Geometry* geom = NULL, Shader* shader = NULL, GLuint texture = NULL);
 
 		void Update(double delta_time) override;
 		

@@ -15,6 +15,8 @@ set(HDRS
     sprite.h
     collidable.h
     collision_box.h
+    geometry.h
+    spinner.h
 )
  
 set(SRCS
@@ -29,6 +31,7 @@ set(SRCS
     sprite_vertex_shader.glsl
     sprite_fragment_shader.glsl
     collision_box.cpp
+    spinner.cpp
 )
 
 # Add path name to configuration file

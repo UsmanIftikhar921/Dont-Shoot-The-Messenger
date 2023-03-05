@@ -13,6 +13,7 @@
 #include "player.h"
 #include "game.h"
 #include "collision_box.h"
+#include "spinner.h"
 
 
 namespace game {
@@ -22,7 +23,7 @@ namespace game {
 
 // Globals that define the OpenGL window and viewport
 const char *window_title_g = "Game Demo";
-const unsigned int window_width_g = 1920;
+const unsigned int window_width_g = 1080;
 const unsigned int window_height_g = 1080;
 const glm::vec3 viewport_background_color_g(0.0, 0.0, 1.0);
 
@@ -94,9 +95,6 @@ Game::~Game()
     // Free memory for all objects
     // Only need to delete objects that are not automatically freed
     delete sprite_;
-    for (int i = 0; i < game_objects_.size(); i++){
-        delete game_objects_[i];
-    }
 
     // Close window
     glfwDestroyWindow(window_);
@@ -114,22 +112,28 @@ void Game::Setup(void)
 
     // Setup the player object (position, texture, vertex count)
     // Note that, in this specific implementation, the player object should always be the first object in the game object vector 
-	Player* player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
-    player->InitCollisionBox();
-	Collidable* enemy = new Collidable(glm::vec3(1.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[2]);
-	enemy->InitCollisionBox();
-	game_objects_.push_back(player);
-	game_objects_.push_back(enemy);
 
-    // Setup other objects
+    // The scene object is the parent of all other objects
+	scene_ = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f));
     
+	Player* player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
+    player->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);
+	scene_->AddChild(player);
+    
+	Collidable* enemy = new Collidable(glm::vec3(1.0f, -1.5f, 0.0f), sprite_, &sprite_shader_, tex_[2]);
+	enemy->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);    
+	scene_->AddChild(enemy);
 
-    // Setup background
-    // In this specific implementation, the background is always the
-    // last object
+    // Fidget spinner added as example of heirarchical objects
+    Spinner* spinner = new Spinner(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[4]);
+    spinner->SetScale(glm::vec2(0.5f, 0.5f));
+    spinner->SetPosition(glm::vec3(0.5f, 0.5f, 0.0f));
+    // Added as child of player
+    player->AddChild(spinner);
+
     GameObject *background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[1]);
-    background->SetScale(10.0);
-    game_objects_.push_back(background);
+    background->SetScale(glm::vec2(10.0f, 10.0f));
+	scene_->AddChild(background);
 }
 
 
@@ -169,6 +173,8 @@ void Game::SetAllTextures(void)
     SetTexture(tex_[0], (resources_directory_g+std::string("/textures/player_ship.png")).c_str());
 	SetTexture(tex_[1], (resources_directory_g + std::string("/textures/stars.png")).c_str());
 	SetTexture(tex_[2], (resources_directory_g + std::string("/textures/green_guy_ufo.png")).c_str());
+	SetTexture(tex_[3], (resources_directory_g + std::string("/textures/collision_circle.png")).c_str());
+	SetTexture(tex_[4], (resources_directory_g + std::string("/textures/spinner.png")).c_str());
     glBindTexture(GL_TEXTURE_2D, tex_[0]);
 }
 
@@ -219,14 +225,13 @@ void Game::Update(glm::mat4 view_matrix, double delta_time)
     CollisionBox::ProcessCollisions();
 
 	// Update game objects
-	for (int i = 0; i < game_objects_.size(); i++) {
-		game_objects_[i]->Update(delta_time);
-	}
+	scene_->Update(delta_time);
+
+    glm::mat4 identity = glm::mat4(1.0f);
+
 
 	// Render game objects
-	for (int i = 0; i < game_objects_.size(); i++) {
-		game_objects_[i]->Render(view_matrix, delta_time);
-	}
+	scene_->Render(identity, view_matrix, delta_time);
 }
 
 
@@ -236,7 +241,7 @@ void Game::Controls(double delta_time)
 	float move_speed = 1.0f;
     
     // Get player game object
-    GameObject *player = game_objects_[0];
+    GameObject* player = scene_->GetChild(0);
     // Get current position
     glm::vec3 curpos = player->GetPosition();
     // Set standard forward and right directions

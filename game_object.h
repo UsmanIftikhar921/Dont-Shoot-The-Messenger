@@ -23,30 +23,43 @@ namespace game {
         PLAYER,
         COLLIDABLE,
         COLLISION_BOX,
+        SPINNER,
     };
     
     class GameObject {
 
         public:
             // Constructor
-            GameObject(const glm::vec3 &position, Geometry *geom=NULL, Shader *shader=NULL, GLuint texture=NULL);
+            GameObject(const glm::vec3& position, Geometry* geom = NULL, Shader* shader = NULL, GLuint texture = NULL);
             ~GameObject();
 
             // Update the GameObject's state. Can be overriden in children
             virtual void Update(double delta_time);
 
             // Renders the GameObject 
-            virtual void Render(glm::mat4 view_matrix, double current_time);
+            virtual void Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, double current_time);
+
+            void GenerateTransformationMatrix(void);
+            
+			void AddChild(GameObject* child);
 
             // Getters
             inline glm::vec3& GetPosition(void) { return position_; }
-            inline float GetScale(void) { return scale_; }
+            inline glm::vec2& GetScale(void) { return scale_; }
+			inline float GetRotation(void) { return rotation_; }
+			inline float GetOrbitRotation(void) { return orbit_rotation_; }
+
+            inline glm::vec3 GetGlobalPosition(void) { return global_position_; }
+            
             inline glm::vec3& GetVelocity(void) { return velocity_; }
             inline ObjType GetType(void) { return type_; }
+			inline GameObject* GetChild(int index) { return children_[index]; }
 
             // Setters
             inline void SetPosition(const glm::vec3& position) { position_ = position; }
-            inline void SetScale(float scale) { scale_ = scale; }
+            inline void SetScale(glm::vec2& scale) { scale_ = scale; }
+			inline void SetRotation(float rotation) { rotation_ = rotation; }
+			inline void SetOrbitRotation(float orbit_rotation) { orbit_rotation_ = orbit_rotation; }
             inline void SetVelocity(const glm::vec3& velocity) { velocity_ = velocity; }
 
             static std::string& GetEnumName(ObjType type) {
@@ -64,9 +77,16 @@ namespace game {
             
             // Object's Transform Variables
             glm::vec3 position_;
-            float scale_;
+            glm::vec2 scale_;
+            float rotation_;
+            float orbit_rotation_;
+
+            glm::vec3 global_position_;
+
+            glm::mat4 model_transformation_;
+            glm::mat4 global_transformation_;
+            
             glm::vec3 velocity_;
-            // TODO: Add more transformation variables
 
             // Geometry
             Geometry *geometry_;

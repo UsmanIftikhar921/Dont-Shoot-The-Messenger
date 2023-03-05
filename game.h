@@ -50,7 +50,7 @@ namespace game {
             GLuint tex_[NUM_TEXTURES];
 
             // List of game objects
-            std::vector<GameObject*> game_objects_;
+            GameObject* scene_;
             
             // Keep track of time
             double current_time_;
