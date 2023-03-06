@@ -25,6 +25,11 @@ namespace game {
         COLLISION_BOX,
         SPINNER,
     };
+
+    enum State {
+        DEFAULT,
+        HOMING,
+    };
     
     class GameObject {
 
@@ -43,11 +48,7 @@ namespace game {
             
 			void AddChild(GameObject* child);
 
-            void HomeInOnPosition(const glm::vec3& target_position, float speed);
-            bool ShouldIAccelerate(float curr_pos, float curr_speed, float accel, float target_pos, float target_speed, float delta_time);
-            void Accelerate(float delta_time){ velocity_.x += delta_time * accel_rate; }
-            void DeAccelerate(float delta_time){ velocity_.x -= delta_time * accel_rate; }
-            float GetAcceleration() { return accel_rate; }
+            glm::vec3 GetAcceleration() { return acceleration_; }
 
             // Getters
             inline glm::vec3& GetPosition(void) { return position_; }
@@ -68,6 +69,8 @@ namespace game {
 			inline void SetOrbitRotation(float orbit_rotation) { orbit_rotation_ = orbit_rotation; }
             inline void SetVelocity(const glm::vec3& velocity) { velocity_ = velocity; }
 
+            void HomeInOnPoint(const glm::vec3& target_position, glm::vec3& target_velocity, float delta_time);
+
             static std::string& GetEnumName(ObjType type) {
                 static std::string names[] = {
                     "OBJ",
@@ -87,15 +90,19 @@ namespace game {
             float rotation_;
             float orbit_rotation_;
 
-            float accel_rate = 5;
+            glm::vec3 velocity_;
+            glm::vec3 acceleration_;
+
+            float max_speed_ = 5;
+            float max_accel_ = 1;
 
             glm::vec3 global_position_;
 
             glm::mat4 model_transformation_;
             glm::mat4 global_transformation_;
-            
-            glm::vec3 velocity_;
 
+            State state_;
+            
             // Geometry
             Geometry *geometry_;
  

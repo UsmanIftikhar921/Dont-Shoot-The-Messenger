@@ -116,18 +116,17 @@ void Game::Setup(void)
     // The scene object is the parent of all other objects
 	scene_ = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f));
     
-	Player* player = new Player(glm::vec3(-2.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
+	Player* player = new Player(glm::vec3(-2.0, -1.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
     player->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);
 	scene_->AddChild(player);
     
-	Collidable* enemy = new Collidable(glm::vec3(2.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[2]);
-	enemy->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);    
+	Collidable* enemy = new Collidable(glm::vec3(2.0f, -2.0f, 0.0f), sprite_, &sprite_shader_, tex_[2]);
+	enemy->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);
 	scene_->AddChild(enemy);
 
-    enemy->SetVelocity(glm::vec3(-0.2, 0.0, 0.0));
 
     // Fidget spinner added as example of heirarchical objects
-    Spinner* spinner = new Spinner(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[4]);
+    Spinner* spinner = new Spinner(glm::vec3(1.0f, -1.0f, 0.0f), sprite_, &sprite_shader_, tex_[4]);
     spinner->SetScale(glm::vec2(0.5f, 0.5f));
     spinner->SetPosition(glm::vec3(0.5f, 0.5f, 0.0f));
     // Added as child of player
@@ -217,6 +216,9 @@ void Game::MainLoop(void)
 void Game::Update(glm::mat4 view_matrix, double delta_time)
 {
 
+	GameObject* player = scene_->GetChild(0);
+	GameObject* enemy = scene_->GetChild(1);
+
     // Update time
     current_time_ += delta_time;
 
@@ -226,8 +228,11 @@ void Game::Update(glm::mat4 view_matrix, double delta_time)
 	// Check for collisions
     CollisionBox::ProcessCollisions();
 
+    player->HomeInOnPoint(enemy->GetPosition(), enemy->GetVelocity(), delta_time);
+
 	// Update game objects
 	scene_->Update(delta_time);
+
 
     glm::mat4 identity = glm::mat4(1.0f);
 
@@ -270,23 +275,6 @@ void Game::Controls(double delta_time)
 	// if (glfwGetKey(window_, GLFW_KEY_S) == GLFW_PRESS) { player->SetVelocity(-dir * move_speed); }
 	// if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_PRESS) { player->SetVelocity(-right * move_speed); }
 	// if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS) { player->SetVelocity(right * move_speed); }
-
-
-    if (glfwGetKey(window_, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        float distance = enemy->GetPosition().x - player->GetPosition().x;
-
-		// If SouldIAccelerate returns true, add my acceleration to velocity
-        if(player->ShouldIAccelerate(player->GetPosition().x, player->GetVelocity().x, player->GetAcceleration(), enemy->GetPosition().x, enemy->GetVelocity().x, delta_time)){
-            std::cout << "YES (VELOCITY: " << player->GetVelocity().x << ")" << std::endl;
-            player->Accelerate(delta_time);
-        }
-        // Otherwise, subtract my acceleration from my velocity
-        else {
-            std::cout << "NO (VELOCITY: " << player->GetVelocity().x << ")" << std::endl;  
-            player->DeAccelerate(delta_time);          
-        }
-        
-	}
 
 }
 

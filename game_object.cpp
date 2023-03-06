@@ -20,6 +20,7 @@ GameObject::GameObject(const glm::vec3 &position, Geometry *geom, Shader *shader
 	orbit_rotation_ = 0.0f;
 	scale_ = glm::vec2(1.0f, 1.0f);
     velocity_ = glm::vec3(0.0f, 0.0f, 0.0f); // Starts out stationary
+    state_ = HOMING;
     geometry_ = geom;
     shader_ = shader;
     texture_ = texture;
@@ -42,6 +43,7 @@ GameObject::~GameObject() {
 void GameObject::Update(double delta_time) {
 
     // Update object position with Euler integration
+	velocity_ += acceleration_ * ((float)delta_time);
     position_ += velocity_ * ((float) delta_time);
     GenerateTransformationMatrix();
     
@@ -114,33 +116,50 @@ void GameObject::AddChild(GameObject* child) {
     children_.push_back(child);
 }
 
-bool GameObject::ShouldIAccelerate(float curr_pos, float curr_speed, float accel, float target_pos, float target_speed, float delta_time){
-    // Find distance between current position and target positon
-    float distance = curr_pos - target_pos;
-    float signed_accel = accel;
+void GameObject::HomeInOnPoint(const glm::vec3& target_position, glm::vec3& target_velocity, float delta_time) {
 
-    // If we apply our acceleration negatively on every single frame, at what distance do we reach a velocity of zero (or less)
-    float simulated_position = curr_pos;
-    float simulated_speed = curr_speed;
+    if (state_ != HOMING) return;
 
-    while(simulated_speed >= target_speed){
-        simulated_position += simulated_speed;
-        simulated_speed -= accel;
+	glm::vec2 curr_pos = glm::vec2(position_.x, position_.y);
+	glm::vec2 target_pos = glm::vec2(target_position.x, target_position.y);
+
+	glm::vec2 curr_vel = glm::vec2(velocity_.x, velocity_.y);
+	glm::vec2 target_vel = glm::vec2(target_velocity.x, target_velocity.y);
+    
+    float deltaX = target_pos.x - curr_pos.x;
+	float deltaY = target_pos.y - curr_pos.y;
+
+	float dist = glm::sqrt(deltaX * deltaX + deltaY * deltaY);
+
+	if (dist < glm::length(curr_vel) * delta_time) {
+		acceleration_.x = 0.0f;
+		acceleration_.y = 0.0f;
+        velocity_.x = target_vel.x;
+		velocity_.y = target_vel.y;
+		position_.x = target_pos.x;
+		position_.y = target_pos.y;
+        state_ = DEFAULT;
+        return;
+	}
+
+    float velMagSq = glm::length(curr_vel) * glm::length(curr_vel);
+	//float targetVelMagSq = glm::length(target_vel) * glm::length(target_vel);
+    
+    float decelDist = (velMagSq) / (2 * max_accel_);
+       
+
+    if (dist >= decelDist) {
+        acceleration_ = glm::vec3(glm::normalize(glm::vec2(deltaX, deltaY)) * max_accel_, 0.0f);
+    }
+    else {
+        acceleration_ = glm::vec3(glm::normalize(glm::vec2(deltaX, deltaY)) * -max_accel_, 0.0f);
+
     }
 
-    // Check simulated distance
-    // Is that distance greater than or less than the target distance
-    float simulation_final_distance = glm::abs(curr_pos - simulated_position);
-    if(simulation_final_distance < distance ) return true;
-    else return false;
-}
 
-void GameObject::HomeInOnPosition(const glm::vec3& target_position, float speed) {
-    // Change object's velocity with an acceleration that changes depending on how close they are to the target position
-    glm::vec3 direction = target_position - position_;
-    float distance = glm::length(direction);
-    direction = glm::normalize(direction);
-    velocity_ = direction * speed * distance;
+    
+
+    
 }
 
 
