@@ -114,6 +114,35 @@ void GameObject::AddChild(GameObject* child) {
     children_.push_back(child);
 }
 
+bool GameObject::ShouldIAccelerate(float curr_pos, float curr_speed, float accel, float target_pos, float target_speed, float delta_time){
+    // Find distance between current position and target positon
+    float distance = curr_pos - target_pos;
+    float signed_accel = accel;
+
+    // If we apply our acceleration negatively on every single frame, at what distance do we reach a velocity of zero (or less)
+    float simulated_position = curr_pos;
+    float simulated_speed = curr_speed;
+
+    while(simulated_speed >= target_speed){
+        simulated_position += simulated_speed;
+        simulated_speed -= accel;
+    }
+
+    // Check simulated distance
+    // Is that distance greater than or less than the target distance
+    float simulation_final_distance = glm::abs(curr_pos - simulated_position);
+    if(simulation_final_distance < distance ) return true;
+    else return false;
+}
+
+void GameObject::HomeInOnPosition(const glm::vec3& target_position, float speed) {
+    // Change object's velocity with an acceleration that changes depending on how close they are to the target position
+    glm::vec3 direction = target_position - position_;
+    float distance = glm::length(direction);
+    direction = glm::normalize(direction);
+    velocity_ = direction * speed * distance;
+}
+
 
 } // namespace game
 

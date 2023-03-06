@@ -43,6 +43,12 @@ namespace game {
             
 			void AddChild(GameObject* child);
 
+            void HomeInOnPosition(const glm::vec3& target_position, float speed);
+            bool ShouldIAccelerate(float curr_pos, float curr_speed, float accel, float target_pos, float target_speed, float delta_time);
+            void Accelerate(float delta_time){ velocity_.x += delta_time * accel_rate; }
+            void DeAccelerate(float delta_time){ velocity_.x -= delta_time * accel_rate; }
+            float GetAcceleration() { return accel_rate; }
+
             // Getters
             inline glm::vec3& GetPosition(void) { return position_; }
             inline glm::vec2& GetScale(void) { return scale_; }
@@ -80,6 +86,8 @@ namespace game {
             glm::vec2 scale_;
             float rotation_;
             float orbit_rotation_;
+
+            float accel_rate = 5;
 
             glm::vec3 global_position_;
 

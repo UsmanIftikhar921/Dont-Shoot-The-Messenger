@@ -116,13 +116,15 @@ void Game::Setup(void)
     // The scene object is the parent of all other objects
 	scene_ = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f));
     
-	Player* player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
+	Player* player = new Player(glm::vec3(-2.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
     player->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);
 	scene_->AddChild(player);
     
-	Collidable* enemy = new Collidable(glm::vec3(1.0f, -1.5f, 0.0f), sprite_, &sprite_shader_, tex_[2]);
+	Collidable* enemy = new Collidable(glm::vec3(2.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[2]);
 	enemy->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);    
 	scene_->AddChild(enemy);
+
+    enemy->SetVelocity(glm::vec3(-0.2, 0.0, 0.0));
 
     // Fidget spinner added as example of heirarchical objects
     Spinner* spinner = new Spinner(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[4]);
@@ -248,32 +250,43 @@ void Game::Controls(double delta_time)
     glm::vec3 dir = glm::vec3(0.0, 1.0, 0.0);
     glm::vec3 right = glm::vec3(1.0, 0.0, 0.0);
 
+    // If the player presses the Q key, close the window
     if (glfwGetKey(window_, GLFW_KEY_Q) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window_, true);
     }
-    
-    // move player with wasd keys
-    if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_PRESS) {
-        player->SetVelocity(dir * move_speed);
-    }
-    
-	else if (glfwGetKey(window_, GLFW_KEY_S) == GLFW_PRESS) {
-		player->SetVelocity(-dir * move_speed);
-	}
 
-    
-	else if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_PRESS) {
-		player->SetVelocity(-right * move_speed);
-	}
+    GameObject* enemy = scene_->GetChild(1);
 
+    // If no keys are pressed, stop moving
+    // if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_RELEASE &&
+    //     glfwGetKey(window_, GLFW_KEY_S) == GLFW_RELEASE &&
+    //     glfwGetKey(window_, GLFW_KEY_A) == GLFW_RELEASE &&
+    //     glfwGetKey(window_, GLFW_KEY_D) == GLFW_RELEASE) {
+    //     player->SetVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+    // }
     
-	else if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS) {
-		player->SetVelocity(right * move_speed);
-	}
-    else {
-		player->SetVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
-    }
+    // // Move the player with W, A, S, D
+    // if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_PRESS) { player->SetVelocity(dir * move_speed); }
+	// if (glfwGetKey(window_, GLFW_KEY_S) == GLFW_PRESS) { player->SetVelocity(-dir * move_speed); }
+	// if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_PRESS) { player->SetVelocity(-right * move_speed); }
+	// if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS) { player->SetVelocity(right * move_speed); }
 
+
+    if (glfwGetKey(window_, GLFW_KEY_SPACE) == GLFW_PRESS) {
+        float distance = enemy->GetPosition().x - player->GetPosition().x;
+
+		// If SouldIAccelerate returns true, add my acceleration to velocity
+        if(player->ShouldIAccelerate(player->GetPosition().x, player->GetVelocity().x, player->GetAcceleration(), enemy->GetPosition().x, enemy->GetVelocity().x, delta_time)){
+            std::cout << "YES (VELOCITY: " << player->GetVelocity().x << ")" << std::endl;
+            player->Accelerate(delta_time);
+        }
+        // Otherwise, subtract my acceleration from my velocity
+        else {
+            std::cout << "NO (VELOCITY: " << player->GetVelocity().x << ")" << std::endl;  
+            player->DeAccelerate(delta_time);          
+        }
+        
+	}
 
 }
 
