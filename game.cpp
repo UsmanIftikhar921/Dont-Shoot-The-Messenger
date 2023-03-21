@@ -11,6 +11,7 @@
 #include "sprite.h"
 #include "shader.h"
 #include "player.h"
+#include "bullet.h"
 #include "game.h"
 #include "collision_box.h"
 #include "spinner.h"
@@ -251,6 +252,16 @@ void Game::Controls(double delta_time)
 	else if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS) {
         airship->SetVelocity(right * move_speed);
 	}
+
+    else if(glfwGetKey(window_, GLFW_KEY_SPACE) == GLFW_PRESS) {
+        if(dynamic_cast<Player*>(player)->canShoot()){
+            // Make a new bullet
+            Bullet* bullet = new Bullet(curpos, sprite_, &sprite_shader_, tex_[5]);
+            dynamic_cast<Player*>(player)->initBullet(&bullet, curpos, (player->GetVelocity()), player->GetRotation());
+            player->AddChild(bullet);
+        }
+    } 
+
     else {
         airship->SetVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
     }
