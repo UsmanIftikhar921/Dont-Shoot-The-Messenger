@@ -21,6 +21,7 @@ namespace game {
     enum ObjType {
         OBJ,
         PLAYER,
+        BULLET,
         COLLIDABLE,
         COLLISION_BOX,
         SPINNER,
@@ -48,10 +49,10 @@ namespace game {
             inline glm::vec2& GetScale(void) { return scale_; }
 			inline float GetRotation(void) { return rotation_; }
 			inline float GetOrbitRotation(void) { return orbit_rotation_; }
+            inline glm::vec3 GetVelocity(void) { return velocity_; }
 
             inline glm::vec3 GetGlobalPosition(void) { return global_position_; }
             
-            inline glm::vec3& GetVelocity(void) { return velocity_; }
             inline ObjType GetType(void) { return type_; }
 			inline GameObject* GetChild(int index) { return children_[index]; }
 
@@ -66,6 +67,7 @@ namespace game {
                 static std::string names[] = {
                     "OBJ",
                     "PLAYER",
+                    "BULLET",
                     "COLLIDABLE",
                     "COLLISION_BOX",
                 };

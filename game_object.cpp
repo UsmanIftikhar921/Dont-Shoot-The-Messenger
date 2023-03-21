@@ -55,7 +55,6 @@ void GameObject::Update(double delta_time) {
 
 void GameObject::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, double current_time) {
 
-
     GenerateTransformationMatrix();
     global_transformation_ = parent_matrix * model_transformation_;
 
@@ -113,7 +112,6 @@ void GameObject::GenerateTransformationMatrix(void) {
 void GameObject::AddChild(GameObject* child) {
     children_.push_back(child);
 }
-
 
 } // namespace game
 

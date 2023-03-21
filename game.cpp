@@ -11,6 +11,7 @@
 #include "sprite.h"
 #include "shader.h"
 #include "player.h"
+#include "bullet.h"
 #include "game.h"
 #include "collision_box.h"
 #include "spinner.h"
@@ -175,6 +176,7 @@ void Game::SetAllTextures(void)
 	SetTexture(tex_[2], (resources_directory_g + std::string("/textures/green_guy_ufo.png")).c_str());
 	SetTexture(tex_[3], (resources_directory_g + std::string("/textures/collision_circle.png")).c_str());
 	SetTexture(tex_[4], (resources_directory_g + std::string("/textures/spinner.png")).c_str());
+    SetTexture(tex_[5], (resources_directory_g + std::string("/textures/bullet.png")).c_str());
     glBindTexture(GL_TEXTURE_2D, tex_[0]);
 }
 
@@ -270,6 +272,16 @@ void Game::Controls(double delta_time)
 	else if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS) {
 		player->SetVelocity(right * move_speed);
 	}
+
+    else if(glfwGetKey(window_, GLFW_KEY_SPACE) == GLFW_PRESS) {
+        if(dynamic_cast<Player*>(player)->canShoot()){
+            // Make a new bullet
+            Bullet* bullet = new Bullet(curpos, sprite_, &sprite_shader_, tex_[5]);
+            dynamic_cast<Player*>(player)->initBullet(&bullet, curpos, (player->GetVelocity()), player->GetRotation());
+            player->AddChild(bullet);
+        }
+    } 
+
     else {
 		player->SetVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
     }
