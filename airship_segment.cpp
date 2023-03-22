@@ -8,4 +8,8 @@ namespace game {
 	void AirshipSegment::Update(double delta_time) {
 		GameObject::Update(delta_time);
 	}
+
+	void AirshipSegment::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, double current_time) {
+		GameObject::Render(view_matrix, parent_matrix, current_time);
+	}
 }

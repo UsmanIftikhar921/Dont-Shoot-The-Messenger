@@ -13,15 +13,23 @@ namespace game {
 
 		void Update(double delta_time) override;
 
+		void InitSegments(Geometry* geom, Shader* shader, std::vector<GLuint>* segment_textures);
+
+		void InitCrew(Geometry* geom, Shader* shader, GLuint texture);
+
 
 	protected:
 		AirshipSegment* port_guns_;
 		AirshipSegment* starboard_guns_;
+		AirshipSegment* bow_guns_;
+		AirshipSegment* stern_guns_;
 		AirshipSegment* port_engine_;
 		AirshipSegment* starboard_engine_;
-		AirshipSegment* bow_gun_;
 		AirshipSegment* boiler_room_;
-		AirshipSegment* stern_guns_;
+
+		std::vector<AirshipSegment*> segments_;
+
+		std::vector<Crew*> crew_members_;
 	};
 }
 
