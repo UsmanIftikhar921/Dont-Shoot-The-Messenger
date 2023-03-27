@@ -46,7 +46,7 @@ namespace game {
             float gameover_time_;
 
             // References to textures
-#define NUM_TEXTURES 8
+#define NUM_TEXTURES 10
             GLuint tex_[NUM_TEXTURES];
 
             // List of game objects

@@ -113,5 +113,12 @@ void GameObject::AddChild(GameObject* child) {
     children_.push_back(child);
 }
 
+glm::vec3 GameObject::GetBearing(void) {
+    // Assumes sprite is initially rotated by 90 degrees
+    float pi_over_two = glm::pi<float>() / 2.0f;
+    glm::vec3 dir(cos(rotation_ + pi_over_two), sin(rotation_ + pi_over_two), 0.0);
+    return dir;
+}
+
 } // namespace game
 

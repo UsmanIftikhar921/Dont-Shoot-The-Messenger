@@ -18,6 +18,7 @@ namespace game {
             int CheckForCollision(std::vector<GameObject*> obj);
 
             void HandleCollisionEvent(CollisionEvent& event) override;
+            void Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, double current_time) override;
 
         private:
             glm::vec2 start_; 
