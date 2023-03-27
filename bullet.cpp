@@ -33,7 +33,7 @@ void Bullet::HandleCollisionEvent(CollisionEvent& event) {
 }
 
 void Bullet::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, double current_time) {
-	// Call the parent's render method
+	// Call the parent class render method
 	Collidable::Render(view_matrix, parent_matrix, current_time);
 }
 

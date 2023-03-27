@@ -26,6 +26,7 @@ namespace game {
         COLLIDABLE,
         COLLISION_BOX,
         SPINNER,
+        GUN,
     };
     
     class GameObject {

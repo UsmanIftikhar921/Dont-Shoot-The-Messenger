@@ -33,6 +33,8 @@ namespace game {
 		texture_map_["collision_circle"] = textures_[3];
 		SetTexture(textures_[4], (resources_directory_g + std::string("/textures/spinner.png")).c_str());
 		texture_map_["spinner"] = textures_[4];
+		SetTexture(textures_[5], (resources_directory_g + std::string("/textures/bullet.png")).c_str());
+		texture_map_["bullet"] = textures_[5];
 		glBindTexture(GL_TEXTURE_2D, textures_[0]);
 
 	}

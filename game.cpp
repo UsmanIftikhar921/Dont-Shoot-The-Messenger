@@ -11,6 +11,7 @@
 #include "sprite.h"
 #include "shader.h"
 #include "player.h"
+#include "gun.h"
 #include "bullet.h"
 #include "game.h"
 #include "collision_box.h"
@@ -245,11 +246,7 @@ void Game::Controls(double delta_time)
 	}
 
     else if(glfwGetKey(window_, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        if(dynamic_cast<Player*>(player)->canShoot()){
-            // Make a new bullet
-            Bullet* bullet = new Bullet(curpos, sprite_, &sprite_shader_, tex_[5]);
-            dynamic_cast<Player*>(player)->initBullet(&bullet, curpos, (player->GetVelocity()), player->GetRotation());
-        }
+        dynamic_cast<Player*>(player)->Fire();
     } 
 
     else {
