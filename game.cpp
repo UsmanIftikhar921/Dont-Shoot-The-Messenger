@@ -116,22 +116,22 @@ void Game::Setup(void)
     // The scene object is the parent of all other objects
 	scene_ = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f));
     
-	Player* player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
-    player->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);
+	Player* player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(0));
+    player->InitCollisionBox(0.25, sprite_, &sprite_shader_, GameObject::textures.GetTexture(3));
 	scene_->AddChild(player);
     
-	Collidable* enemy = new Collidable(glm::vec3(1.0f, -1.5f, 0.0f), sprite_, &sprite_shader_, tex_[2]);
-	enemy->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);    
+    Collidable* enemy = new Collidable(glm::vec3(1.0f, -1.5f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(2));
+	enemy->InitCollisionBox(0.25, sprite_, &sprite_shader_, GameObject::textures.GetTexture(3));
 	scene_->AddChild(enemy);
 
     // Fidget spinner added as example of heirarchical objects
-    Spinner* spinner = new Spinner(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[4]);
+	Spinner* spinner = new Spinner(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(4));
     spinner->SetScale(glm::vec2(0.5f, 0.5f));
     spinner->SetPosition(glm::vec3(0.5f, 0.5f, 0.0f));
     // Added as child of player
     player->AddChild(spinner);
 
-    GameObject *background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[1]);
+	GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
     background->SetScale(glm::vec2(10.0f, 10.0f));
 	scene_->AddChild(background);
 }
@@ -145,37 +145,9 @@ void Game::ResizeCallback(GLFWwindow* window, int width, int height)
 }
 
 
-void Game::SetTexture(GLuint w, const char *fname)
-{
-    // Bind texture buffer
-    glBindTexture(GL_TEXTURE_2D, w);
-
-    // Load texture from a file to the buffer
-    int width, height;
-    unsigned char* image = SOIL_load_image(fname, &width, &height, 0, SOIL_LOAD_RGBA);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-    SOIL_free_image_data(image);
-
-    // Texture Wrapping
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    // Texture Filtering
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-}
-
-
 void Game::SetAllTextures(void)
 {
-    // Load all textures that we will need
-    glGenTextures(NUM_TEXTURES, tex_);
-    SetTexture(tex_[0], (resources_directory_g+std::string("/textures/player_ship.png")).c_str());
-	SetTexture(tex_[1], (resources_directory_g + std::string("/textures/stars.png")).c_str());
-	SetTexture(tex_[2], (resources_directory_g + std::string("/textures/green_guy_ufo.png")).c_str());
-	SetTexture(tex_[3], (resources_directory_g + std::string("/textures/collision_circle.png")).c_str());
-	SetTexture(tex_[4], (resources_directory_g + std::string("/textures/spinner.png")).c_str());
-    glBindTexture(GL_TEXTURE_2D, tex_[0]);
+	GameObject::textures.InitTextures();
 }
 
 

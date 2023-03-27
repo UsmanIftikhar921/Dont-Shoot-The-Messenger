@@ -7,6 +7,7 @@
 
 #include "shader.h"
 #include "geometry.h"
+#include "textures.h"
 
 #include <unordered_map>
 #include <string>
@@ -72,6 +73,9 @@ namespace game {
                 return names[type];
             }
 
+            static Textures textures;
+
+
 
         protected:
             
@@ -123,7 +127,6 @@ namespace game {
             static GameObject* GetObjById(int id) {
                 return id_map_[id];
             }
-
 
             
             

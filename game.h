@@ -45,10 +45,6 @@ namespace game {
             bool gameover_;
             float gameover_time_;
 
-            // References to textures
-#define NUM_TEXTURES 8
-            GLuint tex_[NUM_TEXTURES];
-
             // List of game objects
             GameObject* scene_;
             
@@ -57,9 +53,6 @@ namespace game {
 
             // Callback for when the window is resized
             static void ResizeCallback(GLFWwindow* window, int width, int height);
-
-            // Set a specific texture
-            void SetTexture(GLuint w, const char *fname);
 
             // Load all textures
             void SetAllTextures();
