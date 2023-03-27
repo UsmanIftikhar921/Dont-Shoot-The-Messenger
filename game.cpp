@@ -258,7 +258,7 @@ void Game::Controls(double delta_time)
             // Make a new bullet
             Bullet* bullet = new Bullet(curpos, sprite_, &sprite_shader_, tex_[5]);
             dynamic_cast<Player*>(player)->initBullet(&bullet, curpos, (player->GetVelocity()), player->GetRotation());
-            player->AddChild(bullet);
+            scene_->AddChild(bullet);
         }
     } 
 
