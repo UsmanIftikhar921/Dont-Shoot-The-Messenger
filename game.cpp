@@ -131,7 +131,7 @@ void Game::Setup(void)
     // Added as child of player
     player->AddChild(spinner);
 
-	GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
+	GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.001f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
     background->SetScale(glm::vec2(10.0f, 10.0f));
 	scene_->AddChild(background);
 }
