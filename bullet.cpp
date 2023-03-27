@@ -60,7 +60,7 @@ int Bullet::CheckForCollision(std::vector<GameObject*> obj){
 			glm::vec3 pos = obj[i]->GetPosition();
 			glm::vec2 C = glm::vec2(pos.x, pos.y);
 
-			float radius = obj[i]->GetScale();
+			float radius = obj[i]->GetScale().x;
 
 			if (RayCircleCollision(start_, velocity, C, radius, t1, t2)){
 				if ((t1 > last_time_since_fire_) && (t1 <= time_since_fire_)){ return i; }
