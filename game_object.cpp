@@ -11,6 +11,8 @@ int GameObject::id_counter_ = 0;
 
 std::unordered_map<int, GameObject*> GameObject::id_map_;
 
+Textures GameObject::textures;
+
 GameObject::GameObject(const glm::vec3 &position, Geometry *geom, Shader *shader, GLuint texture) 
 {
 
