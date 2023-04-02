@@ -17,7 +17,9 @@ set(HDRS
     collision_box.h
     geometry.h
     spinner.h
-    textures.h
+    airship.h
+    airship_segment.h
+    crew.h
 )
  
 set(SRCS
@@ -33,7 +35,9 @@ set(SRCS
     sprite_fragment_shader.glsl
     collision_box.cpp
     spinner.cpp
-    textures.cpp
+    airship.cpp
+    airship_segment.cpp
+    crew.cpp
 )
 
 # Add path name to configuration file

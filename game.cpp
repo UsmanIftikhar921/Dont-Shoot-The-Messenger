@@ -14,6 +14,7 @@
 #include "game.h"
 #include "collision_box.h"
 #include "spinner.h"
+#include "airship.h"
 
 
 namespace game {
@@ -116,8 +117,8 @@ void Game::Setup(void)
     // The scene object is the parent of all other objects
 	scene_ = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f));
     
-	Player* player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(0));
-    player->InitCollisionBox(0.25, sprite_, &sprite_shader_, GameObject::textures.GetTexture(3));
+	/*Player* player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
+    player->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);
 	scene_->AddChild(player);
     
     Collidable* enemy = new Collidable(glm::vec3(1.0f, -1.5f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(2));
@@ -129,7 +130,19 @@ void Game::Setup(void)
     spinner->SetScale(glm::vec2(0.5f, 0.5f));
     spinner->SetPosition(glm::vec3(0.5f, 0.5f, 0.0f));
     // Added as child of player
-    player->AddChild(spinner);
+    player->AddChild(spinner);*/
+        
+    // Airship
+	Airship* airship = new Airship(glm::vec3(0.0f, 0.0f, 0.0f));
+	std::vector<GLuint>* airship_seg_tex = new std::vector<GLuint>();
+    // push back tex_ 5 to 11
+	for (int i = 5; i < 12; i++) {
+		airship_seg_tex->push_back(tex_[i]);
+	}
+	airship->InitSegments(sprite_, &sprite_shader_, airship_seg_tex);
+	airship->InitCrew(sprite_, &sprite_shader_, tex_[12]);
+    airship->SetScale(glm::vec2(2.0f, 2.0f));
+    scene_->AddChild(airship);
 
 	GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.001f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
     background->SetScale(glm::vec2(10.0f, 10.0f));

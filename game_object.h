@@ -25,6 +25,9 @@ namespace game {
         COLLIDABLE,
         COLLISION_BOX,
         SPINNER,
+        AIRSHIP,
+        AIRSHIP_SEGMENT,
+        CREW,
     };
     
     class GameObject {
