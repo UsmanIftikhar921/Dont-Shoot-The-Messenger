@@ -11,10 +11,7 @@ namespace game {
 		InitCrew();
 	}
 
-	void Airship::Update(double delta_time)  {
-		system("CLS");
-		std::cout << "Airship Global Pos:" << GetGlobalPosition().x << ", " << GetGlobalPosition().y << std::endl;
-		std::cout << "Port Guns Global Pos:" << port_guns_->GetGlobalPosition().x << ", " << port_guns_->GetGlobalPosition().y << std::endl;
+	void Airship::Update(double delta_time)  {		
 		GameObject::Update(delta_time);
 	}
 
@@ -62,11 +59,15 @@ namespace game {
 	void Airship::InitCrew() {
 		Geometry* geom = geometry_;
 		Shader* shader = shader_;
-		glm::vec3 pos = bow_guns_->GetPosition();
+		glm::vec3 pos = starboard_engine_->GetPosition();
 		Crew* crew_ = new Crew(pos, geom, shader, GameObject::textures.GetTexture(12));
 		crew_members_.push_back(crew_);
 		AddChild(crew_);
 		
+	}
+
+	void Airship::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, glm::mat4 parent_scale_matrix, double current_time) {
+		GameObject::Render(view_matrix, parent_matrix, parent_scale_matrix, current_time);
 	}
 
 }

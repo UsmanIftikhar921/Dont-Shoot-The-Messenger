@@ -11,8 +11,15 @@ namespace game {
 
 		void Update(double delta_time) override;
 
+//		void Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, glm::mat4 parent_scale_matrix, double current_time) override;
 
+
+	protected:
+		bool alive_;
+		float health_;
+		float efficiency_;
 	};
+
 }
 
 #endif

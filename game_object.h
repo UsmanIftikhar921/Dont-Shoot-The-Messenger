@@ -41,7 +41,7 @@ namespace game {
             virtual void Update(double delta_time);
 
             // Renders the GameObject 
-            virtual void Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, double current_time);
+            virtual void Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, glm::mat4 parent_scale_matrix, double current_time);
 
             void GenerateTransformationMatrix(void);
             
@@ -55,6 +55,11 @@ namespace game {
 			inline int GetZLayer(void) { return z_layer_; }
 
             inline glm::vec3 GetGlobalPosition(void) { return global_position_; }
+            
+			inline glm::mat4 GetScaleMatrix(void) { return model_scale_; }
+			inline glm::mat4 GetTranslationMatrix(void) { return model_translation_; }
+			inline glm::mat4 GetRotationMatrix(void) { return model_rotation_; }
+			inline glm::mat4 GetOrbitMatrix(void) { return model_orbit_; }
             
             inline glm::vec3& GetVelocity(void) { return velocity_; }
             inline ObjType GetType(void) { return type_; }
@@ -94,8 +99,10 @@ namespace game {
 
 			int z_layer_; // 0 - 100; 0 is furthest forward, 100 is furthest back
 
-            glm::mat4 model_transformation_;
-            glm::mat4 global_transformation_;
+            glm::mat4 model_scale_;
+			glm::mat4 model_rotation_;
+			glm::mat4 model_orbit_;
+			glm::mat4 model_translation_;
             
             glm::vec3 velocity_;
 
@@ -116,10 +123,10 @@ namespace game {
 
             bool dbg_render_red_;
 
+            glm::vec3 color_modifier_;
 
 			// Static members
 
-            
 			// id counter
             static int id_counter_;
 

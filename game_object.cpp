@@ -27,6 +27,7 @@ GameObject::GameObject(const glm::vec3 &position, Geometry *geom, Shader *shader
     texture_ = texture;
     type_ = ObjType::OBJ;
     dbg_render_red_ = false;
+	color_modifier_ = glm::vec3(1.0f, 1.0f, 1.0f);
 
 	z_layer_ = 0;
     
@@ -59,15 +60,17 @@ void GameObject::Update(double delta_time) {
 }
 
 
-void GameObject::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, double current_time) {
+void GameObject::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, glm::mat4 parent_scale_matrix, double current_time) {
 
 
     GenerateTransformationMatrix();
-    global_transformation_ = parent_matrix * model_transformation_;
 
-    glm::vec4 g_pos_vec4 = global_transformation_ * glm::vec4(position_, 1.0f);
+	glm::mat4 model_matrix = model_orbit_ * model_translation_ * model_rotation_;
+
+	glm::vec4 g_pos = parent_matrix * model_matrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
     
-    global_position_ = glm::vec3(g_pos_vec4.x, g_pos_vec4.y, g_pos_vec4.z);
+    
+    global_position_ = glm::vec3(g_pos.x, g_pos.y, g_pos.z);
 
     if (geometry_ != NULL && shader_ != NULL && texture_ != NULL) {
 
@@ -78,9 +81,11 @@ void GameObject::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, double c
         shader_->SetUniformMat4("view_matrix", view_matrix);
 
         // Set the transformation matrix in the shader
-        shader_->SetUniformMat4("transformation_matrix", global_transformation_);
+		shader_->SetUniformMat4("transformation_matrix", parent_matrix * parent_scale_matrix * model_matrix * model_scale_);
 
         shader_->SetUniform1i("dbg_red", dbg_render_red_ ? 1 : 0);
+        
+		shader_->SetUniform3f("color_modifier", color_modifier_);
 
         // Set up the geometry
         geometry_->SetGeometry(shader_->GetShaderProgram());
@@ -94,7 +99,7 @@ void GameObject::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, double c
 
 	// Render all children
 	for (int i = 0; i < children_.size(); i++) {
-		children_[i]->Render(view_matrix, global_transformation_, current_time);
+		children_[i]->Render(view_matrix, parent_matrix * model_matrix, parent_scale_matrix * model_scale_, current_time);
 	}
 }
 
@@ -109,12 +114,16 @@ void GameObject::GenerateTransformationMatrix(void) {
     // Setup the rotation matrix
     glm::mat4 rotation_matrix = glm::rotate(glm::mat4(1.0f), rotation_, glm::vec3(0.0f, 0.0f, 1.0f));
 
-
 	// Setup the scaling matrix
 	glm::mat4 scaling_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(scale_.x, scale_.y, 1.0));
 
-	// Setup the transformation matrix
-	model_transformation_ = orbit_matrix * translation_matrix * rotation_matrix * scaling_matrix;
+
+    
+    // Set the matrices
+	model_scale_ = scaling_matrix;
+	model_rotation_ = rotation_matrix;
+    model_translation_ = translation_matrix;
+	model_orbit_ = orbit_matrix;
 }
 
 void GameObject::AddChild(GameObject* child) {

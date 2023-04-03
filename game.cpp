@@ -133,7 +133,7 @@ void Game::Setup(void)
     // Airship
 	Airship* airship = new Airship(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_);
     airship->SetZLayer(1);
-    airship->SetScale(glm::vec2(2.0f, 2.0f));
+    airship->SetScale(glm::vec2(3.0f, 3.0f));
     scene_->AddChild(airship);
 
 
@@ -205,12 +205,10 @@ void Game::Update(glm::mat4 view_matrix, double delta_time)
 
 	// Update game objects
 	scene_->Update(delta_time);
-
-    glm::mat4 identity = glm::mat4(1.0f);
-
-
+    
 	// Render game objects
-	scene_->Render(identity, view_matrix, delta_time);
+    glm::mat4 identity = glm::mat4(1.0f);
+	scene_->Render(view_matrix, identity, identity, delta_time);
 }
 
 
@@ -220,12 +218,16 @@ void Game::Controls(double delta_time)
 	float move_speed = 1.0f;
     
     // Get player game object
-    GameObject* player = scene_->GetChild(0);
+    GameObject* airship = scene_->GetChild(0);
     // Get current position
-    glm::vec3 curpos = player->GetPosition();
+    glm::vec3 curpos = airship->GetPosition();
     // Set standard forward and right directions
     glm::vec3 dir = glm::vec3(0.0, 1.0, 0.0);
     glm::vec3 right = glm::vec3(1.0, 0.0, 0.0);
+
+	if (glfwGetKey(window_, GLFW_KEY_SPACE) == GLFW_PRESS) {
+		airship->SetPosition(glm::vec3(1.0f, 1.0f, 0.0f));
+	}
 
     if (glfwGetKey(window_, GLFW_KEY_Q) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window_, true);
@@ -233,25 +235,27 @@ void Game::Controls(double delta_time)
     
     // move player with wasd keys
     if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_PRESS) {
-        player->SetVelocity(dir * move_speed);
+        airship->SetVelocity(dir * move_speed);
     }
     
 	else if (glfwGetKey(window_, GLFW_KEY_S) == GLFW_PRESS) {
-		player->SetVelocity(-dir * move_speed);
+        airship->SetVelocity(-dir * move_speed);
 	}
 
     
 	else if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_PRESS) {
-		player->SetVelocity(-right * move_speed);
+        airship->SetVelocity(-right * move_speed);
 	}
 
     
 	else if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS) {
-		player->SetVelocity(right * move_speed);
+        airship->SetVelocity(right * move_speed);
 	}
     else {
-		player->SetVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+        airship->SetVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
     }
+
+
 
 
 }

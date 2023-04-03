@@ -4,6 +4,7 @@
 #include "game_object.h"
 #include "airship_segment.h"
 #include "crew.h"
+#include "glm/ext.hpp"
 
 namespace game {
 	class Airship : public GameObject
@@ -16,6 +17,8 @@ namespace game {
 		void InitSegments();
 
 		void InitCrew();
+
+		void Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, glm::mat4 parent_scale_matrix, double current_time) override;
 
 
 	protected:
