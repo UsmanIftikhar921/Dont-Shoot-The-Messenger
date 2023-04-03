@@ -9,13 +9,13 @@ namespace game {
 	class Airship : public GameObject
 	{
 	public:
-		Airship(const glm::vec3& position);
+		Airship(const glm::vec3& position, Geometry* geom, Shader* shader);
 
 		void Update(double delta_time) override;
 
-		void InitSegments(Geometry* geom, Shader* shader, std::vector<GLuint>* segment_textures);
+		void InitSegments();
 
-		void InitCrew(Geometry* geom, Shader* shader, GLuint texture);
+		void InitCrew();
 
 
 	protected:

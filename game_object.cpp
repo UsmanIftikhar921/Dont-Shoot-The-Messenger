@@ -27,6 +27,9 @@ GameObject::GameObject(const glm::vec3 &position, Geometry *geom, Shader *shader
     texture_ = texture;
     type_ = ObjType::OBJ;
     dbg_render_red_ = false;
+
+	z_layer_ = 0;
+    
 	unique_id_ = GetNextId();
 
     id_map_[unique_id_] = this;
@@ -45,6 +48,7 @@ void GameObject::Update(double delta_time) {
 
     // Update object position with Euler integration
     position_ += velocity_ * ((float) delta_time);
+	position_.z = (float)z_layer_ / 100.0f;
     GenerateTransformationMatrix();
     
 	// Update all children
@@ -62,6 +66,7 @@ void GameObject::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, double c
     global_transformation_ = parent_matrix * model_transformation_;
 
     glm::vec4 g_pos_vec4 = global_transformation_ * glm::vec4(position_, 1.0f);
+    
     global_position_ = glm::vec3(g_pos_vec4.x, g_pos_vec4.y, g_pos_vec4.z);
 
     if (geometry_ != NULL && shader_ != NULL && texture_ != NULL) {

@@ -1,4 +1,5 @@
 #include "spinner.h"
+#include <iostream>
 
 namespace game {
 	Spinner::Spinner(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture) : GameObject(position, geom, shader, texture)

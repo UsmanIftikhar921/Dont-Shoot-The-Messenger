@@ -3,6 +3,7 @@
 namespace game {
 	Crew::Crew(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture) : GameObject(position, geom, shader, texture) {
 		type_ = ObjType::CREW;
+		z_layer_ = 5;
 		SetScale(glm::vec2(0.2f, 0.2f));
 	}
 

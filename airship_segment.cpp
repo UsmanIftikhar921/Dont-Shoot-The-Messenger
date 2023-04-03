@@ -3,6 +3,7 @@
 namespace game {
 	AirshipSegment::AirshipSegment(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture) : GameObject(position, geom, shader, texture) {
 		type_ = ObjType::AIRSHIP_SEGMENT;
+		z_layer_ = 10;
 	}
 
 	void AirshipSegment::Update(double delta_time) {

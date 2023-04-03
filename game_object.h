@@ -52,6 +52,7 @@ namespace game {
             inline glm::vec2& GetScale(void) { return scale_; }
 			inline float GetRotation(void) { return rotation_; }
 			inline float GetOrbitRotation(void) { return orbit_rotation_; }
+			inline int GetZLayer(void) { return z_layer_; }
 
             inline glm::vec3 GetGlobalPosition(void) { return global_position_; }
             
@@ -65,6 +66,7 @@ namespace game {
 			inline void SetRotation(float rotation) { rotation_ = rotation; }
 			inline void SetOrbitRotation(float orbit_rotation) { orbit_rotation_ = orbit_rotation; }
             inline void SetVelocity(const glm::vec3& velocity) { velocity_ = velocity; }
+			inline void SetZLayer(int z_layer) { z_layer_ = z_layer; }
 
             static std::string& GetEnumName(ObjType type) {
                 static std::string names[] = {
@@ -89,6 +91,8 @@ namespace game {
             float orbit_rotation_;
 
             glm::vec3 global_position_;
+
+			int z_layer_; // 0 - 100; 0 is furthest forward, 100 is furthest back
 
             glm::mat4 model_transformation_;
             glm::mat4 global_transformation_;

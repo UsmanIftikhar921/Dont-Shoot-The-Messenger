@@ -1,24 +1,37 @@
 #include "airship.h"
+#include <iostream>
 
 namespace game {
 
-	Airship::Airship(const glm::vec3& position) : GameObject(position) {
+	Airship::Airship(const glm::vec3& position, Geometry* geom, Shader* shader) : GameObject(position) {
 		type_ = ObjType::AIRSHIP;
+		geometry_ = geom;
+		shader_ = shader;
+		InitSegments();
+		InitCrew();
 	}
 
 	void Airship::Update(double delta_time)  {
+		system("CLS");
+		std::cout << "Airship Global Pos:" << GetGlobalPosition().x << ", " << GetGlobalPosition().y << std::endl;
+		std::cout << "Port Guns Global Pos:" << port_guns_->GetGlobalPosition().x << ", " << port_guns_->GetGlobalPosition().y << std::endl;
 		GameObject::Update(delta_time);
 	}
 
-	void Airship::InitSegments(Geometry* geom, Shader* shader, std::vector<GLuint>* segment_textures) {
+	void Airship::InitSegments() {
+
+		Geometry* geom = geometry_;
+		Shader* shader = shader_;
+
 		
-		port_guns_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, segment_textures->at(0));
-		starboard_guns_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, segment_textures->at(1));
-		bow_guns_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, segment_textures->at(2));
-		stern_guns_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, segment_textures->at(3));
-		port_engine_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, segment_textures->at(4));
-		starboard_engine_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, segment_textures->at(5));
-		boiler_room_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, segment_textures->at(6));
+		
+		port_guns_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(5));
+		starboard_guns_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(6));
+		bow_guns_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(7));
+		stern_guns_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(8));
+		port_engine_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(9));
+		starboard_engine_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(10));
+		boiler_room_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(11));
 
 		port_guns_->SetPosition(glm::vec3(-0.1f, 0.0f, 0.0f));
 		starboard_guns_->SetPosition(glm::vec3(0.1f, 0.0f, 0.0f));
@@ -46,9 +59,11 @@ namespace game {
 		AddChild(boiler_room_);
 	}
 
-	void Airship::InitCrew(Geometry* geom, Shader* shader, GLuint texture) {
+	void Airship::InitCrew() {
+		Geometry* geom = geometry_;
+		Shader* shader = shader_;
 		glm::vec3 pos = bow_guns_->GetPosition();
-		Crew* crew_ = new Crew(pos, geom, shader, texture);
+		Crew* crew_ = new Crew(pos, geom, shader, GameObject::textures.GetTexture(12));
 		crew_members_.push_back(crew_);
 		AddChild(crew_);
 		

@@ -25,15 +25,45 @@ namespace game {
 		glGenTextures(NUM_TEXTURES, textures_);
 		SetTexture(textures_[0], (resources_directory_g + std::string("/textures/player_ship.png")).c_str());
 		texture_map_["player_ship"] = textures_[0];
+		
 		SetTexture(textures_[1], (resources_directory_g + std::string("/textures/stars.png")).c_str());
 		texture_map_["stars"] = textures_[1];
+		
 		SetTexture(textures_[2], (resources_directory_g + std::string("/textures/green_guy_ufo.png")).c_str());
 		texture_map_["green_guy_ufo"] = textures_[2];
+		
 		SetTexture(textures_[3], (resources_directory_g + std::string("/textures/collision_circle.png")).c_str());
 		texture_map_["collision_circle"] = textures_[3];
+		
 		SetTexture(textures_[4], (resources_directory_g + std::string("/textures/spinner.png")).c_str());
 		texture_map_["spinner"] = textures_[4];
+		
+		SetTexture(textures_[5], (resources_directory_g + std::string("/textures/airship_segments/port_guns.png")).c_str());
+		texture_map_["port_guns"] = textures_[5];
+
+		SetTexture(textures_[6], (resources_directory_g + std::string("/textures/airship_segments/starboard_guns.png")).c_str());
+		texture_map_["starboard_guns"] = textures_[6];
+
+		SetTexture(textures_[7], (resources_directory_g + std::string("/textures/airship_segments/bow_guns.png")).c_str());
+		texture_map_["bow_guns"] = textures_[7];
+		
+		SetTexture(textures_[8], (resources_directory_g + std::string("/textures/airship_segments/stern_guns.png")).c_str());
+		texture_map_["stern_guns"] = textures_[8];
+		
+		SetTexture(textures_[9], (resources_directory_g + std::string("/textures/airship_segments/port_engine.png")).c_str());
+		texture_map_["port_engine"] = textures_[9];
+		
+		SetTexture(textures_[10], (resources_directory_g + std::string("/textures/airship_segments/starboard_engine.png")).c_str());
+		texture_map_["starboard_engine"] = textures_[10];
+
+		SetTexture(textures_[11], (resources_directory_g + std::string("/textures/airship_segments/boiler_room.png")).c_str());
+		texture_map_["boiler_room"] = textures_[11];
+
+		SetTexture(textures_[12], (resources_directory_g + std::string("/textures/crew.png")).c_str());
+		
+		
 		glBindTexture(GL_TEXTURE_2D, textures_[0]);
+		
 
 	}
 
