@@ -27,6 +27,9 @@ set(HDRS
     crew.h
     workstation.h
     textures.h
+    gui.h
+    gui_elem.h
+    gui_state.h
     task.h
     enemy.h
 )
@@ -54,8 +57,6 @@ set(SRCS
     crew.cpp
     workstation.cpp
     textures.cpp
-    task.cpp
-    enemy.cpp
 )
 
 # Add path name to configuration file
