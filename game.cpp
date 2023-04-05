@@ -131,6 +131,13 @@ void Game::Setup(void)
     spinner->SetPosition(glm::vec3(0.5f, 0.5f, 0.0f));
     // Added as child of player
     player->AddChild(spinner);*/
+
+    // GUI State
+    gui_state_ = new GuiState(sprite_, &sprite_shader_);
+
+    // GUI
+    gui_ = new Gui(sprite_, &sprite_shader_, window_, gui_state_);
+
         
     // Airship
 	Airship* airship = new Airship(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_);
@@ -138,6 +145,7 @@ void Game::Setup(void)
     airship->SetScale(glm::vec2(3.0f, 3.0f));
     scene_->AddChild(airship);
 
+    // Background
 	GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
     background->SetZLayer(100);
     background->SetScale(glm::vec2(10.0f, 10.0f));

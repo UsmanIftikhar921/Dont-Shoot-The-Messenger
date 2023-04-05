@@ -45,7 +45,7 @@ GameObject::~GameObject() {
 }
 
 
-void GameObject::Update(double delta_time) {
+void GameObject::Update(double delta_time, GuiState* gui_state) {
 
     // Update object position with Euler integration
     position_ += velocity_ * ((float) delta_time);
@@ -54,7 +54,7 @@ void GameObject::Update(double delta_time) {
     
 	// Update all children
 	for (int i = 0; i < children_.size(); i++) {
-		children_[i]->Update(delta_time);
+		children_[i]->Update(delta_time, gui_state);
 	}
 
 }
