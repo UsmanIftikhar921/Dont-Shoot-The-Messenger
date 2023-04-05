@@ -11,9 +11,11 @@ namespace game {
 		InitCrew();
 	}
 
-	void Airship::Update(double delta_time)  {		
-		std::cout << "Global rotation: " << global_rotation_ << std::endl;
-		GameObject::Update(delta_time);
+	void Airship::Update(double delta_time, GuiState* gui_state)  {
+		system("CLS");
+		std::cout << "Airship Global Pos:" << GetGlobalPosition().x << ", " << GetGlobalPosition().y << std::endl;
+		std::cout << "Port Guns Global Pos:" << port_guns_->GetGlobalPosition().x << ", " << port_guns_->GetGlobalPosition().y << std::endl;
+		GameObject::Update(delta_time, gui_state);
 	}
 
 	void Airship::InitSegments() {

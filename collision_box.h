@@ -18,7 +18,7 @@ namespace game {
 		CollisionBox(const glm::vec3& position, float radius, ObjType parent_type, int parent_id, Geometry* geom, Shader* shader, GLuint texture);
 		~CollisionBox();
 		
-		void Update(double delta_time) override;
+		void Update(double delta_time, GuiState* gui_state) override;
 
 		// Getters and Setters
 		inline float GetRadius(void) { return radius_; }

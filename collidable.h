@@ -12,7 +12,7 @@ namespace game {
 
 		void InitCollisionBox(float collision_radius, Geometry* geom = NULL, Shader* shader = NULL, GLuint texture = NULL);
 
-		void Update(double delta_time) override;
+		void Update(double delta_time, GuiState* gui_state) override;
 		
 		void HandleCollisions(void);
 

@@ -7,7 +7,7 @@ namespace game {
 		type_ = ObjType::SPINNER;
 	}
 
-	void Spinner::Update(double delta_time) {
+	void Spinner::Update(double delta_time, GuiState* gui_state) {
 		rotation_ += 7.0f * delta_time;
 		orbit_rotation_ += 1.0f * delta_time;
 	}

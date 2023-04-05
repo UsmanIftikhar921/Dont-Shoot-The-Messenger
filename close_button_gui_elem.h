@@ -9,7 +9,9 @@ namespace game {
 	public:
 		CloseButtonGuiElem(Geometry* geom, Shader* shader, GLFWwindow* window);
 
-		void Update(double delta_time, GuiState gui_state) override;
+		void Update(double delta_time, GuiState* gui_state) override;
+
+		virtual void ProcessInput() override;
 
 
 	protected:

@@ -10,14 +10,17 @@ namespace game {
 
 
 	// Update function for moving the player object around
-	void GuiElem::Update(double delta_time, GuiState gui_state) {
+	void CloseButtonGuiElem::Update(double delta_time, GuiState* gui_state) {
 
-		if (glfwGetKey(window_, GLFW_KEY_Q) == GLFW_PRESS) {
-			glfwSetWindowShouldClose(window_, true);
-		}
+		// Process input
+		ProcessInput();
 
 		// Call the parent's update method to move the object in standard way, if desired
 		GuiElem::Update(delta_time, gui_state);
+	}
+
+	void CloseButtonGuiElem::ProcessInput() {
+		if (glfwGetKey(window_, GLFW_KEY_Q) == GLFW_PRESS) { glfwSetWindowShouldClose(window_, true); }
 	}
 
 } // namespace game

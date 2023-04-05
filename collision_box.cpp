@@ -26,11 +26,11 @@ namespace game {
 		}
 	}
 
-	void CollisionBox::Update(double delta_time) {
+	void CollisionBox::Update(double delta_time, GuiState* gui_state) {
 
 		UpdateCollisions(delta_time);
 		
-		GameObject::Update(delta_time);
+		GameObject::Update(delta_time, gui_state);
 		
 		PostUpdateCleanup();
 	}

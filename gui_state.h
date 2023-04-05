@@ -2,13 +2,10 @@
 #define GUI_STATE_H_
 
 namespace game {
-	class GuiState : public GameObject
-	{
+	class GuiState {
+
 	public:
-		GuiState(Geometry* geom, Shader* shader);
-
-		void Update(double delta_time, GLFWwindow* window) override;
-
+		GuiState();
 
 	protected:
 

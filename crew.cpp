@@ -11,14 +11,7 @@ namespace game {
 		efficiency_ = 1.0f;
 	}
 
-	void Crew::Update(double delta_time) {
-		if (health_ <= 0.0f) {
-			alive_ = false;
-		}
-		if (alive_) {
-			efficiency_ = health_;
-			color_modifier_ = glm::vec3(health_);
-		}
-		GameObject::Update(delta_time);
+	void Crew::Update(double delta_time, GuiState* gui_state) {
+		GameObject::Update(delta_time, gui_state);
 	}
 }

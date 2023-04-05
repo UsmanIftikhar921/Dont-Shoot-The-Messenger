@@ -12,10 +12,10 @@ namespace game {
 		AddChild(collision_box_);
 	}
 
-	void Collidable::Update(double delta_time) {		
+	void Collidable::Update(double delta_time, GuiState* gui_state) {		
 		dbg_render_red_ = false;
 		
-		GameObject::Update(delta_time);
+		GameObject::Update(delta_time, gui_state);
 
 		// Must be called after GameObject::Update() so that the collision box (child) is updated
 		HandleCollisions();

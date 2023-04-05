@@ -7,8 +7,8 @@ namespace game {
 		max_crew_ = 2;
 	}
 
-	void AirshipSegment::Update(double delta_time) {
-		GameObject::Update(delta_time);
+	void AirshipSegment::Update(double delta_time, GuiState* gui_state) {
+		GameObject::Update(delta_time, gui_state);
 	}
 
 	void AirshipSegment::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, glm::mat4 parent_scale_matrix, double current_time) {
