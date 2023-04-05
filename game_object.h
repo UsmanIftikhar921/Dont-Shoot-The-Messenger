@@ -31,6 +31,10 @@ namespace game {
         AIRSHIP,
         AIRSHIP_SEGMENT,
         CREW,
+        COLLIDABLE,
+        COLLISION_BOX,
+        SPINNER,
+        GUN,
     };
     
     class GameObject {
@@ -55,6 +59,7 @@ namespace game {
             inline glm::vec2& GetScale(void) { return scale_; }
 			inline float GetRotation(void) { return rotation_; }
 			inline float GetOrbitRotation(void) { return orbit_rotation_; }
+<<<<<<< HEAD
 			inline int GetZLayer(void) { return z_layer_; }
 			inline glm::vec3 GetVelocity(void) { return velocity_; }
             glm::vec3 GetBearing(void);
@@ -67,6 +72,13 @@ namespace game {
 			inline glm::mat4 GetTranslationMatrix(void) { return model_translation_; }
 			inline glm::mat4 GetRotationMatrix(void) { return model_rotation_; }
 			inline glm::mat4 GetOrbitMatrix(void) { return model_orbit_; }
+=======
+            inline glm::vec3 GetVelocity(void) { return velocity_; }
+
+            inline glm::vec3 GetGlobalPosition(void) { return global_position_; }
+
+            glm::vec3 GetBearing(void);
+>>>>>>> ae90b28a480c69cbdea8bb0df13a92e378ceb15f
             
             inline ObjType GetType(void) { return type_; }
 			inline GameObject* GetChild(int index) { return children_[index]; }
@@ -77,7 +89,11 @@ namespace game {
 			inline void SetRotation(float rotation) { rotation_ = rotation; }
 			inline void SetOrbitRotation(float orbit_rotation) { orbit_rotation_ = orbit_rotation; }
             inline void SetVelocity(const glm::vec3& velocity) { velocity_ = velocity; }
+<<<<<<< HEAD
 			inline void SetZLayer(int z_layer) { z_layer_ = z_layer; }
+=======
+            
+>>>>>>> ae90b28a480c69cbdea8bb0df13a92e378ceb15f
 
             static std::string& GetEnumName(ObjType type) {
                 static std::string names[] = {

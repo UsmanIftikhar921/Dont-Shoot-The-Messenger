@@ -10,18 +10,20 @@ namespace game {
 		READY,
 		FIRING
 	};
-	class Gun : public GameObject {
-	public:
-		Gun(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
+    class Gun : public GameObject {
+
+    public:
+        Gun(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
 		~Gun();
 
-		void Update(double delta_time) override;
-		
+        // Update function for moving the player object around
+        void Update(double delta_time) override;
+
 		bool TryFire();
-		
+
 		
 	protected:
-		void Fire();
+        void Fire();
 		float fire_rate_;
 		float cooldown_;
 		FireState fire_state_;

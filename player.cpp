@@ -10,6 +10,10 @@ namespace game {
 	Player::Player(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture)
 		: Collidable(position, geom, shader, texture){
 	type_ = PLAYER;
+
+	// Create a gun object
+	gun_ = new Gun(position, geom, shader, texture);
+	AddChild(gun_);
 }
 
 // Update function for moving the player object around

@@ -1,6 +1,12 @@
 #include "gun.h"
 
 namespace game {
+
+	/*
+		Player inherits from GameObject
+		It overrides GameObject's update method, so that you can check for input to change the velocity of the player
+	*/
+
 	Gun::Gun(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture)
 		: GameObject(position, geom, shader, texture) {
 		texture_ = texture;
@@ -19,7 +25,7 @@ namespace game {
 			cooldown_ -= delta_time;
 			if (cooldown_ <= 0.0f) {
 				fire_state_ = READY;
-			}
+		}
 			break;
 		case READY:
 			break;
@@ -37,7 +43,7 @@ namespace game {
 		}
 		return false;
 	}
-	
+
 	void Gun::Fire() {
 		glm::vec3 bullet_pos = GetGlobalPosition();
 		float bullet_rot = GetGlobalRotation();
@@ -50,6 +56,8 @@ namespace game {
 		// Add the bullet to the game
 		GameObject::GetScene()->AddChild(bullet);
 		
-		
+
 	}
-}
+	}
+
+} // namespace game
