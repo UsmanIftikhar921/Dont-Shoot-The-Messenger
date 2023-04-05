@@ -60,7 +60,13 @@ namespace game {
 		texture_map_["boiler_room"] = textures_[11];
 
 		SetTexture(textures_[12], (resources_directory_g + std::string("/textures/crew.png")).c_str());
-		
+		texture_map_["crew"] = textures_[12];
+
+		SetTexture(textures_[13], (resources_directory_g + std::string("/textures/bullet.png")).c_str());
+		texture_map_["bullet"] = textures_[13];
+
+		SetTexture(textures_[14], (resources_directory_g + std::string("/textures/gun.png")).c_str());
+		texture_map_["gun"] = textures_[14];
 		
 		glBindTexture(GL_TEXTURE_2D, textures_[0]);
 		

@@ -4,6 +4,7 @@
 #include "game_object.h"
 #include "airship_segment.h"
 #include "crew.h"
+#include "gun.h"
 #include "glm/ext.hpp"
 
 namespace game {
@@ -20,6 +21,7 @@ namespace game {
 
 		void Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, glm::mat4 parent_scale_matrix, double current_time) override;
 
+		inline void FirePortGun(void) { Gun* pg = dynamic_cast<Gun*>(port_guns_->GetChild(0)); pg->TryFire(); }
 
 	protected:
 		AirshipSegment* port_guns_;

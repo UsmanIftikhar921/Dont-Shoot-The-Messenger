@@ -37,6 +37,9 @@ namespace game {
 		case ObjType::PLAYER:
 			dbg_render_red_ = true;
 			break;
+		case ObjType::BULLET:
+			dbg_render_red_ = true;
+			break;
 		}
 	}
 }

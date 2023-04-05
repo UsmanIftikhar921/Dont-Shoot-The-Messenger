@@ -62,15 +62,15 @@ void GameObject::Update(double delta_time) {
 
 void GameObject::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, glm::mat4 parent_scale_matrix, double current_time) {
 
-
     GenerateTransformationMatrix();
 
 	glm::mat4 model_matrix = model_orbit_ * model_translation_ * model_rotation_;
 
 	glm::vec4 g_pos = parent_matrix * model_matrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-    
-    
     global_position_ = glm::vec3(g_pos.x, g_pos.y, g_pos.z);
+
+    glm::mat4 g_rotation = parent_matrix * model_orbit_ * model_rotation_;
+	global_rotation_ = glm::atan(g_rotation[1][0], -g_rotation[0][0]);
 
     if (geometry_ != NULL && shader_ != NULL && texture_ != NULL) {
 
@@ -130,6 +130,9 @@ void GameObject::AddChild(GameObject* child) {
     children_.push_back(child);
 }
 
+glm::vec3 GameObject::GetBearing(void) {
+	return glm::vec3(cos(rotation_), sin(rotation_), 0.0f);
+}
 
 } // namespace game
 

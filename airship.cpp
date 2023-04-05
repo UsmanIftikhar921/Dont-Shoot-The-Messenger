@@ -12,6 +12,7 @@ namespace game {
 	}
 
 	void Airship::Update(double delta_time)  {		
+		std::cout << "Global rotation: " << global_rotation_ << std::endl;
 		GameObject::Update(delta_time);
 	}
 
@@ -38,6 +39,8 @@ namespace game {
 		starboard_engine_->SetPosition(glm::vec3(0.35f, -0.33f, 0.0f));
 		boiler_room_->SetPosition(glm::vec3(0.0f, -0.29f, 0.0f));
 
+		
+
 
 		segments_.push_back(port_guns_);
 		segments_.push_back(starboard_guns_);
@@ -54,6 +57,13 @@ namespace game {
 		AddChild(port_engine_);
 		AddChild(starboard_engine_);
 		AddChild(boiler_room_);
+
+		Gun* port_gun = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture("gun"));
+		port_gun->SetRotation(3.1415f / 2);
+		port_gun->SetScale(glm::vec2(0.2f, 0.2f));
+		port_gun->SetPosition(glm::vec3(-0.1f, 0.0f, 0.0f));
+		port_gun->SetZLayer(-1);
+		port_guns_->AddChild(port_gun);
 	}
 
 	void Airship::InitCrew() {

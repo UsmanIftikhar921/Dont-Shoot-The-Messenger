@@ -10,6 +10,8 @@ set(HDRS
     game.h
     game_object.h
     player.h
+    bullet.h
+    gun.h
     shader.h
     geometry.h
     sprite.h
@@ -29,6 +31,8 @@ set(SRCS
     game_object.cpp
     main.cpp
     player.cpp
+    bullet.cpp
+    gun.cpp
     shader.cpp
     sprite.cpp
     collidable.cpp
