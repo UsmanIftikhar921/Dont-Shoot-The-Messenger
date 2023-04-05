@@ -16,6 +16,7 @@
 #include "collision_box.h"
 #include "spinner.h"
 #include "airship.h"
+#include "gun.h"
 
 
 namespace game {
@@ -137,7 +138,6 @@ void Game::Setup(void)
     airship->SetScale(glm::vec2(3.0f, 3.0f));
     scene_->AddChild(airship);
 
-
 	GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
     background->SetZLayer(100);
     background->SetScale(glm::vec2(10.0f, 10.0f));
@@ -219,7 +219,7 @@ void Game::Controls(double delta_time)
 	float move_speed = 1.0f;
     
     // Get player game object
-    GameObject* airship = scene_->GetChild(0);
+    Airship* airship = dynamic_cast<Airship*>(scene_->GetChild(0));
     // Get current position
     glm::vec3 curpos = airship->GetPosition();
     // Set standard forward and right directions
@@ -227,7 +227,7 @@ void Game::Controls(double delta_time)
     glm::vec3 right = glm::vec3(1.0, 0.0, 0.0);
 
 	if (glfwGetKey(window_, GLFW_KEY_SPACE) == GLFW_PRESS) {
-		airship->SetPosition(glm::vec3(1.0f, 1.0f, 0.0f));
+        airship->FirePortGun();
 	}
 
     if (glfwGetKey(window_, GLFW_KEY_Q) == GLFW_PRESS) {
@@ -253,17 +253,15 @@ void Game::Controls(double delta_time)
         airship->SetVelocity(right * move_speed);
 	}
 
-    else if(glfwGetKey(window_, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        if(dynamic_cast<Player*>(player)->canShoot()){
-            // Make a new bullet
-            Bullet* bullet = new Bullet(curpos, sprite_, &sprite_shader_, tex_[5]);
-            dynamic_cast<Player*>(player)->initBullet(&bullet, curpos, (player->GetVelocity()), player->GetRotation());
-            scene_->AddChild(bullet);
-        }
-    } 
-
     else {
         airship->SetVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+    }
+    
+	if (glfwGetKey(window_, GLFW_KEY_LEFT) == GLFW_PRESS) {
+        airship->SetRotation(airship->GetRotation() + 0.8f * delta_time);
+	}
+    else if (glfwGetKey(window_, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+        airship->SetRotation(airship->GetRotation() - 0.8f * delta_time);
     }
 
 

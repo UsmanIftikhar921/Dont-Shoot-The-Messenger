@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #define GLEW_STATIC
 #include <GL/glew.h>
+#include <iostream>
 
 #include "shader.h"
 #include "geometry.h"
@@ -23,6 +24,7 @@ namespace game {
         OBJ,
         PLAYER,
         BULLET,
+        GUN,
         COLLIDABLE,
         COLLISION_BOX,
         SPINNER,
@@ -55,15 +57,17 @@ namespace game {
 			inline float GetOrbitRotation(void) { return orbit_rotation_; }
 			inline int GetZLayer(void) { return z_layer_; }
 			inline glm::vec3 GetVelocity(void) { return velocity_; }
+            glm::vec3 GetBearing(void);
 
             inline glm::vec3 GetGlobalPosition(void) { return global_position_; }
+			inline float GetGlobalRotation(void) { return global_rotation_; }
+
             
 			inline glm::mat4 GetScaleMatrix(void) { return model_scale_; }
 			inline glm::mat4 GetTranslationMatrix(void) { return model_translation_; }
 			inline glm::mat4 GetRotationMatrix(void) { return model_rotation_; }
 			inline glm::mat4 GetOrbitMatrix(void) { return model_orbit_; }
             
-            inline glm::vec3& GetVelocity(void) { return velocity_; }
             inline ObjType GetType(void) { return type_; }
 			inline GameObject* GetChild(int index) { return children_[index]; }
 
@@ -99,6 +103,8 @@ namespace game {
             float orbit_rotation_;
 
             glm::vec3 global_position_;
+            float global_rotation_;
+			glm::vec2 global_scale_;
 
 			int z_layer_; // 0 - 100; 0 is furthest forward, 100 is furthest back
 
@@ -143,6 +149,10 @@ namespace game {
 
             static GameObject* GetObjById(int id) {
                 return id_map_[id];
+            }
+
+            static GameObject* GetScene(void) {
+				return id_map_[0];
             }
 
             

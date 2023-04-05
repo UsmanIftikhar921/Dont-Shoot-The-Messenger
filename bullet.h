@@ -1,28 +1,23 @@
 #ifndef BULLET_H_
 #define BULLET_H_
 
-#include "collidable.h"
+#include "game_object.h"
 
 namespace game {
 
     // Inherits from GameObject
-    class Bullet : public Collidable {
+    class Bullet : public GameObject {
 
         public:
-            Bullet(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
+            Bullet(const glm::vec3& position, Geometry* geom, Shader* shader);
 
             // Update function for moving the bullet object around
             void Update(double delta_time) override;
 
-            bool RayCircleCollision(glm::vec2 rayOrigin, glm::vec2 rayVector, glm::vec2 circleCenter, float radius, float &t1, float &t2);
-            int CheckForCollision(std::vector<GameObject*> obj);
-
-            void HandleCollisionEvent(CollisionEvent& event) override;
+            inline float GetSpeed(void) { return speed_; }
 
         private:
-            glm::vec2 start_; 
-            float time_since_fire_ = 0.0f;
-            float last_time_since_fire_ = 0.0f;
+            float speed_;
 
     }; // class Bullet
 
