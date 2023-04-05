@@ -58,6 +58,5 @@ namespace game {
 		
 
 	}
-	}
 
 } // namespace game

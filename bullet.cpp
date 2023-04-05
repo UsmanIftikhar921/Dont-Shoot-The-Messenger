@@ -18,26 +18,7 @@ namespace game {
 
 // Update function for moving the player object around
 void Bullet::Update(double delta_time) {
-
-	// Special bullet updates go here
-	last_time_since_fire_ = time_since_fire_;
-	time_since_fire_ += delta_time;
-
-	// Call the parent's update method to move the object in standard way, if desired
 	GameObject::Update(delta_time);
-}
-
-void Bullet::HandleCollisionEvent(CollisionEvent& event) {
-	switch (event.type) {
-	case ObjType::COLLIDABLE:
-		dbg_render_red_ = true;
-		break;
-	}
-}
-
-void Bullet::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, double current_time) {
-	// Call the parent class render method
-	Collidable::Render(view_matrix, parent_matrix, current_time);
 }
 
 } // namespace game
