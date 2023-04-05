@@ -16,7 +16,7 @@ namespace game {
 	public:
 		Crew(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
 
-		void Update(double delta_time) override;
+		void Update(double delta_time, GuiState* gui_state) override;
 
 		inline bool GetAlive() { return alive_; }
 		inline float GetHealth() { return health_; }

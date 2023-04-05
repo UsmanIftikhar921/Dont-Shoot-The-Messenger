@@ -134,10 +134,10 @@ void Game::Setup(void)
     player->AddChild(spinner);*/
 
     // GUI State
-    gui_state_ = new GuiState(sprite_, &sprite_shader_);
+    gui_state_ = new GuiState();
 
     // GUI
-    gui_ = new Gui(sprite_, &sprite_shader_, window_, gui_state_);
+    gui_ = new Gui(sprite_, &sprite_shader_, window_);
 
         
     // Airship
@@ -231,9 +231,17 @@ void Game::Update(glm::mat4 view_matrix, double delta_time)
     if (!first_frame) CollisionBox::ProcessCollisions();
 	else first_frame = false;
 
+    // Update GUI 
+    gui_->Update(delta_time, gui_state_);
+
 	// Update game objects
-	scene_->Update(delta_time);
-    
+	scene_->Update(delta_time, gui_state_);
+
+    glm::mat4 identity = glm::mat4(1.0f);
+
+    // Render GUI
+    gui_->Render(identity, identity, delta_time);
+
 	// Render game objects
     glm::mat4 identity = glm::mat4(1.0f);    
 

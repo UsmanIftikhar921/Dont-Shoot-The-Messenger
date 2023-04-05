@@ -14,7 +14,7 @@ namespace game {
 	public:
 		Airship(const glm::vec3& position, Geometry* geom, Shader* shader);
 
-		void Update(double delta_time) override;
+		void Update(double delta_time, GuiState* gui_state) override;
 
 		void InitSegments();
 

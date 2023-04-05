@@ -13,13 +13,13 @@ namespace game {
 }
 
 // Update function for moving the player object around
-void Player::Update(double delta_time) {
+void Player::Update(double delta_time, GuiState* gui_state) {
 
 	// Update time since last shot
 	if(time_since_last_shot_ < time_between_shots_) time_since_last_shot_ += delta_time;
 
 	// Call the parent's update method to move the object in standard way, if desired
-	Collidable::Update(delta_time);
+	Collidable::Update(delta_time, gui_state);
 }
 
 void Player::HandleCollisionEvent(CollisionEvent& event) {

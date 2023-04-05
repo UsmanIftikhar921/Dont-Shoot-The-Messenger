@@ -13,7 +13,7 @@ namespace game {
 	public:
 		AirshipSegment(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
 
-		void Update(double delta_time) override;
+		void Update(double delta_time, GuiState* gui_state) override;
 
 		bool AssignCrew(Crew* crew);
 		bool UnassignCrew(Crew* crew);

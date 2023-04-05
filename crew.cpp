@@ -17,7 +17,7 @@ namespace game {
 		destination_vector_ = position;
 	}
 
-	void Crew::Update(double delta_time) {
+	void Crew::Update(double delta_time, GuiState* gui_state) {
 		if (health_ <= 0.0f) {
 			alive_ = false;
 			activity_state_ = ActivityState::IDLE;
@@ -35,7 +35,7 @@ namespace game {
 				position_ = destination_ - destination_vector_ * (1.0f - t_);
 			}
 		}
-		GameObject::Update(delta_time);
+		GameObject::Update(delta_time, gui_state);
 	}
 
 	void Crew::SetDestination(glm::vec3 destination) {

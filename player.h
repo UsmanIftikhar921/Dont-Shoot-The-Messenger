@@ -13,7 +13,7 @@ namespace game {
             Player(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
 
             // Update function for moving the player object around
-            void Update(double delta_time) override;
+            void Update(double delta_time, GuiState* gui_state) override;
 
             void HandleCollisionEvent(CollisionEvent& event) override;
 

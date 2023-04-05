@@ -10,10 +10,7 @@ namespace game {
 
 
 	// Update function for moving the player object around
-	void GuiElem::Update(double delta_time, GuiState gui_state) {
-
-
-
+	void WheelGuiElem::Update(double delta_time, GuiState* gui_state) {
 
 		// Call the parent's update method to move the object in standard way, if desired
 		GuiElem::Update(delta_time, gui_state);
