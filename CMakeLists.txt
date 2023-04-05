@@ -30,6 +30,8 @@ set(HDRS
     gui.h
     gui_elem.h
     gui_state.h
+    wheel_gui_elem.h
+    close_button_gui_elem.h
     task.h
     enemy.h
 )
@@ -57,6 +59,11 @@ set(SRCS
     crew.cpp
     workstation.cpp
     textures.cpp
+    gui.cpp
+    gui_elem.cpp
+    gui_state.cpp
+    wheel_gui_elem.cpp
+    close_button_gui_elem.cpp
 )
 
 # Add path name to configuration file

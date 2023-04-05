@@ -56,7 +56,7 @@ GameObject::~GameObject() {
 }
 
 
-void GameObject::Update(double delta_time) {
+void GameObject::Update(double delta_time, GuiState* gui_state) {
 
 	// Apply acceleration to velocity
 	if (glm::length(velocity_ + (acceleration_ * (float)delta_time)) < max_velocity_) {

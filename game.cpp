@@ -120,6 +120,25 @@ void Game::Setup(void)
     // The scene object is the parent of all other objects
 	scene_ = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f));
     
+	/*Player* player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
+    player->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);
+	scene_->AddChild(player);
+    
+
+
+    // Fidget spinner added as example of heirarchical objects
+	Spinner* spinner = new Spinner(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(4));
+    spinner->SetScale(glm::vec2(0.5f, 0.5f));
+    spinner->SetPosition(glm::vec3(0.5f, 0.5f, 0.0f));
+    // Added as child of player
+    player->AddChild(spinner);*/
+
+    // GUI State
+    gui_state_ = new GuiState(sprite_, &sprite_shader_);
+
+    // GUI
+    gui_ = new Gui(sprite_, &sprite_shader_, window_, gui_state_);
+
         
     // Airship
 	Airship* airship = new Airship(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_);
@@ -128,10 +147,7 @@ void Game::Setup(void)
     scene_->AddChild(airship);
 	player_ = airship;
 
-    Enemy* enemy = new Enemy(glm::vec3(1.0f, -1.0f, 0.0f), sprite_, &sprite_shader_);
-    enemy->InitCollisionBox(glm::vec3(0.0f, 0.0f, 0.0f), 0.5f);
-    enemy->SetTarget(airship);
-    scene_->AddChild(enemy);
+    
 
     GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
     background->SetZLayer(100);

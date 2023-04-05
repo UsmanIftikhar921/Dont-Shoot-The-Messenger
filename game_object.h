@@ -9,6 +9,7 @@
 #include "shader.h"
 #include "geometry.h"
 #include "textures.h"
+#include "gui_state.h"
 
 #include <unordered_map>
 #include <string>
@@ -44,7 +45,7 @@ namespace game {
             ~GameObject();
 
             // Update the GameObject's state. Can be overriden in children
-            virtual void Update(double delta_time);
+            virtual void Update(double delta_time, GuiState* gui_state);
 
             // Renders the GameObject 
             virtual void Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, glm::mat4 parent_scale_matrix, double current_time);
