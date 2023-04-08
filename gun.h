@@ -24,7 +24,7 @@ namespace game {
 		~Gun();
 
         // Update function for moving the player object around
-        void Update(double delta_time) override;
+        void Update(double delta_time, GuiState* gui_state) override;
 
 		void PerformTask(float efficiency_modifier) override;
 
