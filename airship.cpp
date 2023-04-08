@@ -60,7 +60,7 @@ namespace game {
 		AddChild(starboard_engine_);
 		AddChild(boiler_room_);
 
-		Gun* port_gun = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture("gun"));
+		Gun* port_gun = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture("port_guns"));
 		port_gun->SetRotation(3.1415f / 2);
 		port_gun->SetScale(glm::vec2(0.2f, 0.2f));
 		port_gun->SetPosition(glm::vec3(-0.1f, 0.0f, 0.0f));
