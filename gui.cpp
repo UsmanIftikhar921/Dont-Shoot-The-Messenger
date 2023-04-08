@@ -10,7 +10,7 @@ namespace game {
 		type_ = ObjType::GUI;
 		window_ = window;
 
-		InitGui();
+		/*InitGui();*/
 	}
 
 	// Update function for moving the player object around

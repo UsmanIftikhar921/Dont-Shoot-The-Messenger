@@ -17,8 +17,8 @@ namespace game {
 }
 
 // Update function for moving the player object around
-void Bullet::Update(double delta_time) {
-	GameObject::Update(delta_time);
+void Bullet::Update(double delta_time, GuiState* gui_state) {
+	GameObject::Update(delta_time, gui_state);
 }
 
 } // namespace game

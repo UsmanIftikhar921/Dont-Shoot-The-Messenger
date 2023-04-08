@@ -19,7 +19,7 @@ namespace game {
 	Gun::~Gun() {
 	}
 
-	void Gun::Update(double delta_time) {
+	void Gun::Update(double delta_time, GuiState* gui_state) {
 		switch (fire_state_) {
 		case COOLDOWN:
 			cooldown_ -= delta_time;
@@ -34,7 +34,7 @@ namespace game {
 			fire_state_ = COOLDOWN;
 			Fire();
 		}
-		GameObject::Update(delta_time);
+		GameObject::Update(delta_time, gui_state);
 	}
 	bool Gun::TryFire() {
 		if (fire_state_ == READY) {
