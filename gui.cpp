@@ -22,8 +22,6 @@ namespace game {
 		// Create a close button gui clickable element
 		CloseButtonGuiElem* quit_button = new CloseButtonGuiElem(geometry_, shader_, window_);
 		AddGuiElem(quit_button);
-
-		// Add
 	}
 
 	void Gui::AddGuiElem(GuiElem* elem) {
