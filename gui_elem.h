@@ -7,9 +7,9 @@ namespace game {
 	class GuiElem : public GameObject
 	{
 	public:
-		GuiElem(Geometry* geom, Shader* shader, GLFWwindow* window);
+		GuiElem(Geometry* geom, Shader* shader, GLFWwindow* window, GLuint texture = NULL);
 
-		void Update(double delta_time, GuiState* gui_state) override;
+		virtual void Update(double delta_time, GuiState* gui_state) override;
 
 		virtual void ProcessInput() = 0;
 

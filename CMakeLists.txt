@@ -31,6 +31,7 @@ set(HDRS
     gui_elem.h
     gui_state.h
     wheel_gui_elem.h
+    clickable_gui_elem.h
     close_button_gui_elem.h
     task.h
     enemy.h
@@ -63,6 +64,7 @@ set(SRCS
     gui_elem.cpp
     gui_state.cpp
     wheel_gui_elem.cpp
+    clickable_gui_elem.cpp
     close_button_gui_elem.cpp
 )
 

@@ -1,10 +1,10 @@
 #ifndef CLOSE_BUTTON_GUI_ELEM_H_
 #define CLOSE_BUTTON_GUI_ELEM_H_
 
-#include "gui_elem.h"
+#include "clickable_gui_elem.h"
 
 namespace game {
-	class CloseButtonGuiElem : public GuiElem
+	class CloseButtonGuiElem : public ClickableGuiElem
 	{
 	public:
 		CloseButtonGuiElem(Geometry* geom, Shader* shader, GLFWwindow* window);

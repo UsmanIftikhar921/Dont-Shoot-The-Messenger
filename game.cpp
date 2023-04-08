@@ -139,6 +139,8 @@ void Game::Setup(void)
     // GUI
     gui_ = new Gui(sprite_, &sprite_shader_, window_);
 
+    // 
+
         
     // Airship
 	Airship* airship = new Airship(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_);
