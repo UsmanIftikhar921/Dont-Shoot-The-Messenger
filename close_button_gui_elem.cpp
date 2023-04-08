@@ -1,11 +1,12 @@
 #include "close_button_gui_elem.h"
+#include "textures.h"
 
 namespace game {
 
 	/* Gui inherits from Gui Elem */
 
-	CloseButtonGuiElem::CloseButtonGuiElem(Geometry* geom, Shader* shader, GLFWwindow* window) : GuiElem(geom, shader, window) {
-		type_ = ObjType::OBJ;
+	CloseButtonGuiElem::CloseButtonGuiElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(512,512), GameObject::textures.GetTexture("close_button")) {
+		type_ = ObjType::GUI_ELEM;
 	}
 
 

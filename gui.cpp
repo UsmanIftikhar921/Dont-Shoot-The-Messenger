@@ -7,17 +7,10 @@ namespace game {
 	/* Gui inherits from GameObject */
 
 	Gui::Gui(Geometry* geom, Shader* shader, GLFWwindow* window) : GameObject(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, NULL) {
-		type_ = ObjType::OBJ;
+		type_ = ObjType::GUI;
+		window_ = window;
 
-		// Construct GUI Element for wheel
-		//WheelGuiElem* wheel = new WheelGuiElem(geom, shader, window);
-		//addGuiElem(wheel);
-		//AddChild(wheel);
-
-		// Construct GUI Element for quit button
-		CloseButtonGuiElem* quit_button = new CloseButtonGuiElem(geom, shader, window);
-		addGuiElem(quit_button);
-		AddChild(quit_button);
+		InitGui();
 	}
 
 	// Update function for moving the player object around
@@ -25,8 +18,17 @@ namespace game {
 		GameObject::Update(delta_time, gui_state);
 	}
 
-	void Gui::addGuiElem(GuiElem* elem) {
+	void Gui::InitGui() {
+		// Create a close button gui clickable element
+		CloseButtonGuiElem* quit_button = new CloseButtonGuiElem(geometry_, shader_, window_);
+		AddGuiElem(quit_button);
+
+		// Add
+	}
+
+	void Gui::AddGuiElem(GuiElem* elem) {
 		gui_elems_.push_back(elem);
+		AddChild(elem);
 	}
 
 } // namespace game

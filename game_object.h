@@ -32,6 +32,9 @@ namespace game {
         AIRSHIP,
         AIRSHIP_SEGMENT,
         CREW,
+        GUI,
+        GUI_ELEM,
+        CLICKABLE_GUI_ELEM,
     };
     
     class GameObject {

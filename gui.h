@@ -11,9 +11,11 @@ namespace game {
 	public:
 		Gui(Geometry* geom, Shader* shader, GLFWwindow* window);
 
+		void InitGui();
+
 		void Update(double delta_time, GuiState* gui_state) override;
 
-		void addGuiElem(GuiElem* elem);
+		void AddGuiElem(GuiElem* elem);
 
 
 	protected:

@@ -4,8 +4,8 @@ namespace game {
 
 	/* Gui inherits from GameObject */
 
-	GuiElem::GuiElem(Geometry* geom, Shader* shader, GLFWwindow* window) : GameObject(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, NULL) {
-		type_ = ObjType::OBJ;
+	GuiElem::GuiElem(Geometry* geom, Shader* shader, GLFWwindow* window, GLuint texture) : GameObject(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, texture) {
+		type_ = ObjType::GUI_ELEM;
 		window_ = window;
 	}
 
