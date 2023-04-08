@@ -11,11 +11,9 @@ namespace game {
 
 		void Update(double delta_time, GuiState* gui_state) override;
 
-		// Check if you are clicking on the gui element
 		bool GuiElemIsClicked();
 
 	protected:
-		// Dimensions of GUI Element
 		glm::vec2 aspect_ratio_;
 		bool clicked_;
 
