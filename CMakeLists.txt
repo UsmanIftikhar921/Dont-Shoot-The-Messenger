@@ -28,7 +28,7 @@ set(HDRS
     gui_state.h
     wheel_gui_elem.h
     clickable_gui_elem.h
-    close_button_gui_elem.h
+    buttons.h
 )
  
 set(SRCS
@@ -55,7 +55,7 @@ set(SRCS
     gui_state.cpp
     wheel_gui_elem.cpp
     clickable_gui_elem.cpp
-    close_button_gui_elem.cpp
+    buttons.cpp
 )
 
 # Add path name to configuration file

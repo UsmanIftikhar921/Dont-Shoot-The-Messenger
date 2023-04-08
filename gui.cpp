@@ -1,6 +1,6 @@
 #include "gui.h"
 #include "wheel_gui_elem.h"
-#include "close_button_gui_elem.h"
+#include "buttons.h"
 
 namespace game {
 
