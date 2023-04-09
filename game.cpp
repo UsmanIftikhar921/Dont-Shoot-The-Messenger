@@ -11,6 +11,7 @@
 #include "sprite.h"
 #include "shader.h"
 #include "player.h"
+#include "enemy.h"
 #include "bullet.h"
 #include "game.h"
 #include "collision_box.h"
@@ -138,6 +139,15 @@ void Game::Setup(void)
     airship->SetScale(glm::vec2(3.0f, 3.0f));
     scene_->AddChild(airship);
 
+    // Enemies of Various Types Go Here
+    ChaserEnemy* chaser = new ChaserEnemy(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture("green_guy_ufo"));
+    chaser->InitCollisionBox(0.25, sprite_, &sprite_shader_, GameObject::textures.GetTexture(3));
+    chaser->SetWindow(window_);
+    chaser->SetZLayer(1);
+    chaser->SetTarget(glm::vec3(3.0f, 3.0f, 0.0f));
+    scene_->AddChild(chaser);
+
+    // Background
 	GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
     background->SetZLayer(100);
     background->SetScale(glm::vec2(10.0f, 10.0f));

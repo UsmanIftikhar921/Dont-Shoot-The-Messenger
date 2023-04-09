@@ -23,6 +23,7 @@ set(HDRS
     airship_segment.h
     crew.h
     textures.h
+    enemy.h
 )
  
 set(SRCS
@@ -44,6 +45,7 @@ set(SRCS
     airship_segment.cpp
     crew.cpp
     textures.cpp
+    enemy.cpp
 )
 
 # Add path name to configuration file

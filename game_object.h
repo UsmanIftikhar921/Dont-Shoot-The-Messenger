@@ -23,6 +23,7 @@ namespace game {
     enum ObjType {
         OBJ,
         PLAYER,
+        ENEMY,
         BULLET,
         GUN,
         COLLIDABLE,
