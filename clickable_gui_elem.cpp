@@ -8,28 +8,19 @@ namespace game {
 	ClickableGuiElem::ClickableGuiElem(Geometry* geom, Shader* shader, GLFWwindow* window, glm::vec2 aspect_ratio, GLuint texture) : GuiElem(geom, shader, window) {
 		type_ = ObjType::CLICKABLE_GUI_ELEM;
 		texture_ = texture;
-
-		//int width, height;
-		//glfwGetWindowSize(window_, &width, &height);
-
-		// Set aspect ratio according to scale in comparison to the window
-		aspect_ratio_ = glm::vec2(aspect_ratio.x, aspect_ratio.y);
-		
-		// Set Scale According to Dimensions
-		//SetScale(glm::vec2(0.25, 0.25));
-		
-		clicked_ = false;
+		hover_ = false;
+		aspect_ratio_ = aspect_ratio;
 	}
 
 	// Update function for moving the player object around
 	void ClickableGuiElem::Update(double delta_time, GuiState* gui_state) {
 
 		// Check if you are clicking on the gui element
-		if (GuiElemIsClicked()) { 
-			clicked_ = true;
+		if (MouseOnGuiElem()) { 
+			hover_ = true;
 		}
 		else { 
-			clicked_ = false;
+			hover_ = false;
 		}
 
 		// Call the parent's update method to move the object in standard way, if desired
@@ -62,11 +53,9 @@ namespace game {
 		return glm::vec2(width, height);
 	}
 
-	bool ClickableGuiElem::GuiElemIsClicked() {
-
+	bool ClickableGuiElem::MouseOnGuiElem() {
+		// Get mouse & gui element position
 		glm::vec2 mouse_pos = GetMousePos();
-
-		// Get GUI Element's position
 		glm::vec3 gui_pos = GetPosition();
 
 		// Define range of values where the GUI Element lies
@@ -81,13 +70,9 @@ namespace game {
 		y_range_min = gui_pos.y - (scale_.y * aspect_ratio_.y / 2) ;
 		y_range_max = gui_pos.y + (scale_.y * aspect_ratio_.y / 2) ;
 
-		// Check if you are clicking on the gui element (assuming it's a rectangle)
-		if (mouse_pos.x > x_range_min && mouse_pos.x < x_range_max && mouse_pos.y > y_range_min && mouse_pos.y < y_range_max) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		// Check if your mouse is hovering on the gui element (assuming it's a rectangle)
+		if (mouse_pos.x > x_range_min && mouse_pos.x < x_range_max && mouse_pos.y > y_range_min && mouse_pos.y < y_range_max) { return true; }
+		else return false;
 	}
 
 } // namespace game

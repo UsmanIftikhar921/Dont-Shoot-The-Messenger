@@ -11,11 +11,11 @@ namespace game {
 
 		void Update(double delta_time, GuiState* gui_state) override;
 
-		bool GuiElemIsClicked();
+		bool MouseOnGuiElem();
 
 	protected:
 		glm::vec2 aspect_ratio_;
-		bool clicked_;
+		bool hover_;
 
 		glm::vec2 GetMousePos();
 		glm::vec2 GetWindowSize();

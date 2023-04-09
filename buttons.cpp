@@ -20,9 +20,11 @@ namespace game {
 
 	void CloseButtonGuiElem::ProcessInput() {
 		// If the user presses left click on the button, close the window
-		if (clicked_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
 			glfwSetWindowShouldClose(window_, true);
 		}
 	}
+
+	/* Other Button Class Implementations Go Here: */
 
 } // namespace game
