@@ -4,6 +4,8 @@
 #include "clickable_gui_elem.h"
 
 namespace game {
+
+	/* Close Button: */
 	class CloseButtonGuiElem : public ClickableGuiElem {
 
 	public:
@@ -13,6 +15,9 @@ namespace game {
 
 		virtual void ProcessInput() override;
 	};
+
+	/* Other Button Class Definitions Go Here: */
+
 }
 
 #endif
