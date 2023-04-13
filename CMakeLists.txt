@@ -33,6 +33,7 @@ set(HDRS
     wheel_gui_elem.h
     clickable_gui_elem.h
     buttons.h
+    gui_elem_collection.h
     close_button_gui_elem.h
     task.h
     enemy.h
@@ -67,6 +68,7 @@ set(SRCS
     wheel_gui_elem.cpp
     clickable_gui_elem.cpp
     buttons.cpp
+    gui_elem_collection.cpp
 )
 
 # Add path name to configuration file

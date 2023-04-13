@@ -27,8 +27,8 @@ namespace game {
 
 // Globals that define the OpenGL window and viewport
 const char *window_title_g = "Game Demo";
-const unsigned int window_width_g = 2560;
-const unsigned int window_height_g = 1440;
+const unsigned int window_width_g = 1920;
+const unsigned int window_height_g = 1080;
 const glm::vec3 viewport_background_color_g(0.0, 0.0, 1.0);
 
 
