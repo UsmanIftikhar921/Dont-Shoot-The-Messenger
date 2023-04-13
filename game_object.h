@@ -116,6 +116,8 @@ namespace game {
 			glm::mat4 model_translation_;
             
             glm::vec3 velocity_;
+            glm::vec3 acceleration_;
+            float max_velocity_;
 
             // Geometry
             Geometry *geometry_;

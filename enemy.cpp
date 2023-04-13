@@ -4,19 +4,16 @@ namespace game {
 
 	ChaserEnemy::ChaserEnemy(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture) : Collidable(position, geom, shader, texture) {
 		type_ = ENEMY;
+		max_velocity_ = 1.0f;
 	}
 
 	// Update function for moving the player object around
 	void ChaserEnemy::Update(double delta_time) {
 
-		// Update time since last shot
-		//if(time_since_last_shot_ < time_between_shots_) time_since_last_shot_ += delta_time;
-
 		// Update target based on mouse position
 		target_ = glm::vec3(GetMousePos(),0.0f);
-		
-		// Update position
-		ChaseTarget(delta_time);
+
+		ChangeState(delta_time);
 
 		Collidable::Update(delta_time);
 	}
@@ -26,17 +23,6 @@ namespace game {
 		case ObjType::COLLIDABLE:
 			dbg_render_red_ = true;
 			break;
-		}
-	}
-
-	void ChaserEnemy::ChaseTarget(double delta_time) {
-		// Accelerate when not at max speed
-		if (glm::length(velocity_) < max_speed_) {
-			velocity_ += acceleration_ * glm::normalize(target_ - position_);
-		}
-		// Decelerate when at max speed
-		else {
-			velocity_ -= acceleration_ * glm::normalize(velocity_);
 		}
 	}
 
@@ -59,6 +45,83 @@ namespace game {
 
 		return glm::vec2(xpos, ypos);
 	}
+
+	void ChaserEnemy::HomeInOnPoint(glm::vec3& target, float delta_time) {
+		if (state_ != EnemyState::CHASING) return;
+
+		glm::vec2 curr_pos = glm::vec2(position_.x, position_.y);
+		glm::vec2 target_pos = glm::vec2(target.x, target.y);
+
+		glm::vec2 curr_vel = glm::vec2(velocity_.x, velocity_.y);
+		glm::vec2 target_vel = glm::vec2(0.0f, 0.0f);
+
+		float deltaX = target_pos.x - curr_pos.x;
+		float deltaY = target_pos.y - curr_pos.y;
+
+		float dist = glm::sqrt(deltaX * deltaX + deltaY * deltaY);
+
+		if (dist < 0.01) {
+			acceleration_.x = 0.0f;
+			acceleration_.y = 0.0f;
+			velocity_.x = target_vel.x;
+			velocity_.y = target_vel.y;
+			position_.x = target_pos.x;
+			position_.y = target_pos.y;
+			state_ = EnemyState::IDLE;
+			return;
+		}
+
+		float velMagSq = glm::length(curr_vel) * glm::length(curr_vel);
+
+		float decelDist = (velMagSq) / (2 * max_velocity_);
+
+		if (dist >= decelDist) {
+			acceleration_ = glm::vec3(glm::normalize(glm::vec2(deltaX, deltaY)) * max_velocity_, 0.0f);
+			velocity_ += glm::normalize(target_ - position_);
+		}
+		else {
+			acceleration_ = glm::vec3(glm::normalize(glm::vec2(deltaX, deltaY)) * -max_velocity_, 0.0f);
+			velocity_ -= glm::normalize(velocity_);
+		}
+	}
+
+	void ChaserEnemy::OrbitAroundTarget(glm::vec3& target, float radius, double delta_time) {
+		if (state_ != EnemyState::ORBITING) return;
+
+		// Calculate the angle to orbit at
+		float angle = glm::atan(position_.y - target.y, position_.x - target.x);
+
+		// Calculate the new position
+		position_.x = target.x + radius * glm::cos(angle);
+		position_.y = target.y + radius * glm::sin(angle);
+
+		// Calculate the new velocity
+		velocity_.x = -radius * glm::sin(angle);
+		velocity_.y = radius * glm::cos(angle);
+
+		// Calculate the new acceleration (broken rn)
+		//acceleration_.x = -radius * glm::cos(angle);
+		//acceleration_.y = -radius * glm::sin(angle);
+
+	}
+
+	void ChaserEnemy::ChangeState(float delta_time) {
+		switch (state_) {
+			case EnemyState::IDLE:
+				if (target_ != position_) { state_ = EnemyState::CHASING; }
+				break;
+
+			case EnemyState::CHASING:
+				HomeInOnPoint(target_, delta_time);
+				if (glm::distance(position_, target_) < 1.0f) { state_ = EnemyState::ORBITING; }
+				break;
+
+			case EnemyState::ORBITING:
+				OrbitAroundTarget(target_, 1.0f, delta_time);
+				break;
+		}
+	}
+
 
 	//bool Enemy::canShoot() { return time_since_last_shot_ > time_between_shots_; }
 

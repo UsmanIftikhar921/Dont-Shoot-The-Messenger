@@ -44,11 +44,16 @@ GameObject::~GameObject() {
 	}
 }
 
-
 void GameObject::Update(double delta_time) {
 
-    // Update object position with Euler integration
-    position_ += velocity_ * ((float) delta_time);
+    // Apply acceleration to velocity
+    if (glm::length(velocity_ + (acceleration_ * (float)delta_time)) < max_velocity_) {
+        velocity_ += acceleration_ * ((float)delta_time);
+    }
+
+    // Apply velocity to position
+    position_ += velocity_ * ((float)delta_time);
+
 	position_.z = (float)z_layer_ / 100.0f;
     GenerateTransformationMatrix();
     
@@ -117,8 +122,6 @@ void GameObject::GenerateTransformationMatrix(void) {
 	// Setup the scaling matrix
 	glm::mat4 scaling_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(scale_.x, scale_.y, 1.0));
 
-
-    
     // Set the matrices
 	model_scale_ = scaling_matrix;
 	model_rotation_ = rotation_matrix;
