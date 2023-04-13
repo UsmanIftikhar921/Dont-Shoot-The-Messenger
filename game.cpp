@@ -17,6 +17,7 @@
 #include "spinner.h"
 #include "airship.h"
 #include "gun.h"
+#include "enemy.h"
 
 
 namespace game {
@@ -127,6 +128,11 @@ void Game::Setup(void)
     scene_->AddChild(airship);
 	player_ = airship;
 
+    Enemy* enemy = new Enemy(glm::vec3(1.0f, -1.0f, 0.0f), sprite_, &sprite_shader_);
+    enemy->InitCollisionBox(glm::vec3(0.0f, 0.0f, 0.0f), 0.5f);
+    enemy->SetTarget(airship);
+    scene_->AddChild(enemy);
+
     GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
     background->SetZLayer(100);
     background->SetScale(glm::vec2(300.0f, 300.0f));
@@ -165,7 +171,7 @@ void Game::MainLoop(void)
 		glm::mat4 identity = glm::mat4(1.0f);
         // Set view to zoom out, centered by default at 0,0
         
-        float camera_zoom = 0.25f;
+        float camera_zoom = 0.125f;
         
         // Modify view matrix based on window width and height
 		float aspect_ratio = (float)window_height_g / (float)window_width_g;

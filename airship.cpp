@@ -28,17 +28,15 @@ namespace game {
 		float port_engine_rotation_factor = port_engine_->GetRotationFactor();
 		float starboard_engine_rotation_factor = starboard_engine_->GetRotationFactor();
 
-		std::cout << "Port engine power: " << port_engine_power << std::endl;
-		std::cout << "Starboard engine power: " << starboard_engine_power << std::endl;
-		std::cout << "Port engine rotation factor: " << port_engine_rotation_factor << std::endl;
-		std::cout << "Starboard engine rotation factor: " << starboard_engine_rotation_factor << std::endl << std::endl;
-
-
 
 		acceleration_ = glm::vec3(0.0f, port_engine_power + starboard_engine_power, 0.0f);
 		acceleration_ = glm::rotate(acceleration_, rotation_, glm::vec3(0.0f, 0.0f, 1.0f));
 		
 		angular_acceleration_ = port_engine_rotation_factor + starboard_engine_rotation_factor;
+		
+		std::cout << "Airship:" << std::endl;
+		std::cout << "	Acceleration: " << acceleration_.x << ", " << acceleration_.y << std::endl;
+		std::cout << "	Velocity: " << velocity_.x << ", " << velocity_.y << std::endl << std::endl;
 		
 		GameObject::Update(delta_time);
 	}
@@ -119,8 +117,8 @@ namespace game {
 		segments_.push_back(port_engine_);
 		segments_.push_back(starboard_engine_);
 
-		port_engine_->SetTargetPower(5.0f);
-		starboard_engine_->SetTargetPower(-5.0f);
+		// port_engine_->SetTargetPower(5.0f);
+		// starboard_engine_->SetTargetPower(5.0f);
 		
 
 		AddChild(port_guns_);
