@@ -1,5 +1,5 @@
-#ifndef CLOSE_BUTTON_GUI_ELEM_H_
-#define CLOSE_BUTTON_GUI_ELEM_H_
+#ifndef BUTTONS_H_
+#define BUTTONS_H_
 
 #include "clickable_gui_elem.h"
 

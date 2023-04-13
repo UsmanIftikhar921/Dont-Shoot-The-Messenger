@@ -26,7 +26,7 @@ namespace game {
 
 // Globals that define the OpenGL window and viewport
 const char *window_title_g = "Game Demo";
-const unsigned int window_width_g = 1080;
+const unsigned int window_width_g = 1920;
 const unsigned int window_height_g = 1080;
 const glm::vec3 viewport_background_color_g(0.0, 0.0, 1.0);
 
@@ -58,7 +58,7 @@ void Game::Init(void)
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 
 
     // Create a window and its OpenGL context
-    window_ = glfwCreateWindow(window_width_g, window_height_g, window_title_g, NULL, NULL);
+    window_ = glfwCreateWindow(window_width_g, window_height_g, window_title_g, glfwGetPrimaryMonitor(), NULL);
     if (!window_) {
         glfwTerminate();
         throw(std::runtime_error(std::string("Could not create window")));

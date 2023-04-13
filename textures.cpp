@@ -64,6 +64,9 @@ namespace game {
 
 		SetTexture(textures_[13], (resources_directory_g + std::string("/textures/close.png")).c_str());
 		texture_map_["close_button"] = textures_[13];
+
+		SetTexture(textures_[14], (resources_directory_g + std::string("/textures/gui/background.png")).c_str());
+		texture_map_["gui_background"] = textures_[14];
 		
 		
 		glBindTexture(GL_TEXTURE_2D, textures_[0]);
