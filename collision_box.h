@@ -12,17 +12,36 @@ namespace game {
 		int id;
 	};
 
-	
+	enum CollisionShape {
+		CIRCLE,
+		RECTANGLE
+	};
+
 	class CollisionBox : public GameObject {
 	public:
-		CollisionBox(const glm::vec3& position, float radius, ObjType parent_type, int parent_id, Geometry* geom, Shader* shader, GLuint texture);
+		// Circle collision box
+		CollisionBox(const glm::vec3& position, float radius, ObjType parent_type, int parent_id, Geometry* geom, Shader* shader);
+
+		// Rectangle collision box
+		CollisionBox(const glm::vec3& position, float width, float height, ObjType parent_type, int parent_id, Geometry* geom, Shader* shader);
+		
 		~CollisionBox();
 		
 		void Update(double delta_time) override;
 
+		void Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, glm::mat4 parent_scale_matrix, double current_time) override;
+
 		// Getters and Setters
 		inline float GetRadius(void) { return radius_; }
 		inline void SetRadius(float radius) { radius_ = radius; }
+
+		inline float GetWidth(void) { return width_; }
+		inline void SetWidth(float width) { width_ = width; }
+		inline float GetHeight(void) { return height_; }
+		inline void SetHeight(float height) { height_ = height; }
+		inline void SetWidthHeight(float width, float height) { width_ = width; height_ = height; }
+
+		inline CollisionShape GetShape(void) { return shape_; }
 
 		inline std::vector<CollisionEvent> GetCollisions(void) { return collisions_; }
 		inline std::vector<CollisionEvent> GetNewCollisions(void) { return new_collisions_;  }
@@ -34,6 +53,7 @@ namespace game {
 		
 		// Check for collisions between all collision boxes
 		// This should be called once per frame
+		
 		static void ProcessCollisions() {
 			for (int i = 0; i < collision_boxes_.size(); i++) {
 				collision_boxes_.at(i)->collisions_this_frame_.clear();
@@ -66,6 +86,10 @@ namespace game {
 		void PostUpdateCleanup(void);
 
 		float radius_;
+		float width_;
+		float height_;
+
+		CollisionShape shape_;
 		
 		// Static members
 		static std::vector<CollisionBox*> collision_boxes_;

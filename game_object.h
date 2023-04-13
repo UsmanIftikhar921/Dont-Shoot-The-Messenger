@@ -24,6 +24,7 @@ namespace game {
         OBJ,
         PLAYER,
         BULLET,
+        BIGBULLET,
         GUN,
         COLLIDABLE,
         COLLISION_BOX,
@@ -31,6 +32,8 @@ namespace game {
         AIRSHIP,
         AIRSHIP_SEGMENT,
         CREW,
+        WORKSTATION,
+        TASK,
     };
     
     class GameObject {
@@ -51,6 +54,8 @@ namespace game {
 			void AddChild(GameObject* child);
 
             // Getters
+			inline int GetID(void) { return unique_id_; }
+
             inline glm::vec3& GetPosition(void) { return position_; }
             inline glm::vec2& GetScale(void) { return scale_; }
 			inline float GetRotation(void) { return rotation_; }
@@ -58,15 +63,25 @@ namespace game {
 
             inline int GetZLayer(void) { return z_layer_; }
 			inline glm::vec3 GetVelocity(void) { return velocity_; }
-            glm::vec3 GetBearing(void);
+			inline glm::vec3 GetAcceleration(void) { return acceleration_; }
 
+            glm::vec3 GetBearing(void);
+			glm::vec3 GetGlobalBearing(void);
+            
             inline glm::vec3 GetGlobalPosition(void) { return global_position_; }
 			inline float GetGlobalRotation(void) { return global_rotation_; }
+			inline glm::vec3 GetGlobalVelocity(void) { return global_velocity_; }
+
+			inline glm::vec3 GetParentVelocity(void) { return parent_velocity_; }
+            
             
 			inline glm::mat4 GetScaleMatrix(void) { return model_scale_; }
 			inline glm::mat4 GetTranslationMatrix(void) { return model_translation_; }
 			inline glm::mat4 GetRotationMatrix(void) { return model_rotation_; }
 			inline glm::mat4 GetOrbitMatrix(void) { return model_orbit_; }
+
+			inline glm::mat4 GetParentMatrix(void) { return parent_matrix_; }
+			inline glm::mat4 GetParentScaleMatrix(void) { return parent_scale_matrix_; }
             
             inline ObjType GetType(void) { return type_; }
 			inline GameObject* GetChild(int index) { return children_[index]; }
@@ -78,6 +93,16 @@ namespace game {
 			inline void SetOrbitRotation(float orbit_rotation) { orbit_rotation_ = orbit_rotation; }
             inline void SetVelocity(const glm::vec3& velocity) { velocity_ = velocity; }
 			inline void SetZLayer(int z_layer) { z_layer_ = z_layer; }
+			inline void SetAcceleration(const glm::vec3& acceleration) { acceleration_ = acceleration; }
+			inline void SetAngularVelocity(float angular_velocity) { angular_velocity_ = angular_velocity; }
+			inline void SetAngularAcceleration(float angular_acceleration) { angular_acceleration_ = angular_acceleration; }
+
+            inline void SetParentVelocity(const glm::vec3& parent_velocity) { parent_velocity_ = parent_velocity; }
+
+
+			inline void SetTilingFactor(int tiling_factor) { tiling_factor_ = tiling_factor; }
+
+            void SetCardinalRotation(char cardinal);
             
 
             static std::string& GetEnumName(ObjType type) {
@@ -93,6 +118,8 @@ namespace game {
 
             static Textures textures;
 
+            bool dbg_render_red_;
+
 
 
         protected:
@@ -107,15 +134,29 @@ namespace game {
             float global_rotation_;
 			glm::vec2 global_scale_;
 
+            glm::vec3 global_velocity_;
+
 			int z_layer_; // 0 - 100; 0 is furthest forward, 100 is furthest back
 
             glm::mat4 model_scale_;
 			glm::mat4 model_rotation_;
 			glm::mat4 model_orbit_;
 			glm::mat4 model_translation_;
+
+            glm::mat4 parent_matrix_;
+			glm::mat4 parent_scale_matrix_;
             
             glm::vec3 velocity_;
+            glm::vec3 parent_velocity_;
+            glm::vec3 acceleration_;
 
+			float angular_velocity_;
+			float angular_acceleration_;
+
+			float max_velocity_;
+			float max_angular_velocity_;
+
+            
             // Geometry
             Geometry *geometry_;
  
@@ -125,13 +166,13 @@ namespace game {
             // Object's texture reference
             GLuint texture_;
 
+            int tiling_factor_;
+
 			ObjType type_;
 
             int unique_id_;
 
 			std::vector<GameObject*> children_;
-
-            bool dbg_render_red_;
 
             glm::vec3 color_modifier_;
 

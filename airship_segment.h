@@ -2,27 +2,36 @@
 #define AIRSHIP_SEGMENT_H_
 
 #include "game_object.h"
+#include "collidable.h"
 #include "crew.h"
+#include "workstation.h"
 #include <vector>
 
 namespace game {
-	class AirshipSegment : public GameObject
+	class AirshipSegment : public Collidable
 	{
 	public:
 		AirshipSegment(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
 
 		void Update(double delta_time) override;
 
-		void Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, glm::mat4 parent_scale_matrix, double current_time) override;
-
-		void UpdateCrew(double delta_time);
 		bool AssignCrew(Crew* crew);
 		bool UnassignCrew(Crew* crew);
+
+		void SetCrewDestination(Crew* crew, Workstation* workstation);
+
+		void HandleCollisionEvent(CollisionEvent& event) override;
+		void HandleNewCollisionEvent(CollisionEvent& event) override;
+
+		void AddWorkstation(Workstation* workstation);
+		bool RemoveWorkstation(Workstation* workstation);
 		
 	protected:
 		// Crew 
-		int max_crew_;
-		std::vector<Crew*> assigned_crew_;
+		int num_workstations_;
+		std::vector<Workstation*> workstations_;
+
+		float health_;
 		
 
 	};

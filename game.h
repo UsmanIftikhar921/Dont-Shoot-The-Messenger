@@ -47,6 +47,7 @@ namespace game {
 
             // List of game objects
             GameObject* scene_;
+			GameObject* player_;
             
             // Keep track of time
             double current_time_;

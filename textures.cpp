@@ -26,8 +26,8 @@ namespace game {
 		SetTexture(textures_[0], (resources_directory_g + std::string("/textures/player_ship.png")).c_str());
 		texture_map_["player_ship"] = textures_[0];
 		
-		SetTexture(textures_[1], (resources_directory_g + std::string("/textures/stars.png")).c_str());
-		texture_map_["stars"] = textures_[1];
+		SetTexture(textures_[1], (resources_directory_g + std::string("/textures/ocean.png")).c_str());
+		texture_map_["ocean"] = textures_[1];
 		
 		SetTexture(textures_[2], (resources_directory_g + std::string("/textures/green_guy_ufo.png")).c_str());
 		texture_map_["green_guy_ufo"] = textures_[2];
@@ -67,6 +67,23 @@ namespace game {
 
 		SetTexture(textures_[14], (resources_directory_g + std::string("/textures/gun.png")).c_str());
 		texture_map_["gun"] = textures_[14];
+
+		// workstation_empty
+		SetTexture(textures_[15], (resources_directory_g + std::string("/textures/workstation_empty.png")).c_str());
+		texture_map_["workstation_empty"] = textures_[15];
+		
+		// workstation_occupied
+		SetTexture(textures_[16], (resources_directory_g + std::string("/textures/workstation_occupied.png")).c_str());
+		texture_map_["workstation_occupied"] = textures_[16];
+
+		// collision_square
+		SetTexture(textures_[17], (resources_directory_g + std::string("/textures/collision_square.png")).c_str());
+		texture_map_["collision_square"] = textures_[17];
+
+		SetTexture(textures_[18], (resources_directory_g + std::string("/textures/big_bullet.png")).c_str());
+		texture_map_["big_bullet"] = textures_[18];
+
+		
 		
 		glBindTexture(GL_TEXTURE_2D, textures_[0]);
 		
@@ -85,8 +102,8 @@ namespace game {
 		SOIL_free_image_data(image);
 
 		// Texture Wrapping
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 		// Texture Filtering
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

@@ -26,8 +26,8 @@ namespace game {
 
 // Globals that define the OpenGL window and viewport
 const char *window_title_g = "Game Demo";
-const unsigned int window_width_g = 1080;
-const unsigned int window_height_g = 1080;
+const unsigned int window_width_g = 2560;
+const unsigned int window_height_g = 1440;
 const glm::vec3 viewport_background_color_g(0.0, 0.0, 1.0);
 
 
@@ -55,10 +55,10 @@ void Game::Init(void)
 
     // Set window to not resizable
     // Required or else the calculation to get cursor pos to screenspace will be incorrect
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 
+    glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); 
 
     // Create a window and its OpenGL context
-    window_ = glfwCreateWindow(window_width_g, window_height_g, window_title_g, NULL, NULL);
+    window_ = glfwCreateWindow(window_width_g, window_height_g, window_title_g, glfwGetPrimaryMonitor(), NULL);
     if (!window_) {
         glfwTerminate();
         throw(std::runtime_error(std::string("Could not create window")));
@@ -119,28 +119,18 @@ void Game::Setup(void)
     // The scene object is the parent of all other objects
 	scene_ = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f));
     
-	/*Player* player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
-    player->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);
-	scene_->AddChild(player);
-    
-
-
-    // Fidget spinner added as example of heirarchical objects
-	Spinner* spinner = new Spinner(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(4));
-    spinner->SetScale(glm::vec2(0.5f, 0.5f));
-    spinner->SetPosition(glm::vec3(0.5f, 0.5f, 0.0f));
-    // Added as child of player
-    player->AddChild(spinner);*/
         
     // Airship
 	Airship* airship = new Airship(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_);
     airship->SetZLayer(1);
     airship->SetScale(glm::vec2(3.0f, 3.0f));
     scene_->AddChild(airship);
+	player_ = airship;
 
-	GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
+    GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
     background->SetZLayer(100);
-    background->SetScale(glm::vec2(10.0f, 10.0f));
+    background->SetScale(glm::vec2(300.0f, 300.0f));
+    background->SetTilingFactor(50.0f);
 	scene_->AddChild(background);
 }
 
@@ -170,10 +160,24 @@ void Game::MainLoop(void)
                      viewport_background_color_g.g,
                      viewport_background_color_g.b, 0.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
 
+		glm::mat4 identity = glm::mat4(1.0f);
         // Set view to zoom out, centered by default at 0,0
+        
         float camera_zoom = 0.25f;
-        glm::mat4 view_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(camera_zoom, camera_zoom, camera_zoom));
+        
+        // Modify view matrix based on window width and height
+		float aspect_ratio = (float)window_height_g / (float)window_width_g;
+        glm::mat4 player_translation = player_->GetTranslationMatrix();
+		glm::mat4 player_rotation = player_->GetRotationMatrix();
+
+        glm::mat4 view_translation = glm::inverse(player_translation);
+        glm::mat4 view_rotation = glm::mat4(1.0f);
+		glm::mat4 view_scale = glm::scale(identity, glm::vec3(camera_zoom * aspect_ratio, camera_zoom, camera_zoom));
+
+        glm::mat4 view_matrix = view_scale * view_rotation * view_translation;
+
 
         // Calculate delta time
         double current_time = glfwGetTime();
@@ -191,7 +195,7 @@ void Game::MainLoop(void)
     }
 }
 
-
+bool first_frame = true;
 void Game::Update(glm::mat4 view_matrix, double delta_time)
 {
 
@@ -202,14 +206,17 @@ void Game::Update(glm::mat4 view_matrix, double delta_time)
     Controls(delta_time);
 
 	// Check for collisions
-    CollisionBox::ProcessCollisions();
+    if (!first_frame) CollisionBox::ProcessCollisions();
+	else first_frame = false;
 
 	// Update game objects
 	scene_->Update(delta_time);
     
 	// Render game objects
-    glm::mat4 identity = glm::mat4(1.0f);
+    glm::mat4 identity = glm::mat4(1.0f);    
+
 	scene_->Render(view_matrix, identity, identity, delta_time);
+
 }
 
 
@@ -219,15 +226,24 @@ void Game::Controls(double delta_time)
 	float move_speed = 1.0f;
     
     // Get player game object
-    Airship* airship = dynamic_cast<Airship*>(scene_->GetChild(0));
+    Airship* player = dynamic_cast<Airship*>(scene_->GetChild(0));
     // Get current position
-    glm::vec3 curpos = airship->GetPosition();
+    glm::vec3 curpos = player->GetPosition();
     // Set standard forward and right directions
     glm::vec3 dir = glm::vec3(0.0, 1.0, 0.0);
     glm::vec3 right = glm::vec3(1.0, 0.0, 0.0);
 
 	if (glfwGetKey(window_, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        airship->FirePortGun();
+		Crew* crew = player->GetCrewMember(0);
+		AirshipSegment* segment = player->GetSternGuns();
+		segment->AssignCrew(crew);
+	}
+
+    // if c is pressed
+	if (glfwGetKey(window_, GLFW_KEY_C) == GLFW_PRESS) {
+        std::vector<Crew*> crew = player->GetCrewMembers();
+		for (int i = 0; i < crew.size(); i++) {
+		}
 	}
 
     if (glfwGetKey(window_, GLFW_KEY_Q) == GLFW_PRESS) {
@@ -236,32 +252,33 @@ void Game::Controls(double delta_time)
     
     // move player with wasd keys
     if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_PRESS) {
-        airship->SetVelocity(dir * move_speed);
-    }
-    
+		player->SetAcceleration(glm::vec3(0.0f, move_speed, 0.0f));
+    }    
 	else if (glfwGetKey(window_, GLFW_KEY_S) == GLFW_PRESS) {
-        airship->SetVelocity(-dir * move_speed);
+        player->SetAcceleration(glm::vec3(0.0f, -move_speed, 0.0f));
 	}
-
-    
-	else if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_PRESS) {
-        airship->SetVelocity(-right * move_speed);
-	}
-
-    
-	else if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS) {
-        airship->SetVelocity(right * move_speed);
-	}
-
-    else {
-        airship->SetVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+    else if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_RELEASE) {
+        player->SetAcceleration(glm::vec3(0.0f, 0.0f, 0.0f));
     }
-    
+	else if (glfwGetKey(window_, GLFW_KEY_S) == GLFW_RELEASE) {
+        player->SetAcceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+	}
+
+	if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_PRESS) {
+		player->SetAngularAcceleration(move_speed);
+	}
+	else if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS) {
+		player->SetAngularAcceleration(-move_speed);
+	}
+    else {
+		player->SetAngularAcceleration(0.0f);
+    }
+
 	if (glfwGetKey(window_, GLFW_KEY_LEFT) == GLFW_PRESS) {
-        airship->SetRotation(airship->GetRotation() + 0.8f * delta_time);
+        player->SetRotation(player->GetRotation() + 0.8f * delta_time);
 	}
     else if (glfwGetKey(window_, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-        airship->SetRotation(airship->GetRotation() - 0.8f * delta_time);
+        player->SetRotation(player->GetRotation() - 0.8f * delta_time);
     }
 
 

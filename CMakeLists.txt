@@ -11,6 +11,7 @@ set(HDRS
     game_object.h
     player.h
     bullet.h
+    big_bullet.h
     gun.h
     shader.h
     geometry.h
@@ -21,8 +22,12 @@ set(HDRS
     spinner.h
     airship.h
     airship_segment.h
+    engine.h
+    boiler.h
     crew.h
+    workstation.h
     textures.h
+    task.h
 )
  
 set(SRCS
@@ -32,6 +37,7 @@ set(SRCS
     main.cpp
     player.cpp
     bullet.cpp
+    big_bullet.cpp
     gun.cpp
     shader.cpp
     sprite.cpp
@@ -42,8 +48,12 @@ set(SRCS
     spinner.cpp
     airship.cpp
     airship_segment.cpp
+    engine.cpp
+    boiler.cpp
     crew.cpp
+    workstation.cpp
     textures.cpp
+    task.cpp
 )
 
 # Add path name to configuration file

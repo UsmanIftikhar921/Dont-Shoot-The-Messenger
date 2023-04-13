@@ -7,8 +7,13 @@ namespace game {
 		collision_box_ = NULL; // InitCollisionBox will set in InitCollisionBox (can't be done in constructor because of issues with type_ in derrived classes)
 	}
 
-	void Collidable::InitCollisionBox(float collision_radius, Geometry* geom, Shader* shader, GLuint texture) {
-		collision_box_ = new CollisionBox(glm::vec3(0.0f), collision_radius, type_, unique_id_, geom, shader, texture);
+	void Collidable::InitCollisionBox(glm::vec3 position, float collision_radius) {
+		collision_box_ = new CollisionBox(position, collision_radius, type_, unique_id_, geometry_, shader_);
+		AddChild(collision_box_);
+	}
+
+	void Collidable::InitCollisionBox(glm::vec3 position, float width, float height) {
+		collision_box_ = new CollisionBox(position, width, height, type_, unique_id_, geometry_, shader_);
 		AddChild(collision_box_);
 	}
 
@@ -29,6 +34,12 @@ namespace game {
 			CollisionEvent event = collision_box_->GetCollisions().at(i);
 			HandleCollisionEvent(event);
 		}
+
+		// Handle new collisions
+		for (int i = 0; i < collision_box_->GetNewCollisions().size(); i++) {
+			CollisionEvent event = collision_box_->GetNewCollisions().at(i);
+			HandleNewCollisionEvent(event);
+		}
 	}
 
 	void Collidable::HandleCollisionEvent(CollisionEvent& event) {
@@ -40,6 +51,18 @@ namespace game {
 		case ObjType::BULLET:
 			dbg_render_red_ = true;
 			break;
+		case ObjType::COLLIDABLE:
+			dbg_render_red_ = true;
+			break;
+		case ObjType::AIRSHIP_SEGMENT:
+			dbg_render_red_ = true;
+			break;
 		}
+		
 	}
+
+	void Collidable::HandleNewCollisionEvent(CollisionEvent& event) {
+		// Do nothing
+	}
+
 }

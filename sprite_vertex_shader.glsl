@@ -9,6 +9,7 @@ in vec2 uv;
 // Uniform (global) buffer
 uniform mat4 transformation_matrix;
 uniform mat4 view_matrix;
+uniform int tiling_factor;
 
 // Attributes forwarded to the fragment shader
 out vec4 color_interp;
@@ -22,5 +23,5 @@ void main()
     
     // Pass attributes to fragment shader
     color_interp = vec4(color, 1.0);
-    uv_interp = uv;
+    uv_interp = vec2(uv.x * tiling_factor, uv.y * tiling_factor);
 }

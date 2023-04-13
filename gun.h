@@ -2,32 +2,36 @@
 #define GUN_H_
 
 #include "game_object.h"
+#include "task.h"
 #include "bullet.h"
+#include "big_bullet.h"
+
+#include <random>
+#include <glm/gtc/matrix_transform.hpp> 
+
 
 namespace game {
-	enum FireState {
-		COOLDOWN,
-		READY,
-		FIRING
-	};
-    class Gun : public GameObject {
+
+    enum GunType {
+        STANDARD,
+        HEAVY,
+    };
+    
+    class Gun : public Task {
 
     public:
-        Gun(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
+        Gun(const glm::vec3& position, Geometry* geom, Shader* shader, GunType type = STANDARD);
 		~Gun();
 
         // Update function for moving the player object around
         void Update(double delta_time) override;
 
-		bool TryFire();
+		void PerformTask(float efficiency_modifier) override;
 
 		
 	protected:
         void Fire();
-		float fire_rate_;
-		float cooldown_;
-		FireState fire_state_;
-
+        GunType gun_type_;
 	};
 }
 

@@ -10,11 +10,13 @@ uniform sampler2D onetex;
 uniform int dbg_red;
 uniform vec3 color_modifier;
 
+
 void main()
 {
     // Sample texture
     vec4 color = texture2D(onetex, uv_interp);
     color.rgb *= color_modifier;
+
     
     if(dbg_red == 1)
 	{
