@@ -7,7 +7,7 @@ namespace game {
 
 	BackgroundGuiElem::BackgroundGuiElem(Geometry* geom, Shader* shader, GLFWwindow* window, glm::vec2 aspect_ratio) : GuiElem(geom, shader, window) {
 		type_ = ObjType::CLICKABLE_GUI_ELEM;
-		texture_ = GameObject::textures.GetTexture("gui_background");
+		texture_ = GameObject::textures.GetTexture(20);
 		scale_ = glm::vec2(aspect_ratio.x, aspect_ratio.y);
 	}
 

@@ -10,7 +10,7 @@ namespace game {
 		ready_ = true;
 	}
 
-	void Task::Update(double delta_time) {
+	void Task::Update(double delta_time, GuiState* gui_state) {
 		if (!ready_) {
 			cooldown_timer_ -= (float)delta_time * efficiency_modifier_;
 			if (cooldown_timer_ <= 0.0f) {
@@ -18,7 +18,7 @@ namespace game {
 				ready_ = true;
 			}
 		}
-		GameObject::Update(delta_time);
+		GameObject::Update(delta_time, gui_state);
 	}
 
 	void Task::ResetTask() {

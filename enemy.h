@@ -10,7 +10,7 @@ namespace game {
 	public:
 		Enemy(const glm::vec3& positiong, Geometry* geom, Shader* shader);
 
-		void Update(double delta_time) override;
+		void Update(double delta_time, GuiState* gui_state) override;
 
 		// Getters
 		inline GameObject* GetTarget(void) { return target_; }

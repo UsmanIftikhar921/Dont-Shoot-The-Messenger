@@ -5,7 +5,7 @@ namespace game {
 		target_ = nullptr;
 		texture_ = GameObject::textures.GetTexture(2);
 	}
-	void Enemy::Update(double delta_time) {
+	void Enemy::Update(double delta_time, GuiState* gui_state) {
 		if (target_ != nullptr) {
 			OrbitTarget(5.0, 1.0);
 		}
@@ -15,7 +15,7 @@ namespace game {
 		std::cout << "	Velocity: " << velocity_.x << ", " << velocity_.y << std::endl << std::endl << std::endl;
 
 
-		Collidable::Update(delta_time);
+		Collidable::Update(delta_time, gui_state);
 	}
 
 	void Enemy::ChaseTarget(void) {

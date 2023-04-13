@@ -11,7 +11,7 @@ namespace game {
 	public:
 		Engine(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture, float max_power, float rotation_factor);
 
-		void Update(double delta_time);
+		void Update(double delta_time, GuiState* gui_state);
 
 		//Getters
 		float GetMaxPower() { return max_power_; }

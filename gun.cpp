@@ -18,9 +18,9 @@ namespace game {
 	Gun::~Gun() {
 	}
 
-	void Gun::Update(double delta_time) {
+	void Gun::Update(double delta_time, GuiState* gui_state) {
 		srand(delta_time);
-		Task::Update(delta_time);
+		Task::Update(delta_time, gui_state);
 	}
 
 	void Gun::PerformTask(float efficiency_modifier) {

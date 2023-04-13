@@ -79,7 +79,7 @@ void GameObject::Update(double delta_time, GuiState* gui_state) {
     
 	// Update all children
 	for (int i = 0; i < children_.size(); i++) {
-		children_[i]->Update(delta_time);
+		children_[i]->Update(delta_time, gui_state);
 		children_[i]->SetParentVelocity(global_velocity_);
 	}
 

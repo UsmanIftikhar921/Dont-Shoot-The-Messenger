@@ -18,7 +18,7 @@ namespace game {
 
 	}
 
-	void Airship::Update(double delta_time)  {	
+	void Airship::Update(double delta_time, GuiState* gui_state)  {	
 		port_engine_->SetSteamPressure(1.0f);
 		starboard_engine_->SetSteamPressure(1.0f);
 
@@ -38,7 +38,7 @@ namespace game {
 		std::cout << "	Acceleration: " << acceleration_.x << ", " << acceleration_.y << std::endl;
 		std::cout << "	Velocity: " << velocity_.x << ", " << velocity_.y << std::endl << std::endl;
 		
-		GameObject::Update(delta_time);
+		GameObject::Update(delta_time, gui_state);
 	}
 
 

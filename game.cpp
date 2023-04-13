@@ -242,7 +242,6 @@ void Game::Update(glm::mat4 view_matrix, double delta_time)
     gui_->Render(identity, identity, identity, delta_time);
 
 	// Render game objects
-    glm::mat4 identity = glm::mat4(1.0f);    
 
 	scene_->Render(view_matrix, identity, identity, delta_time);
 

@@ -17,9 +17,9 @@ namespace game {
 	}
 
 	// Update function for moving the player object around
-	void BigBullet::Update(double delta_time) {
+	void BigBullet::Update(double delta_time, GuiState* gui_state) {
 		rotation_ += rotation_speed_ * delta_time;
-		Bullet::Update(delta_time);
+		Bullet::Update(delta_time, gui_state);
 	}
 
 } // namespace game

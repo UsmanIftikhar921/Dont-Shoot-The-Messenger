@@ -11,7 +11,7 @@ namespace game {
 	public:
 		Boiler(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture);
 		
-		//void Update(double delta_time) override;
+		//void Update(double delta_time, GuiState* gui_state) override;
 
 		
 	protected:

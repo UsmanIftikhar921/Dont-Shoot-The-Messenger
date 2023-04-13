@@ -83,6 +83,11 @@ namespace game {
 		SetTexture(textures_[18], (resources_directory_g + std::string("/textures/big_bullet.png")).c_str());
 		texture_map_["big_bullet"] = textures_[18];
 
+		SetTexture(textures_[19], (resources_directory_g + std::string("/textures/close.png")).c_str());
+		texture_map_["close"] = textures_[19];
+
+		SetTexture(textures_[20], (resources_directory_g + std::string("/textures/gui/background.png")).c_str());
+
 		
 		
 		glBindTexture(GL_TEXTURE_2D, textures_[0]);
