@@ -40,6 +40,9 @@ namespace game {
         int GetPortEnginePower() { return port_engine_power_; }
         void SetPortEnginePower(int port_engine_power) { port_engine_power_ = port_engine_power; }
 
+        int GetStarboardEnginePower() { return starboard_engine_power_; }
+        void SetStarboardEnginePower(int starboard_engine_power) { starboard_engine_power_ = starboard_engine_power; }
+
         FireSelector GetFireSelector() { return fire_selector_; }
         void SetFireSelector(FireSelector fire_selector) { fire_selector_ = fire_selector; }
 
@@ -47,6 +50,7 @@ namespace game {
         std::vector<CrewData> crew_data_vec_; // Holds list of CrewData structs
         float steam_pressure_;
         int port_engine_power_; // Can be -3, -2, -1, 0, 1, 2, 3
+        int starboard_engine_power_; // Can be -3, -2, -1, 0, 1, 2, 3
         FireSelector fire_selector_;
 	};
 }

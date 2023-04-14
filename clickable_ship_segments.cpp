@@ -96,6 +96,24 @@ namespace game {
 		}
 	}
 
+	/* Rear: */
+	ClickableRear::ClickableRear(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1, 1), GameObject::textures.GetTexture("ship_segment_rear")) {
+		type_ = ObjType::CLICKABLE_GUI_ELEM;
+		//rear_inner_ = new ClickableRearInner(geom, shader, window);
+		//AddChild(rear_inner_);
+		//rear_outer_ = new ClickableRearOuter(geom, shader, window);
+		//AddChild(rear_outer_);
+	}
+
+	void ClickableRear::Update(double delta_time, GuiState* gui_state) {
+		ProcessInput();
+		ClickableGuiElem::Update(delta_time, gui_state);
+	}
+
+	void ClickableRear::ProcessInput() {
+		
+	}
+
 	/* Rear Outer: */
 	ClickableRearOuter::ClickableRearOuter(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1, 1), GameObject::textures.GetTexture("ship_segment_rear_outer")) {
 		type_ = ObjType::CLICKABLE_GUI_ELEM;
