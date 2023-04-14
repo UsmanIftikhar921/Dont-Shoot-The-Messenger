@@ -54,6 +54,8 @@ namespace game {
 		GuiElem::Update(delta_time, gui_state);
 		ProcessInput();
 	}
+
+	// You DO NOT want to look at whatever lies within...
 	void CrewStatusPositionElem::ProcessInput() {
 		// If the user presses left click on the button, close the window
 		if (head_->getHover() && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {

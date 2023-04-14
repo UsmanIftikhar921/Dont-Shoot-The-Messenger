@@ -17,11 +17,7 @@ namespace game {
 
 	void ClickableHead::ProcessInput() {
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			// Change to green
-			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
-
-			// Change all others to original color
-			//color_modifier_ = glm::vec3(1.0f, 1.0f, 1.0f);
+			// Functionality Goes Here:
 		}
 	}
 
@@ -40,10 +36,7 @@ namespace game {
 	void ClickableFrontBodyLeft::ProcessInput() {
 		// If the user presses left click on the button, close the window
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			// Change to green
-			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
-
-			// Change all others to original color
+			// Functionality Goes Here:
 		}
 	}
 
@@ -61,10 +54,7 @@ namespace game {
 
 	void ClickableFrontBodyRight::ProcessInput() {
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			// Change to green
-			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
-
-			// Change all others to original color
+			// Functionality Goes Here:
 		}
 	}
 
@@ -82,10 +72,7 @@ namespace game {
 
 	void ClickableLeftTail::ProcessInput() {
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			// Change to green
-			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
-
-			// Change all others to original color
+			// Functionality Goes Here:
 		}
 	}
 
@@ -103,10 +90,7 @@ namespace game {
 
 	void ClickableRightTail::ProcessInput() {
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			// Change to green
-			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
-
-			// Change all others to original color
+			// Functionality Goes Here:
 		}
 	}
 
@@ -126,10 +110,7 @@ namespace game {
 	void ClickableRearOuter::ProcessInput() {
 		// If the user presses left click on the button, close the window
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			// Change to green
-			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
-
-			// Change all others to original color
+			// Functionality Goes Here:
 		}
 	}
 
@@ -149,10 +130,7 @@ namespace game {
 	void ClickableRearInner::ProcessInput() {
 		// If the user presses left click on the button, close the window
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			// Change to green
-			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
-
-			// Change all others to original color
+			// Functionality Goes Here:
 		}
 	}
 
