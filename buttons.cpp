@@ -5,8 +5,8 @@ namespace game {
 
 	/* Close Button */
 
-	CloseButtonGuiElem::CloseButtonGuiElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1,1), GameObject::textures.GetTexture(19)) {
-		type_ = ObjType::GUI_ELEM;
+	CloseButtonGuiElem::CloseButtonGuiElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1, 1), GameObject::textures.GetTexture("gui_close_button")) {
+		type_ = ObjType::CLICKABLE_GUI_ELEM;
 
 		// Set Position to top right corner
 		SetPosition(glm::vec3(0.95f, 0.95f, 0.0f));

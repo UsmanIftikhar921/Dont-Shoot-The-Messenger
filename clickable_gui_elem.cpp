@@ -54,25 +54,25 @@ namespace game {
 	}
 
 	bool ClickableGuiElem::MouseOnGuiElem() {
-		// Get mouse & gui element position
+		// Should work on images with transparent backgrounds
 		glm::vec2 mouse_pos = GetMousePos();
-		glm::vec3 gui_pos = GetPosition();
+		glm::vec2 window_size = GetWindowSize();
 
-		// Define range of values where the GUI Element lies
-		float x_range_min;
-		float x_range_max;
-		float y_range_min;
-		float y_range_max;
+		// Get the position of the gui element
+		
+		glm::vec2 gui_elem_pos = glm::vec2(GetGlobalPosition());
 
-		// Find Range of values on the window where the GUI Element lies
-		x_range_min = gui_pos.x - (scale_.x * aspect_ratio_.x / 2) ;
-		x_range_max = gui_pos.x + (scale_.x * aspect_ratio_.x / 2) ;
-		y_range_min = gui_pos.y - (scale_.y * aspect_ratio_.y / 2) ;
-		y_range_max = gui_pos.y + (scale_.y * aspect_ratio_.y / 2) ;
+		// Get the size of the gui element
+		glm::vec2 gui_elem_size = glm::vec2(aspect_ratio_.x * scale_.x, aspect_ratio_.y * scale_.y);
 
-		// Check if your mouse is hovering on the gui element (assuming it's a rectangle)
-		if (mouse_pos.x > x_range_min && mouse_pos.x < x_range_max && mouse_pos.y > y_range_min && mouse_pos.y < y_range_max) { return true; }
-		else return false;
+		// Check if the mouse is within the gui element
+		if (mouse_pos.x > gui_elem_pos.x - gui_elem_size.x / 2 && mouse_pos.x < gui_elem_pos.x + gui_elem_size.x / 2 &&
+			mouse_pos.y > gui_elem_pos.y - gui_elem_size.y / 2 && mouse_pos.y < gui_elem_pos.y + gui_elem_size.y / 2) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 } // namespace game

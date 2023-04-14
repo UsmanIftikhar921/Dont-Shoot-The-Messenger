@@ -22,7 +22,7 @@ namespace game {
 		
 	protected:
 		void SetTexture(GLuint w, const char* fname);
-#define NUM_TEXTURES 20
+#define NUM_TEXTURES 30
 		GLuint textures_[NUM_TEXTURES];
 		std::unordered_map<std::string, GLuint> texture_map_;
 		std::string resources_directory_g = RESOURCES_DIRECTORY;

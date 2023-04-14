@@ -25,8 +25,21 @@ namespace game {
 		AddGuiElem(quit_button);
 
 		// Create a background gui element
-		BackgroundGuiElem* background = new BackgroundGuiElem(geometry_, shader_, window_, glm::vec2(2.0f, 2.0f));
+		BackgroundGuiElem* background = new BackgroundGuiElem(geometry_, shader_, window_);
 		AddGuiElem(background);
+
+		// Create a crew gui element
+		CrewGuiElem* crew1 = new CrewGuiElem(geometry_, shader_, window_);
+		AddGuiElem(crew1);
+
+		CrewGuiElem* crew2 = new CrewGuiElem(geometry_, shader_, window_);
+		AddGuiElem(crew2);
+
+		CrewGuiElem* crew3 = new CrewGuiElem(geometry_, shader_, window_);
+		AddGuiElem(crew3);
+
+		CrewGuiElem* crew4 = new CrewGuiElem(geometry_, shader_, window_);
+		AddGuiElem(crew4);
 	}
 
 	void Gui::AddGuiElem(GuiElem* elem) {

@@ -34,6 +34,8 @@ set(HDRS
     clickable_gui_elem.h
     buttons.h
     gui_elem_collection.h
+    crew_status_gui_elem.h
+    clickable_ship_segments.h
     task.h
     enemy.h
 )
@@ -68,6 +70,8 @@ set(SRCS
     clickable_gui_elem.cpp
     buttons.cpp
     gui_elem_collection.cpp
+    crew_status_gui_elem.cpp
+    clickable_ship_segments.cpp
     task.cpp
     enemy.cpp
 )

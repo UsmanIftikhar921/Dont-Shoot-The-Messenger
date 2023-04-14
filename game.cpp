@@ -138,6 +138,7 @@ void Game::Setup(void)
 
     // GUI
     gui_ = new Gui(sprite_, &sprite_shader_, window_);
+    gui_->SetZLayer(-50);
         
     // Airship
 	Airship* airship = new Airship(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_);
@@ -242,7 +243,6 @@ void Game::Update(glm::mat4 view_matrix, double delta_time)
     gui_->Render(identity, identity, identity, delta_time);
 
 	// Render game objects
-
 	scene_->Render(view_matrix, identity, identity, delta_time);
 
 }
