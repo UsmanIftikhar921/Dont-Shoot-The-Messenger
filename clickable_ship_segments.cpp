@@ -4,7 +4,7 @@
 namespace game {
 
 	/* Head: */
-	ClickableHead::ClickableHead(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1, 1), GameObject::textures.GetTexture("ship_segment_head")) {
+	ClickableHead::ClickableHead(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(0.5, 0.5), GameObject::textures.GetTexture("ship_segment_head")) {
 		type_ = ObjType::CLICKABLE_GUI_ELEM;
 		SetPosition(glm::vec3(0.075f, 0.09f, 0.0f));
 		SetScale(glm::vec2(0.1, 0.1));

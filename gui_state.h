@@ -4,31 +4,31 @@
 #include <vector>
 
 namespace game {
+    enum Segment {
+        BOW,
+        BOILER,
+        STERN_GUNS,
+        PORT_GUNS,
+        STARBOARD_GUNS,
+        BOW_ENGINE,
+        STERN_ENGINE,
+    };
+
+    struct CrewData {
+        float health;
+        Segment assigned_segment;
+        bool alive;
+    };
+
+    struct FireSelector {
+        bool port;
+        bool starboard;
+        bool stern;
+    };
 	class GuiState {
 
 	public:
         GuiState();
-        enum Segment {
-            BOW,
-            BOILER,
-            STERN_GUNS,
-            PORT_GUNS,
-            STARBOARD_GUNS,
-            BOW_ENGINE,
-            STERN_ENGINE,
-        };
-
-        struct CrewData {
-            float health;
-            Segment assigned_segment;
-            bool alive;
-        };
-
-        struct FireSelector {
-            bool port;
-            bool starboard;
-            bool stern;
-        };
 
         // Getters & Setters
         std::vector<CrewData> GetCrewDataVec() { return crew_data_vec_; }
