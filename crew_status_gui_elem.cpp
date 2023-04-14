@@ -50,8 +50,91 @@ namespace game {
 		AddChild(right_tail_);
 	}
 
-	void CrewStatusPositionElem::Update(double delta_time, GuiState* gui_state) { GuiElem::Update(delta_time, gui_state); }
-	void CrewStatusPositionElem::ProcessInput() {}
+	void CrewStatusPositionElem::Update(double delta_time, GuiState* gui_state) { 
+		GuiElem::Update(delta_time, gui_state);
+		ProcessInput();
+	}
+	void CrewStatusPositionElem::ProcessInput() {
+		// If the user presses left click on the button, close the window
+		if (head_->getHover() && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+			// Change to green
+			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
+
+			// Change all others to original color
+			front_body_left_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			front_body_right_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			rear_->GetRearInner()->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			rear_->GetRearOuter()->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			left_tail_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			right_tail_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+		else if (front_body_left_->getHover() && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+			// Change to green
+			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
+			// Change all others to original color
+			head_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			front_body_right_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			rear_->GetRearInner()->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			rear_->GetRearOuter()->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			left_tail_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			right_tail_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+		else if (front_body_right_->getHover() && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+			// Change to green
+			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
+			// Change all others to original color
+			head_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			front_body_left_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			rear_->GetRearInner()->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			rear_->GetRearOuter()->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			left_tail_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			right_tail_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+		else if (rear_->GetRearInner()->getHover() && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+			// Change to green
+			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
+			// Change all others to original color
+			head_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			front_body_left_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			front_body_right_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			rear_->GetRearOuter()->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			left_tail_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			right_tail_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+		else if (rear_->GetRearOuter()->getHover() && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+			// Change to green
+			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
+			// Change all others to original color
+			head_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			front_body_left_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			front_body_right_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			rear_->GetRearInner()->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			left_tail_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			right_tail_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+		else if (right_tail_->getHover() && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+			// Change to green
+			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
+			// Change all others to original color
+			head_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			front_body_left_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			front_body_right_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			rear_->GetRearInner()->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			rear_->GetRearOuter()->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			left_tail_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+		else if (left_tail_->getHover() && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+			// Change to green
+			color_modifier_ = glm::vec3(0.0f, 1.0f, 0.0f);
+			// Change all others to original color
+			head_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			front_body_left_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			front_body_right_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			rear_->GetRearInner()->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			rear_->GetRearOuter()->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+			right_tail_->SetColorModifier(glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+	}
 
 
 } // namespace game

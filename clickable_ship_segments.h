@@ -57,8 +57,6 @@ namespace game {
 		ClickableRearOuter(Geometry* geom, Shader* shader, GLFWwindow* window);
 		void Update(double delta_time, GuiState* gui_state) override;
 		virtual void ProcessInput() override;
-		bool getOuterHover() { return hover_; }
-		void setOuterHover(bool hover) { hover_ = hover; }
 	};
 
 	/* Rear Inner */
@@ -68,8 +66,6 @@ namespace game {
 		ClickableRearInner(Geometry* geom, Shader* shader, GLFWwindow* window);
 		void Update(double delta_time, GuiState* gui_state) override;
 		virtual void ProcessInput() override;
-		bool getInnerHover() { return hover_; }
-		void setOuterHover(bool hover) { hover_ = hover; }
 	};
 
 	class ClickableRear : public GuiElem {
@@ -78,6 +74,8 @@ namespace game {
 		ClickableRear(Geometry* geom, Shader* shader, GLFWwindow* window);
 		void Update(double delta_time, GuiState* gui_state) override;
 		virtual void ProcessInput() override;
+		ClickableRearOuter* GetRearOuter() { return rear_outer_; }
+		ClickableRearInner* GetRearInner() { return rear_inner_; }
 
 	protected:
 		ClickableRearOuter* rear_outer_;

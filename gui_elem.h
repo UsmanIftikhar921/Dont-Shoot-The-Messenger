@@ -13,6 +13,8 @@ namespace game {
 
 		virtual void ProcessInput() = 0;
 
+		virtual void SetColorModifier(glm::vec3 color) { color_modifier_ = color; }
+
 
 	protected:
 		GLFWwindow* window_;

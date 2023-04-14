@@ -13,6 +13,9 @@ namespace game {
 
 		bool MouseOnGuiElem();
 
+		bool getHover() { return hover_; }
+		void setHover(bool hover) { hover_ = hover; }
+
 	protected:
 		glm::vec2 aspect_ratio_;
 		bool hover_;
