@@ -25,13 +25,12 @@ namespace game {
 		virtual void Update(double delta_time, GuiState* gui_state) override;
 		virtual void ProcessInput() override;
 	private:
-		ClickableHead* head;
-		ClickableFrontBodyLeft* front_body_left;
-		ClickableFrontBodyRight* front_body_right;
-		ClickableLeftTail* left_tail;
-		ClickableRightTail* right_tail;
-		ClickableRearOuter* rear_outer;
-		ClickableRearInner* rear_inner;
+		ClickableHead* head_;
+		ClickableFrontBodyLeft* front_body_left_;
+		ClickableFrontBodyRight* front_body_right_;
+		ClickableLeftTail* left_tail_;
+		ClickableRightTail* right_tail_;
+		ClickableRear* rear_;
 	};
 }
 

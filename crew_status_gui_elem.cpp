@@ -28,28 +28,26 @@ namespace game {
 	CrewStatusPositionElem::CrewStatusPositionElem(Geometry* geom, Shader* shader, GLFWwindow* window) : GuiElem(geom, shader, window) {
 		type_ = ObjType::GUI_ELEM;
 		SetZLayer(-75);
+		SetPosition(glm::vec3(-0.03f, 0.0f, 0.0f));
 
 		// Add Parts
-		head = new ClickableHead(geom, shader, window);
-		AddChild(head);
+		head_ = new ClickableHead(geom, shader, window);
+		AddChild(head_);
 
-		front_body_left = new ClickableFrontBodyLeft(geom, shader, window);
-		AddChild(front_body_left);
+		front_body_left_ = new ClickableFrontBodyLeft(geom, shader, window);
+		AddChild(front_body_left_);
 
-		front_body_right = new ClickableFrontBodyRight(geom, shader, window);
-		AddChild(front_body_right);
+		front_body_right_ = new ClickableFrontBodyRight(geom, shader, window);
+		AddChild(front_body_right_);
 
-		//left_tail = new ClickableLeftTail(geom, shader, window);
-		//AddChild(left_tail);
+		rear_ = new ClickableRear(geom, shader, window);
+		AddChild(rear_);
 
-		//right_tail = new ClickableRightTail(geom, shader, window);
-		//AddChild(right_tail);
+		left_tail_ = new ClickableLeftTail(geom, shader, window);
+		AddChild(left_tail_);
 
-		//rear_outer = new ClickableRearOuter(geom, shader, window);
-		//AddChild(rear_outer);
-
-		//rear_inner = new ClickableRearInner(geom, shader, window);
-		//AddChild(rear_inner);
+		right_tail_ = new ClickableRightTail(geom, shader, window);
+		AddChild(right_tail_);
 	}
 
 	void CrewStatusPositionElem::Update(double delta_time, GuiState* gui_state) { GuiElem::Update(delta_time, gui_state); }

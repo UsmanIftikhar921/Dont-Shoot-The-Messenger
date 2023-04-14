@@ -35,11 +35,11 @@ namespace game {
 		CrewGuiElem* crew2 = new CrewGuiElem(geometry_, shader_, window_);
 		AddGuiElem(crew2);
 
-		//CrewGuiElem* crew3 = new CrewGuiElem(geometry_, shader_, window_);
-		//AddGuiElem(crew3);
+		CrewGuiElem* crew3 = new CrewGuiElem(geometry_, shader_, window_);
+		AddGuiElem(crew3);
 
-		//CrewGuiElem* crew4 = new CrewGuiElem(geometry_, shader_, window_);
-		//AddGuiElem(crew4);
+		CrewGuiElem* crew4 = new CrewGuiElem(geometry_, shader_, window_);
+		AddGuiElem(crew4);
 	}
 
 	void Gui::AddGuiElem(GuiElem* elem) {
