@@ -12,7 +12,7 @@ namespace game {
 	public:
 		Workstation(const glm::vec3& position, Geometry* geom, Shader* shader, Task* task);
 
-		void Update(double delta_time) override;
+		void Update(double delta_time, GuiState* gui_state) override;
 		
 		void AssignCrew(Crew* crew);
 		void UnassignCrew();

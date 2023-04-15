@@ -13,8 +13,8 @@ namespace game {
 		void InitCollisionBox(glm::vec3 position, float collision_radius);
 		void InitCollisionBox(glm::vec3 position, float width, float height);
 
-		void Update(double delta_time) override;
-
+		void Update(double delta_time, GuiState* gui_state) override;
+		
 		void HandleCollisions(void);
 
 		virtual void HandleCollisionEvent(CollisionEvent& event);

@@ -18,7 +18,7 @@ namespace game {
 
 	}
 
-	void Airship::Update(double delta_time)  {	
+	void Airship::Update(double delta_time, GuiState* gui_state)  {	
 		port_engine_->SetSteamPressure(1.0f);
 		starboard_engine_->SetSteamPressure(1.0f);
 
@@ -33,8 +33,12 @@ namespace game {
 		acceleration_ = glm::rotate(acceleration_, rotation_, glm::vec3(0.0f, 0.0f, 1.0f));
 		
 		angular_acceleration_ = port_engine_rotation_factor + starboard_engine_rotation_factor;
-				
-		GameObject::Update(delta_time);
+		
+		std::cout << "Airship:" << std::endl;
+		std::cout << "	Acceleration: " << acceleration_.x << ", " << acceleration_.y << std::endl;
+		std::cout << "	Velocity: " << velocity_.x << ", " << velocity_.y << std::endl << std::endl;
+		
+		GameObject::Update(delta_time, gui_state);
 	}
 
 

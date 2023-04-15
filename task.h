@@ -11,7 +11,7 @@ namespace game {
 	public:
 		Task(const glm::vec3& position, Geometry* geom, Shader* shader, float completion_time_);
 
-		void Update(double delta_time) override;
+		void Update(double delta_time, GuiState* gui_state) override;
 		
 		virtual bool PerformTask(float efficiency_modifier) = 0;
 

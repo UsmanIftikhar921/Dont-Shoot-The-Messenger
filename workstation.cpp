@@ -13,7 +13,7 @@ namespace game {
 		texture_ = GameObject::textures.GetTexture(15);
 	}
 
-	void Workstation::Update(double delta_time)
+	void Workstation::Update(double delta_time, GuiState* gui_state)
 	{
 		if (occupied_) {
 			if (!crew_->GetAlive()) {
@@ -36,7 +36,7 @@ namespace game {
 				}
 			}
 		}
-		GameObject::Update(delta_time);
+		GameObject::Update(delta_time, gui_state);
 	}
 
 	void Workstation::AssignCrew(Crew* crew)

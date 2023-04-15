@@ -121,6 +121,25 @@ void Game::Setup(void)
     // The scene object is the parent of all other objects
 	scene_ = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f));
     
+	/*Player* player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, tex_[0]);
+    player->InitCollisionBox(0.25, sprite_, &sprite_shader_, tex_[3]);
+	scene_->AddChild(player);
+    
+
+
+    // Fidget spinner added as example of heirarchical objects
+	Spinner* spinner = new Spinner(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(4));
+    spinner->SetScale(glm::vec2(0.5f, 0.5f));
+    spinner->SetPosition(glm::vec3(0.5f, 0.5f, 0.0f));
+    // Added as child of player
+    player->AddChild(spinner);*/
+
+    // GUI State
+    gui_state_ = new GuiState();
+
+    // GUI
+    gui_ = new Gui(sprite_, &sprite_shader_, window_);
+    gui_->SetZLayer(-50);
         
     // Airship
 	Airship* airship = new Airship(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_);
@@ -217,12 +236,18 @@ void Game::Update(glm::mat4 view_matrix, double delta_time)
     if (!first_frame) CollisionBox::ProcessCollisions();
 	else first_frame = false;
 
-	// Update game objects
-	scene_->Update(delta_time);
-    
-	// Render game objects
-    glm::mat4 identity = glm::mat4(1.0f);    
+    // Update GUI 
+    gui_->Update(delta_time, gui_state_);
 
+	// Update game objects
+	scene_->Update(delta_time, gui_state_);
+
+    glm::mat4 identity = glm::mat4(1.0f);
+
+    // Render GUI
+    gui_->Render(identity, identity, identity, delta_time);
+
+	// Render game objects
 	scene_->Render(view_matrix, identity, identity, delta_time);
 
 }

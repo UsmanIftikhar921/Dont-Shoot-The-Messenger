@@ -22,7 +22,7 @@ namespace game {
 	public:
 		Enemy(const glm::vec3& positiong, Geometry* geom, Shader* shader, GameObject* target);
 
-		void Update(double delta_time) override;
+		void Update(double delta_time, GuiState* gui_state) override;
 
 		virtual void StateTransitionHandler(double delta_time);
 

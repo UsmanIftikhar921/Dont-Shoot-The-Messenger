@@ -1,0 +1,26 @@
+#include "clickable_ship_segments.h"
+#include "textures.h"
+
+namespace game {
+
+	/* Head: */
+	ClickableHead::ClickableHead(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1, 1), GameObject::textures.GetTexture("ship_segment_head")) {
+		type_ = ObjType::CLICKABLE_GUI_ELEM;
+	}
+
+	void ClickableHead::Update(double delta_time, GuiState* gui_state) {
+		ProcessInput();
+		ClickableGuiElem::Update(delta_time, gui_state);
+	}
+
+	void ClickableHead::ProcessInput() {
+		// If the user presses left click on the button, close the window
+		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+			// Do something
+		}
+	}
+
+	/* Front Body (Left) */
+
+
+} // namespace game

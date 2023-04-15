@@ -10,8 +10,8 @@ namespace game {
 	}
 
 
-	void AirshipSegment::Update(double delta_time) {
-		Collidable::Update(delta_time);
+	void AirshipSegment::Update(double delta_time, GuiState* gui_state) {
+		Collidable::Update(delta_time, gui_state);
 	}
 
 

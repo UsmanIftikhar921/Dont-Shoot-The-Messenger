@@ -9,6 +9,8 @@
 #include "shader.h"
 #include "game_object.h"
 #include "collision_box.h"
+#include "gui.h"
+#include "gui_state.h"
 
 namespace game {
 
@@ -41,6 +43,12 @@ namespace game {
 
             // Shader for rendering sprites in the scene
             Shader sprite_shader_;
+
+            // GUI
+            Gui* gui_;
+
+            // GUI State
+            GuiState* gui_state_;
 
             bool gameover_;
             float gameover_time_;

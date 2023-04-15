@@ -83,11 +83,39 @@ namespace game {
 		SetTexture(textures_[18], (resources_directory_g + std::string("/textures/big_bullet.png")).c_str());
 		texture_map_["big_bullet"] = textures_[18];
 
-		
+		// UI TEXTURES 
+		SetTexture(textures_[19], (resources_directory_g + std::string("/textures/gui/close_button.png")).c_str());
+		texture_map_["gui_close_button"] = textures_[19];
+
+		SetTexture(textures_[20], (resources_directory_g + std::string("/textures/gui/background.png")).c_str());
+		texture_map_["gui_background"] = textures_[20];		
+
+		SetTexture(textures_[21], (resources_directory_g + std::string("/textures/gui/crew_status_bg.png")).c_str());
+		texture_map_["crew_status_bg"] = textures_[21];
+
+		SetTexture(textures_[22], (resources_directory_g + std::string("/textures/gui/crew_status_health.png")).c_str());
+		texture_map_["crew_status_health"] = textures_[22];
+
+		// UI TEXTURES - SHIP SEGMENTS:
+		SetTexture(textures_[23], (resources_directory_g + std::string("/textures/gui/ship_segment_head.png")).c_str());
+		texture_map_["ship_segment_head"] = textures_[23];
+
+		SetTexture(textures_[24], (resources_directory_g + std::string("/textures/gui/ship_segment_front_body.png")).c_str());
+		texture_map_["ship_segment_front_body"] = textures_[24];
+
+		SetTexture(textures_[25], (resources_directory_g + std::string("/textures/gui/ship_segment_left_tail.png")).c_str());
+		texture_map_["ship_segment_left_tail"] = textures_[25];
+
+		SetTexture(textures_[26], (resources_directory_g + std::string("/textures/gui/ship_segment_right_tail.png")).c_str());
+		texture_map_["ship_segment_right_tail"] = textures_[26];
+
+		SetTexture(textures_[27], (resources_directory_g + std::string("/textures/gui/ship_segment_rear_outer.png")).c_str());
+		texture_map_["ship_segment_rear_outer"] = textures_[27];
+
+		SetTexture(textures_[28], (resources_directory_g + std::string("/textures/gui/ship_segment_rear_inner.png")).c_str());
+		texture_map_["ship_segment_rear_inner"] = textures_[28];
 		
 		glBindTexture(GL_TEXTURE_2D, textures_[0]);
-		
-
 	}
 
 	void Textures::SetTexture(GLuint w, const char* fname) {

@@ -14,7 +14,7 @@ namespace game {
 		steam_pressure_ = 1.0f;
 	}
 
-	void Engine::Update(double delta_time)
+	void Engine::Update(double delta_time, GuiState* gui_state)
 	{
 		CalculateCurrentMaxPower(steam_pressure_);
 		CalculatePower();
