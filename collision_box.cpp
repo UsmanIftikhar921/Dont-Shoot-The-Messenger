@@ -158,7 +158,7 @@ namespace game {
 		type_ = ObjType::COLLISION_BOX;
 		shape_ = CollisionShape::CIRCLE;
 
-		texture_ = GameObject::textures.GetTexture(3);
+		//texture_ = GameObject::textures.GetTexture(3);
 		SetZLayer(-3);
 		
 
@@ -178,7 +178,7 @@ namespace game {
 		type_ = ObjType::COLLISION_BOX;
 		shape_ = CollisionShape::RECTANGLE;
 
-		texture_ = GameObject::textures.GetTexture(17);
+		//texture_ = GameObject::textures.GetTexture(17);
 		SetZLayer(-3);
 
 
@@ -265,6 +265,8 @@ namespace game {
 
 	void CollisionBox::CheckCollision(CollisionBox* other) {
 		bool collision_detected = false;
+
+		if (destroy_ || other->destroy_) return;
 				
 		if (shape_ == other->GetShape()) {
 			if (shape_ == CollisionShape::CIRCLE) {

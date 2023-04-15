@@ -4,11 +4,12 @@ namespace game {
 	Crew::Crew(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture) : GameObject(position, geom, shader, texture) {
 		type_ = ObjType::CREW;
 		z_layer_ = 5;
-		SetScale(glm::vec2(0.1f, 0.1f));
+		SetScale(glm::vec2(0.2f, 0.2f));
 
 		alive_ = true;
 		health_ = 1.0f;
 		efficiency_ = 1.0f;
+		eff_multiplier_ = 1.0f;
 
 		activity_state_ = ActivityState::IDLE;
 
@@ -27,7 +28,7 @@ namespace game {
 			color_modifier_ = glm::vec3(health_);
 
 			if (activity_state_ == ActivityState::MOVING) {
-				t_ += speed_ * efficiency_ * delta_time;
+				t_ += speed_ * efficiency_ * eff_multiplier_ * delta_time;
 				if (t_ >= 1.0f) {
 					t_ = 1.0f;
 					activity_state_ = ActivityState::DOING_TASK;

@@ -35,6 +35,8 @@ GameObject::GameObject(const glm::vec3 &position, Geometry *geom, Shader *shader
 	angular_velocity_ = 0.0f;
 	angular_acceleration_ = 0.0f;
 	max_angular_velocity_ = 10.0f;
+
+	destroy_ = false;
 	
 
 
@@ -57,6 +59,13 @@ GameObject::~GameObject() {
 
 
 void GameObject::Update(double delta_time, GuiState* gui_state) {
+
+	if (destroy_) {
+		position_ = glm::vec3(999.0f, 999.0f, 999.0f);
+		velocity_ = glm::vec3(0.0f, 0.0f, 0.0f);
+		acceleration_ = glm::vec3(0.0f, 0.0f, 0.0f);
+		return;
+	}
 
 	// Apply acceleration to velocity
 	if (glm::length(velocity_ + (acceleration_ * (float)delta_time)) < max_velocity_) {
@@ -82,6 +91,9 @@ void GameObject::Update(double delta_time, GuiState* gui_state) {
     
 	// Update all children
 	for (int i = 0; i < children_.size(); i++) {
+		if (destroy_) {
+			children_[i]->Destroy();
+		}
 		children_[i]->Update(delta_time, gui_state);
 		children_[i]->SetParentVelocity(global_velocity_);
 	}
@@ -90,6 +102,10 @@ void GameObject::Update(double delta_time, GuiState* gui_state) {
 
 
 void GameObject::Render(glm::mat4 view_matrix, glm::mat4 parent_matrix, glm::mat4 parent_scale_matrix, double current_time) {
+
+	if (destroy_) {
+		return;
+	}
 
     GenerateTransformationMatrix();
 	parent_matrix_ = parent_matrix;

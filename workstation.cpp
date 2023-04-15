@@ -34,7 +34,7 @@ namespace game {
 			}
 			else {
 				if (task_object_->GetReady() && crew_->GetActivityState() == ActivityState::DOING_TASK) {
-					if (!disable_) task_object_->PerformTask(crew_->GetHealth());
+					if (!disable_) task_object_->PerformTask(crew_->GetHealth() * crew_->GetEffMultiplier());
 				}
 			}
 		}

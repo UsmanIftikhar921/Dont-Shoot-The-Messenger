@@ -8,6 +8,7 @@ namespace game {
 		gun_ = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, false);
 		gun_->SetZLayer(-1);
 		gun_->SetRotation(glm::pi<float>() / 2);
+		gun_->SetScale(glm::vec2(0.4f, 0.4f));
 		AddChild(gun_);
 	}
 

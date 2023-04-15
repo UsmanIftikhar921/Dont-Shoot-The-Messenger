@@ -6,18 +6,25 @@ namespace game {
 		texture_ = GameObject::textures.GetTexture(0);
 		max_velocity_ = 8.0f;
 		state_ = HOME_IN;
+		health_ = 4.0f;
+
+		type_ = ENEMY;
 
 
 		// debugging
-		display_debug_pos_ = true;
+		display_debug_pos_ = false;
 		debug_object_ = new GameObject(position, geom, shader, GameObject::textures.GetTexture(3));
-		GameObject::GetScene()->AddChild(debug_object_);
-		debug_pos_texture_ = GameObject::textures.GetTexture(3);
 
 	}
 
 
 	void Enemy::Update(double delta_time, GuiState* gui_state) {
+		if (health_ <= 0.0f) {
+			destroy_ = true;
+			std::cout << "Enemy destroyed! You Win!" << std::endl;
+
+		}
+
 		if (glm::length(velocity_) > 0.0f) {
 			float new_rotation = glm::atan(-velocity_.x, velocity_.y);
 
@@ -254,8 +261,10 @@ namespace game {
 	void Enemy::HandleNewCollisionEvent(CollisionEvent& event) {
 		switch (event.type) {
 		case BULLET_FRIENDLY:
+			health_ -= 0.1f;
 			break;
 		case BIGBULLET_FRIENDLY:
+			health_ -= 0.2f;
 			break;
 		}
 	}

@@ -25,7 +25,22 @@ namespace game {
 
 // Update function for moving the player object around
 void Bullet::Update(double delta_time, GuiState* gui_state) {
-	GameObject::Update(delta_time, gui_state);
+	Collidable::Update(delta_time, gui_state);
+}
+
+void Bullet::HandleCollisionEvent(CollisionEvent& event) {
+	switch (event.type) {
+	case AIRSHIP_SEGMENT:
+		if (type_ == BULLET_ENEMY) {
+			destroy_ = true;
+		}
+		break;
+	case ENEMY:
+		if (type_ == BULLET_FRIENDLY) {
+			destroy_ = true;
+		}
+		break;
+	}
 }
 
 } // namespace game

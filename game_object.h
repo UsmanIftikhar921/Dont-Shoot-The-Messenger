@@ -40,6 +40,8 @@ namespace game {
         CLICKABLE_GUI_ELEM,
         WORKSTATION,
         TASK,
+        ENEMY,
+        POWERUP,
     };
     
     class GameObject {
@@ -48,6 +50,8 @@ namespace game {
             // Constructor
             GameObject(const glm::vec3& position, Geometry* geom = NULL, Shader* shader = NULL, GLuint texture = NULL);
             ~GameObject();
+
+            inline void Destroy(void) { destroy_ = true; }
 
             // Update the GameObject's state. Can be overriden in children
             virtual void Update(double delta_time, GuiState* gui_state);
@@ -73,6 +77,8 @@ namespace game {
 
             glm::vec3 GetBearing(void);
 			glm::vec3 GetGlobalBearing(void);
+
+            bool GetDestroy(void) { return destroy_; }
             
             inline glm::vec3 GetGlobalPosition(void) { return global_position_; }
 			inline float GetGlobalRotation(void) { return global_rotation_; }
@@ -129,6 +135,8 @@ namespace game {
 
 
         protected:
+
+            bool destroy_;
             
             // Object's Transform Variables
             glm::vec3 position_;
@@ -202,6 +210,8 @@ namespace game {
             static GameObject* GetScene(void) {
 				return id_map_[0];
             }
+
+
 
             
             

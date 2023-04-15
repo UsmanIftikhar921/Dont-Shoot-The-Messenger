@@ -25,7 +25,6 @@ namespace game {
 		void SetMaxPower(float max_power) { max_power_ = max_power; }
 		void SetTargetPower(float target_power) { target_power_ = target_power; }
 		void SetRotationMultiplier(float rotation_multiplier) { rotation_multiplier_ = rotation_multiplier; }
-		void SetSteamPressure(float steam_pressure) { steam_pressure_ = steam_pressure; }
 		
 
 
@@ -43,7 +42,6 @@ namespace game {
 		float rotation_multiplier_;
 		float rotation_factor_;
 
-		float steam_pressure_;
 		
 		
 	};

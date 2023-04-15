@@ -133,7 +133,7 @@ namespace game {
 		texture_map_["ship_status_power_selector_red"] = textures_[33];
 
 		// UI TEXTURES - Powerups
-		SetTexture(textures_[34], (resources_directory_g + std::string("/textures/gui/powerup.png")).c_str());
+		SetTexture(textures_[34], (resources_directory_g + std::string("/textures/powerup.png")).c_str());
 		texture_map_["powerup"] = textures_[34];
 		
 		glBindTexture(GL_TEXTURE_2D, textures_[0]);

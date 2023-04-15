@@ -29,6 +29,8 @@ namespace game {
 
 		bool GetDisable() { return disable_; }
 		void SetDisable(bool disable);
+
+		bool powerup_pickup;
 		
 	protected:
 		// Crew 

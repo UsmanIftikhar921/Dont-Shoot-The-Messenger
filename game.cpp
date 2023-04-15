@@ -19,6 +19,7 @@
 #include "gun.h"
 #include "enemy.h"
 #include "flanker.h"
+#include "powerup.h"
 
 
 namespace game {
@@ -151,6 +152,11 @@ void Game::Setup(void)
     Flanker* enemy = new Flanker(glm::vec3(-3.0f, -3.0f, 0.0f), sprite_, &sprite_shader_, player_);
     enemy->InitCollisionBox(glm::vec3(0.0f, 0.0f, 0.0f), 0.5f);
     scene_->AddChild(enemy);
+
+    Powerup* powerup = new Powerup(glm::vec3(3.0f, 3.0f, 0.0f), sprite_, &sprite_shader_);
+    powerup->InitCollisionBox(glm::vec3(0.0f, 0.0f, 0.0f), 0.5f);
+    powerup->SetScale(glm::vec2(0.5f, 0.5f));
+    scene_->AddChild(powerup);
 
     GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
     background->SetZLayer(100);

@@ -27,6 +27,9 @@ namespace game {
 		inline void SetHealth(float health) { health_ = health; }
 		inline void SetEfficiency(float efficiency) { efficiency_ = efficiency; }
 
+		inline void SetEffMultiplier(float multiplier) { eff_multiplier_ = multiplier; }
+		inline float GetEffMultiplier() { return eff_multiplier_; }
+
 		
 
 		void SetDestination(glm::vec3 destination);
@@ -39,6 +42,9 @@ namespace game {
 		bool alive_;
 		float health_;
 		float efficiency_;
+
+		float eff_multiplier_;
+
 		ActivityState activity_state_;
 
 		glm::vec3 destination_;

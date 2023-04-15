@@ -11,6 +11,8 @@ namespace game {
 		max_velocity_ = 5.0f;
 		max_angular_velocity_ = 0.5f;
 
+		timer_ = 0.0f;
+
 		InitSegments();
 		InitCrew();
 
@@ -19,8 +21,13 @@ namespace game {
 	}
 
 	void Airship::Update(double delta_time, GuiState* gui_state)  {	
-		port_engine_->SetSteamPressure(1.0f);
-		starboard_engine_->SetSteamPressure(1.0f);
+
+		std::cout << "Port engine power: " << gui_state->GetPortEnginePower() << std::endl;
+		std::cout << "Starboard engine power: " << gui_state->GetStarboardEnginePower() << std::endl;
+
+
+		port_engine_->SetTargetPower(gui_state->GetPortEnginePower() * 2.0f);
+		starboard_engine_->SetTargetPower(gui_state->GetStarboardEnginePower() * 2.0f);
 
 		float port_engine_power = port_engine_->GetPower();
 		float starboard_engine_power = starboard_engine_->GetPower();
@@ -57,6 +64,15 @@ namespace game {
 
 		std::vector<CrewData> crew_data = gui_state->GetCrewDataVec();
 
+		// print CrewData in crew_data vec
+		//std::cout << "Crew data vec size: " << crew_data.size() << std::endl;
+		//for (int i = 0; i < crew_data.size(); i++) {
+		//	std::cout << "	Crew member " << i << " health: " << crew_data[i].health << std::endl;
+		//	std::cout << "	Crew member " << i << " alive: " << crew_data[i].alive << std::endl;
+		//	std::cout << "	Crew member " << i << " assigned segment: " << crew_data[i].assigned_segment << std::endl;
+		//}
+
+
 		if (crew_data.size() != crew_members_.size()) {
 			// Crew has been added or removed
 			// Update crew_members_ vector
@@ -76,50 +92,88 @@ namespace game {
 			// Update health of crew members
 			for (int i = 0; i < crew_data.size(); i++) {
 				crew_data[i].health = crew_members_[i]->GetHealth();
+				crew_data[i].alive = crew_members_[i]->GetHealth() > 0.0f;
 			}
 		}
 
 		for (int i = 0; i < crew_members_.size(); i++) {
+			Segment assigned_segment = crew_data[i].assigned_segment;
+
+			// Upate crew member health
 			CrewData data;
 			data.health = crew_members_[i]->GetHealth();
 			data.alive = crew_members_[i]->GetHealth() > 0.0f;
+			data.assigned_segment = assigned_segment;
 
-			switch (data.assigned_segment) {
-				case Segment::PORT_GUNS:
+			crew_data[i] = data;
+
+			switch (assigned_segment) {
+				case UNASSIGNED:
+					// Do nothing
+					break;
+
+				case PORT_GUNS:
 					if (!port_guns_->HasCrew(crew_members_[i]))
 					port_guns_->AssignCrew(crew_members_[i]);
 					break;
 
-				case Segment::STARBOARD_GUNS:
-					if (!starboard_guns_->HasCrew(crew_members_[i]))
-					starboard_guns_->AssignCrew(crew_members_[i]);
+				case STARBOARD_GUNS:
+					if (!starboard_guns_->HasCrew(crew_members_[i])) {
+						starboard_guns_->AssignCrew(crew_members_[i]);
+					}
 					break;
 
-				case Segment::STERN_GUNS:
+				case BOILER: // Stern guns and boiler are flipped, gui code is spaghettie, this works leave me alone
 					if (!stern_guns_->HasCrew(crew_members_[i]))
 					stern_guns_->AssignCrew(crew_members_[i]);
 					break;
 
-				case Segment::PORT_ENGINE:
+				case PORT_ENGINE:
 					if (!port_engine_->HasCrew(crew_members_[i]))
 					port_engine_->AssignCrew(crew_members_[i]);
 					break;
 
-				case Segment::STARBOARD_ENGINE:
+				case STARBOARD_ENGINE:
 					if (!starboard_engine_->HasCrew(crew_members_[i]))
 					starboard_engine_->AssignCrew(crew_members_[i]);
 					break;
 
-				case Segment::BOW:
+				case BOW:
 					if (!bow_guns_->HasCrew(crew_members_[i]))
 					bow_guns_->AssignCrew(crew_members_[i]);
 					break;
 
-				case Segment::BOILER: 
+				case STERN_GUNS: // Stern guns and boiler are flipped, gui code is spaghettie, this works leave me alone
 					if (!boiler_room_->HasCrew(crew_members_[i]))
 						boiler_room_->AssignCrew(crew_members_[i]);
 					break;
 			}
+		}
+
+		gui_state->SetCrewDataVec(crew_data);
+
+
+
+		// Check if any segments have powerups
+		for (int i = 0; i < segments_.size(); i++) {
+			if (segments_[i]->powerup_pickup) {
+				segments_[i]->powerup_pickup = false;
+				timer_ = 10.0f;
+
+				for (int j = 0; j < crew_members_.size(); j++) {
+					crew_members_[i]->SetEffMultiplier(2.0f);
+				}
+			}
+		}
+
+		if (timer_ > 0.0f) {
+			timer_ -= delta_time;
+		}
+		else {
+			for (int i = 0; i < crew_members_.size(); i++) {
+				crew_members_[i]->SetEffMultiplier(1.0f);
+			}
+			timer_ = 0.0f;
 		}
 		
 		GameObject::Update(delta_time, gui_state);
@@ -146,19 +200,19 @@ namespace game {
 		crew_->SetScale(glm::vec2(0.03f, 0.03f));
 		crew_members_.push_back(crew_);
 		AddChild(crew_);
-		stern_guns_->AssignCrew(crew_);
+		//stern_guns_->AssignCrew(crew_);
 
 		Crew* crew_2 = new Crew(position_, geom, shader, GameObject::textures.GetTexture(12));
 		crew_2->SetScale(glm::vec2(0.03f, 0.03f));
 		crew_members_.push_back(crew_2);
 		AddChild(crew_2);
-		port_guns_->AssignCrew(crew_2);
+		//port_guns_->AssignCrew(crew_2);
 
 		Crew* crew_3 = new Crew(position_, geom, shader, GameObject::textures.GetTexture(12));
 		crew_3->SetScale(glm::vec2(0.03f, 0.03f));
 		crew_members_.push_back(crew_3);
 		AddChild(crew_3);
-		starboard_guns_->AssignCrew(crew_3);
+		//starboard_guns_->AssignCrew(crew_3);
 
 	}
 

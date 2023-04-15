@@ -19,6 +19,10 @@ namespace game {
 
 	void Collidable::Update(double delta_time, GuiState* gui_state) {		
 		dbg_render_red_ = false;
+		if (destroy_) {
+			collision_box_->SetPosition(glm::vec3(1000.0f, 1000.0f, 1000.0f));
+			collision_box_->Destroy();
+		}
 		
 		GameObject::Update(delta_time, gui_state);
 

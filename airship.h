@@ -44,6 +44,8 @@ namespace game {
 		Engine* starboard_engine_;
 		AirshipSegment* boiler_room_;
 
+		float timer_;
+
 		std::vector<AirshipSegment*> segments_;
 
 		std::vector<Crew*> crew_members_;

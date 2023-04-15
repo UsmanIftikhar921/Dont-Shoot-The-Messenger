@@ -24,7 +24,13 @@ namespace game {
 		crew_gui_num_ = NumOfCrewGuiElems;
 		NumOfCrewGuiElems++;
 	}
-	void CrewStatusHealthElem::Update(double delta_time, GuiState* gui_state) { GuiElem::Update(delta_time, gui_state); }
+	void CrewStatusHealthElem::Update(double delta_time, GuiState* gui_state) { 
+		// Set colour modifier based on health
+		CrewData crew_data = gui_state->GetCrewDataVec()[crew_gui_num_];
+		float health = crew_data.health;
+		SetColorModifier(glm::vec3(health));
+		GuiElem::Update(delta_time, gui_state); 
+	}
 	void CrewStatusHealthElem::ProcessInput(GuiState* gui_state) {}
 
 	/* Crew Position: */

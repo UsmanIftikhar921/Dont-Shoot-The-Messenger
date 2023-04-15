@@ -17,6 +17,8 @@ namespace game {
 
             inline float GetSpeed(void) { return speed_; }
 
+            void HandleCollisionEvent(CollisionEvent& event) override;
+
         private:
             float speed_;
 

@@ -64,6 +64,8 @@ namespace game {
 
 		EnemyState state_;
 
+		float health_;
+
 		// Orbit state variables
 		float orbit_period_;
 		float orbit_radius_;

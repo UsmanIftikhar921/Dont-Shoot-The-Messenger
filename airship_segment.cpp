@@ -7,6 +7,7 @@ namespace game {
 		num_workstations_ = 1;
 		health_ = 1.0f;
 		disable_ = false;
+		powerup_pickup = false;
 
 	}
 
@@ -43,9 +44,12 @@ namespace game {
 	}
 
 	bool AirshipSegment::HasCrew(Crew* crew) {
+		if (num_workstations_ == 0) return false;
+		if (crew == nullptr) return false;
 		int id = crew->GetID();
+
 		for (int i = 0; i < workstations_.size(); i++) {
-			if (workstations_[i]->GetCrew()->GetID() == id) {
+			if (workstations_[i]->IsOccupied() && workstations_[i]->GetCrew()->GetID() == id) {
 				return true;
 			}
 		}
@@ -87,6 +91,10 @@ namespace game {
 		case BIGBULLET_ENEMY:
 			dbg_render_red_ = true;
 			break;
+
+		case POWERUP:
+			powerup_pickup = true;
+			break;
 		}
 	}
 
@@ -105,7 +113,7 @@ namespace game {
 
 		case BULLET_ENEMY:
 			std::cout << "SEGMENT HIT" << std::endl;
-			health_ -= 0.1f;
+			health_ -= 0.05f;
 			for (int i = 0; i < workstations_.size(); i++) {
 				if (workstations_[i]->IsOccupied()) {
 					Crew* c = workstations_[i]->GetCrew();
