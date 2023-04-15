@@ -1,7 +1,7 @@
 #include "flanker.h"
 
 namespace game {
-	Flanker::Flanker(const glm::vec3& positiong, Geometry* geom, Shader* shader, GameObject* target) : Enemy(positiong, geom, shader, target) {
+	Flanker::Flanker(const glm::vec3& positiong, Geometry* geom, Shader* shader, GLuint texture, GameObject* target) : Enemy(positiong, geom, shader, texture, target) {
 
 
 		EnterOrbitState(1.5f, 5.0f, glm::pi<float>(), 2.0*glm::pi<float>());
@@ -32,7 +32,6 @@ namespace game {
 
 		case ORBIT:
 			if (orbit_completed_ && orbit_enemy_arrived_) {
-				std::cout << "Flanker: Orbit completed, entering fire state" << std::endl;
 				//gun_->SetRotation(glm::atan(target_->GetPosition().y - position_.y, target_->GetPosition().x - position_.x) - GetGlobalRotation());
 				EnterFireState();
 			}
@@ -43,7 +42,6 @@ namespace game {
 
 		case FIRE:
 			if (shots_fired_ >= total_shots_) {
-				std::cout << "Flanker: Shots fired, entering orbit state" << std::endl;
 				EnterOrbitState(1.5f, 5.0f, glm::mod(orbit_final_angle_, 2.0f*glm::pi<float>()), glm::mod(orbit_final_angle_, 2.0f * glm::pi<float>()) + glm::pi<float>());
 			}
 			break;

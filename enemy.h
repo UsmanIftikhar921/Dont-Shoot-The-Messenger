@@ -20,7 +20,7 @@ namespace game {
 
 	class Enemy : public Collidable {
 	public:
-		Enemy(const glm::vec3& positiong, Geometry* geom, Shader* shader, GameObject* target);
+		Enemy(const glm::vec3& positiong, Geometry* geom, Shader* shader, GLuint texture, GameObject* target);
 
 		void Update(double delta_time, GuiState* gui_state) override;
 
@@ -84,6 +84,8 @@ namespace game {
 		bool display_debug_pos_;
 		GameObject* debug_object_;
 		GLuint debug_pos_texture_;
+
+		static int num_enemies_;
 
 
 	};

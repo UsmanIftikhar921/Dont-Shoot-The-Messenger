@@ -1,7 +1,10 @@
 Game Mechanics
+Loss Condition: All Crewmembers are dead
+Win Condition: Defeat all three enemies
 
 Enemies
-Flanker.h
+Flanker.h performs chasing and orbiting behaviours
+3 flankers, each with a different texture
 
 
 Weapons:
@@ -9,6 +12,8 @@ Basic cannons on port and starboard of ship
 Higher spread, more damaging cannon at stern of ship
 
 Collectible items
+Powerup.h 
+Powerup pickups temporarily boost crew efficiency
 
 Movement and transformations
 Physical movement: Airship and enemies
@@ -23,7 +28,7 @@ as easily as adding a case for the desired type to an overriden HandleCollisionE
 
 
 UI: 
-Gui, GuiElement, GuiState. Reacts to state ofand allows for control of airship and crew
+Gui, GuiElement, GuiState. Reacts to state of and allows for control of airship and crew
 
 
 Advanced method:

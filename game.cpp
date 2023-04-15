@@ -154,11 +154,19 @@ void Game::Setup(void)
     scene_->AddChild(airship);
 	player_ = airship;
 
-    Flanker* enemy = new Flanker(glm::vec3(-3.0f, -3.0f, 0.0f), sprite_, &sprite_shader_, player_);
+    Flanker* enemy = new Flanker(glm::vec3(-13.0f, -23.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(0), player_);
     enemy->InitCollisionBox(glm::vec3(0.0f, 0.0f, 0.0f), 0.5f);
     scene_->AddChild(enemy);
 
-    Powerup* powerup = new Powerup(glm::vec3(3.0f, 3.0f, 0.0f), sprite_, &sprite_shader_);
+    Flanker* flanker2 = new Flanker(glm::vec3(130.0f, -23.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(2), player_);
+    flanker2->InitCollisionBox(glm::vec3(0.0f, 0.0f, 0.0f), 0.5f);
+    scene_->AddChild(flanker2);
+
+    Flanker* flanker3 = new Flanker(glm::vec3(50.0f, 33.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(35), player_);
+    flanker3->InitCollisionBox(glm::vec3(0.0f, 0.0f, 0.0f), 0.5f);
+    scene_->AddChild(flanker3);
+
+    Powerup* powerup = new Powerup(glm::vec3(0.0f,5.0f, 0.0f), sprite_, &sprite_shader_);
     powerup->InitCollisionBox(glm::vec3(0.0f, 0.0f, 0.0f), 0.5f);
     powerup->SetScale(glm::vec2(0.5f, 0.5f));
     scene_->AddChild(powerup);

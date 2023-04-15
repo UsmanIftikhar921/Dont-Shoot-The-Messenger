@@ -1,12 +1,15 @@
 #include "enemy.h"
 
 namespace game {
-	Enemy::Enemy(const glm::vec3& position, Geometry* geom, Shader* shader, GameObject* target) : Collidable(position, geom, shader, NULL) {
+	int Enemy::num_enemies_ = 0;
+
+	Enemy::Enemy(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture, GameObject* target) : Collidable(position, geom, shader, texture) {
 		target_ = target;
-		texture_ = GameObject::textures.GetTexture(0);
 		max_velocity_ = 8.0f;
 		state_ = HOME_IN;
-		health_ = 4.0f;
+		health_ = 2.0f;
+
+		num_enemies_ += 1;
 
 		type_ = ENEMY;
 
@@ -19,11 +22,23 @@ namespace game {
 
 
 	void Enemy::Update(double delta_time, GuiState* gui_state) {
+		if (destroy_) {
+			return;
+		}
 		if (health_ <= 0.0f) {
 			destroy_ = true;
-			std::cout << "Enemy destroyed! You Win!" << std::endl;
+			num_enemies_ -= 1;
+			if (num_enemies_ == 0) {
+				// Game over
+				std::cout << "Game over, you win!" << std::endl;
+				exit(0);
+			}
+
+
 
 		}
+
+
 
 		if (glm::length(velocity_) > 0.0f) {
 			float new_rotation = glm::atan(-velocity_.x, velocity_.y);

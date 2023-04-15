@@ -16,15 +16,13 @@ namespace game {
 		InitSegments();
 		InitCrew();
 
+		powerup_ = false;
+
 
 
 	}
 
 	void Airship::Update(double delta_time, GuiState* gui_state)  {	
-
-		std::cout << "Port engine power: " << gui_state->GetPortEnginePower() << std::endl;
-		std::cout << "Starboard engine power: " << gui_state->GetStarboardEnginePower() << std::endl;
-
 
 		port_engine_->SetTargetPower(gui_state->GetPortEnginePower() * 2.0f);
 		starboard_engine_->SetTargetPower(gui_state->GetStarboardEnginePower() * 2.0f);
@@ -160,24 +158,27 @@ namespace game {
 		// Check if any segments have powerups
 		for (int i = 0; i < segments_.size(); i++) {
 			if (segments_[i]->powerup_pickup) {
+				powerup_ = true;
 				segments_[i]->powerup_pickup = false;
 				timer_ = 10.0f;
 
 				for (int j = 0; j < crew_members_.size(); j++) {
-					crew_members_[i]->SetEffMultiplier(2.0f);
+					crew_members_[j]->SetEffMultiplier(2.0f);
+				}
+				break;
+			}
+		}
+
+		if (powerup_ = true) {
+			timer_ -= delta_time;
+			if (timer_ <= 0.0f) {
+				powerup_ = false;
+				for (int i = 0; i < crew_members_.size(); i++) {
+					crew_members_[i]->SetEffMultiplier(1.0f);
 				}
 			}
 		}
 
-		if (timer_ > 0.0f) {
-			timer_ -= delta_time;
-		}
-		else {
-			for (int i = 0; i < crew_members_.size(); i++) {
-				crew_members_[i]->SetEffMultiplier(1.0f);
-			}
-			timer_ = 0.0f;
-		}
 		
 		GameObject::Update(delta_time, gui_state);
 	}

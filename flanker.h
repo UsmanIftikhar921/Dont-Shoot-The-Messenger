@@ -9,7 +9,7 @@ namespace game {
 
 	class Flanker : public Enemy {
 	public:
-		Flanker(const glm::vec3& positiong, Geometry* geom, Shader* shader, GameObject* target);
+		Flanker(const glm::vec3& positiong, Geometry* geom, Shader* shader, GLuint Texture, GameObject* target);
 
 		void Update(double delta_time, GuiState* gui_state) override;
 

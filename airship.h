@@ -45,6 +45,7 @@ namespace game {
 		AirshipSegment* boiler_room_;
 
 		float timer_;
+		bool powerup_;
 
 		std::vector<AirshipSegment*> segments_;
 
