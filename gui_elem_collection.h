@@ -45,6 +45,46 @@ namespace game {
 		BottomGreenElem* bottom_green_elem_;
 	};
 
+	/* Port Engine Power: */
+	class PortEnginePowerGuiElem : public GuiElem {
+	public:
+		PortEnginePowerGuiElem(Geometry* geom, Shader* shader, GLFWwindow* window);
+		virtual void Update(double delta_time, GuiState* gui_state) override;
+		virtual void ProcessInput(GuiState* gui_state) override;
+
+	private:
+		EnginePowerGuiBackground* engine_power_gui_background_;
+
+		TopGreenElem* top_green_elem_;
+		TopOrangeElem* top_orange_elem_;
+		TopRedElem* top_red_elem_;
+		GreyElem* grey_elem_;
+		BottomRedElem* bottom_red_elem_;
+		BottomOrangeElem* bottom_orange_elem_;
+		BottomGreenElem* bottom_green_elem_;
+	};
+
+	/* Starboard Engine Power: */
+	class StarboardEnginePowerGuiElem : public GuiElem {
+	public:
+		StarboardEnginePowerGuiElem(Geometry* geom, Shader* shader, GLFWwindow* window);
+		virtual void Update(double delta_time, GuiState* gui_state) override;
+		virtual void ProcessInput(GuiState* gui_state) override;
+
+	private:
+		EnginePowerGuiBackground* engine_power_gui_background_;
+
+		TopGreenElem* top_green_elem_;
+		TopOrangeElem* top_orange_elem_;
+		TopRedElem* top_red_elem_;
+		GreyElem* grey_elem_;
+		BottomRedElem* bottom_red_elem_;
+		BottomOrangeElem* bottom_orange_elem_;
+		BottomGreenElem* bottom_green_elem_;
+	};
+
+
+
 }
 
 #endif

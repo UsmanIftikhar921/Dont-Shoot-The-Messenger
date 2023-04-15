@@ -14,7 +14,7 @@ namespace game {
 	void EnginePowerGuiBackground::ProcessInput(GuiState* gui_state) {}
 
 	/* Top Green: */
-	TopGreenElem::TopGreenElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(0.5, 0.5), GameObject::textures.GetTexture("ship_status_power_selector_green")) {
+	TopGreenElem::TopGreenElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1.0, 1.0), GameObject::textures.GetTexture("ship_status_power_selector_green")) {
 		type_ = ObjType::CLICKABLE_GUI_ELEM;
 		SetPosition(glm::vec3(0.001f, 0.118f, 0.0f));
 		SetScale(glm::vec2(0.038, 0.036));
@@ -27,13 +27,14 @@ namespace game {
 	}
 
 	void TopGreenElem::ProcessInput(GuiState* gui_state) {
+
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
 			// Functionality Goes Here:
 		}
 	}
 
 	/* Top Orange */
-	TopOrangeElem::TopOrangeElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(0.5, 0.5), GameObject::textures.GetTexture("ship_status_power_selector_orange")) {
+	TopOrangeElem::TopOrangeElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1, 1), GameObject::textures.GetTexture("ship_status_power_selector_orange")) {
 		type_ = ObjType::CLICKABLE_GUI_ELEM;
 		SetPosition(glm::vec3(0.001f, 0.077f, 0.0f));
 		SetScale(glm::vec2(0.038, 0.036));
@@ -53,7 +54,7 @@ namespace game {
 	}
 
 	/* Top Red: */
-	TopRedElem::TopRedElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(0.5, 0.5), GameObject::textures.GetTexture("ship_status_power_selector_red")) {
+	TopRedElem::TopRedElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1,1), GameObject::textures.GetTexture("ship_status_power_selector_red")) {
 		type_ = ObjType::CLICKABLE_GUI_ELEM;
 		SetPosition(glm::vec3(0.001f, 0.0375f, 0.0f));
 		SetScale(glm::vec2(0.038, 0.036));
@@ -72,7 +73,7 @@ namespace game {
 	}
 
 	/* Grey: */
-	GreyElem::GreyElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(0.5, 0.5), GameObject::textures.GetTexture("ship_status_power_selector_grey")) {
+	GreyElem::GreyElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1,1), GameObject::textures.GetTexture("ship_status_power_selector_grey")) {
 		type_ = ObjType::CLICKABLE_GUI_ELEM;
 		SetPosition(glm::vec3(0.001f, 0.0f, 0.0f));
 		SetScale(glm::vec2(0.038, 0.036));
@@ -91,7 +92,7 @@ namespace game {
 	}
 
 	/* Bottom Red: */
-	BottomRedElem::BottomRedElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(0.5, 0.5), GameObject::textures.GetTexture("ship_status_power_selector_red")) {
+	BottomRedElem::BottomRedElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1,1), GameObject::textures.GetTexture("ship_status_power_selector_red")) {
 		type_ = ObjType::CLICKABLE_GUI_ELEM;
 		SetPosition(glm::vec3(0.001f, -0.0375f, 0.0f));
 		SetScale(glm::vec2(0.038, 0.036));
@@ -110,7 +111,7 @@ namespace game {
 	}
 
 	/* Bottom Orange: */
-	BottomOrangeElem::BottomOrangeElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(0.5, 0.5), GameObject::textures.GetTexture("ship_status_power_selector_orange")) {
+	BottomOrangeElem::BottomOrangeElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1,1), GameObject::textures.GetTexture("ship_status_power_selector_orange")) {
 		type_ = ObjType::CLICKABLE_GUI_ELEM;
 		SetPosition(glm::vec3(0.001f, -0.077f, 0.0f));
 		SetScale(glm::vec2(0.038, 0.036));
@@ -130,7 +131,7 @@ namespace game {
 	}
 
 	/* Bottom Green: */
-	BottomGreenElem::BottomGreenElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(0.5, 0.5), GameObject::textures.GetTexture("ship_status_power_selector_green")) {
+	BottomGreenElem::BottomGreenElem(Geometry* geom, Shader* shader, GLFWwindow* window) : ClickableGuiElem(geom, shader, window, glm::vec2(1,1), GameObject::textures.GetTexture("ship_status_power_selector_green")) {
 		type_ = ObjType::CLICKABLE_GUI_ELEM;
 		SetPosition(glm::vec3(0.001f, -0.118f, 0.0f));
 		SetScale(glm::vec2(0.038, 0.036));
