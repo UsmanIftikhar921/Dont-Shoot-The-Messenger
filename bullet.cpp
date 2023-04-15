@@ -7,12 +7,19 @@ namespace game {
 	It overrides GameObject's update method, so that you can check for input to change the velocity of the player
 */
 
-	Bullet::Bullet(const glm::vec3& position, Geometry* geom, Shader* shader)
-		: GameObject(position, geom, shader, NULL){
-	type_ = BULLET;
-	texture_ = GameObject::textures.GetTexture(13);
-	speed_ = 3.0f;
-	scale_ = glm::vec2(0.2f, 0.2f);
+	Bullet::Bullet(const glm::vec3& position, Geometry* geom, Shader* shader, bool friendly)
+		: Collidable(position, geom, shader, NULL){
+
+		if (friendly) {
+			type_ = BULLET_FRIENDLY;
+		}
+		else {
+			type_ = BULLET_ENEMY;
+		}
+
+		texture_ = GameObject::textures.GetTexture(13);
+		speed_ = 3.0f;
+		scale_ = glm::vec2(0.3f, 0.3f);
 	
 }
 

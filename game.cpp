@@ -18,6 +18,7 @@
 #include "airship.h"
 #include "gun.h"
 #include "enemy.h"
+#include "flanker.h"
 
 
 namespace game {
@@ -27,8 +28,8 @@ namespace game {
 
 // Globals that define the OpenGL window and viewport
 const char *window_title_g = "Game Demo";
-const unsigned int window_width_g = 2560;
-const unsigned int window_height_g = 1440;
+const unsigned int window_width_g = 1920;
+const unsigned int window_height_g = 1080;
 const glm::vec3 viewport_background_color_g(0.0, 0.0, 1.0);
 
 
@@ -59,7 +60,7 @@ void Game::Init(void)
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); 
 
     // Create a window and its OpenGL context
-    window_ = glfwCreateWindow(window_width_g, window_height_g, window_title_g, glfwGetPrimaryMonitor(), NULL);
+    window_ = glfwCreateWindow(window_width_g, window_height_g, window_title_g, NULL, NULL);
     if (!window_) {
         glfwTerminate();
         throw(std::runtime_error(std::string("Could not create window")));
@@ -128,9 +129,8 @@ void Game::Setup(void)
     scene_->AddChild(airship);
 	player_ = airship;
 
-    Enemy* enemy = new Enemy(glm::vec3(1.0f, -1.0f, 0.0f), sprite_, &sprite_shader_);
+    Flanker* enemy = new Flanker(glm::vec3(-3.0f, -3.0f, 0.0f), sprite_, &sprite_shader_, player_);
     enemy->InitCollisionBox(glm::vec3(0.0f, 0.0f, 0.0f), 0.5f);
-    enemy->SetTarget(airship);
     scene_->AddChild(enemy);
 
     GameObject* background = new GameObject(glm::vec3(0.0f, 0.0f, 0.0f), sprite_, &sprite_shader_, GameObject::textures.GetTexture(1));
@@ -204,6 +204,8 @@ void Game::MainLoop(void)
 bool first_frame = true;
 void Game::Update(glm::mat4 view_matrix, double delta_time)
 {
+
+
 
     // Update time
     current_time_ += delta_time;

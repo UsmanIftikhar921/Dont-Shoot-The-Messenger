@@ -8,11 +8,23 @@ namespace game {
 		It overrides GameObject's update method, so that you can check for input to change the velocity of the player
 	*/
 
-	Gun::Gun(const glm::vec3& position, Geometry* geom, Shader* shader, GunType gun_type)
+	Gun::Gun(const glm::vec3& position, Geometry* geom, Shader* shader, bool friendly, GunType gun_type)
 		: Task(position, geom, shader, 1.0f) {
+			
 		texture_ = GameObject::textures.GetTexture(14);
 		type_ = GUN;
 		gun_type_ = gun_type;
+
+		friendly_ = friendly;
+	}
+
+	Gun::Gun(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture, bool friendly, GunType type)
+		: Task(position, geom, shader, 1.0f) {
+		texture_ = texture;
+		type_ = GUN;
+		gun_type_ = type;
+
+		friendly_ = friendly;
 	}
 
 	Gun::~Gun() {
@@ -23,14 +35,15 @@ namespace game {
 		Task::Update(delta_time);
 	}
 
-	void Gun::PerformTask(float efficiency_modifier) {
+	bool Gun::PerformTask(float efficiency_modifier) {
 		if (!ready_) {
-			return;
+			return false;
 		}
 		Fire();
 		ready_ = false;
 		cooldown_timer_ = completion_time_;
 		efficiency_modifier_ = efficiency_modifier;
+		return true;
 	}
 
 
@@ -42,7 +55,8 @@ namespace game {
 		glm::vec3 gun_vel = GetGlobalVelocity();
 		
 		if (gun_type_ == STANDARD) {
-			Bullet* bullet = new Bullet(bullet_pos, geometry_, shader_);
+			Bullet* bullet = new Bullet(bullet_pos, geometry_, shader_, friendly_);
+			bullet->InitCollisionBox(glm::vec3(0.0f, 0.0f, 0.0f), 0.2f);
 			bullet->SetVelocity((bullet_bearing * bullet->GetSpeed()) + gun_vel);
 			bullet->SetRotation(bullet_rot);
 
@@ -60,7 +74,8 @@ namespace game {
 			float rand_rot = ((float)dist6(rng) / 50) - 0.5f;
 			bullet_bearing = glm::vec3(glm::rotate(glm::mat4(1.0f), rand_rot, glm::vec3(0.0f, 0.0f, 1.0f)) * glm::vec4(bullet_bearing, 1.0f));
 
-			BigBullet* bullet = new BigBullet(bullet_pos, geometry_, shader_);
+			BigBullet* bullet = new BigBullet(bullet_pos, geometry_, shader_, friendly_);
+			bullet->InitCollisionBox(glm::vec3(0.0f, 0.0f, 0.0f), 0.4f);
 			bullet->SetVelocity((bullet_bearing * bullet->GetSpeed()) + gun_vel);
 			bullet->SetRotation(bullet_rot);
 

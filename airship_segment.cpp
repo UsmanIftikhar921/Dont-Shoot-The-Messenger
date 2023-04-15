@@ -69,6 +69,13 @@ namespace game {
 		switch (event.type) {
 		case COLLIDABLE:
 			dbg_render_red_ = true;
+			break;
+		case BULLET_ENEMY:
+			dbg_render_red_ = true;
+			break;
+		case BIGBULLET_ENEMY:
+			dbg_render_red_ = true;
+			break;
 		}
 	}
 
@@ -81,6 +88,26 @@ namespace game {
 				if (workstations_[i]->IsOccupied()) {
 					Crew* c = workstations_[i]->GetCrew();
 					c->SetHealth(c->GetHealth() - 0.1f);
+				}
+			}
+			break;
+
+		case BULLET_ENEMY:
+			health_ -= 0.1f;
+			for (int i = 0; i < workstations_.size(); i++) {
+				if (workstations_[i]->IsOccupied()) {
+					Crew* c = workstations_[i]->GetCrew();
+					c->SetHealth(c->GetHealth() - 0.1f);
+				}
+			}
+			break;
+
+		case BIGBULLET_ENEMY:
+			health_ -= 0.2f;
+			for (int i = 0; i < workstations_.size(); i++) {
+				if (workstations_[i]->IsOccupied()) {
+					Crew* c = workstations_[i]->GetCrew();
+					c->SetHealth(c->GetHealth() - 0.2f);
 				}
 			}
 			break;

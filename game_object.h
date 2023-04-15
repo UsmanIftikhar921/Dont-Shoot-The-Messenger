@@ -23,8 +23,10 @@ namespace game {
     enum ObjType {
         OBJ,
         PLAYER,
-        BULLET,
-        BIGBULLET,
+        BULLET_FRIENDLY,
+        BIGBULLET_FRIENDLY,
+        BULLET_ENEMY,
+        BIGBULLET_ENEMY,
         GUN,
         COLLIDABLE,
         COLLISION_BOX,

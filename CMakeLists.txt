@@ -29,6 +29,9 @@ set(HDRS
     textures.h
     task.h
     enemy.h
+    flanker.h
+    rammer.h
+    dreadnought.h
 )
  
 set(SRCS
@@ -56,6 +59,9 @@ set(SRCS
     textures.cpp
     task.cpp
     enemy.cpp
+    flanker.cpp
+    rammer.cpp
+    dreadnought.cpp
 )
 
 # Add path name to configuration file

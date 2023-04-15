@@ -33,11 +33,7 @@ namespace game {
 		acceleration_ = glm::rotate(acceleration_, rotation_, glm::vec3(0.0f, 0.0f, 1.0f));
 		
 		angular_acceleration_ = port_engine_rotation_factor + starboard_engine_rotation_factor;
-		
-		std::cout << "Airship:" << std::endl;
-		std::cout << "	Acceleration: " << acceleration_.x << ", " << acceleration_.y << std::endl;
-		std::cout << "	Velocity: " << velocity_.x << ", " << velocity_.y << std::endl << std::endl;
-		
+				
 		GameObject::Update(delta_time);
 	}
 
@@ -117,8 +113,8 @@ namespace game {
 		segments_.push_back(port_engine_);
 		segments_.push_back(starboard_engine_);
 
-		// port_engine_->SetTargetPower(5.0f);
-		// starboard_engine_->SetTargetPower(5.0f);
+		port_engine_->SetTargetPower(5.0f);
+		starboard_engine_->SetTargetPower(5.0f);
 		
 
 		AddChild(port_guns_);
@@ -136,7 +132,7 @@ namespace game {
 			glm::vec3 gun_pos = glm::vec3(-0.25f, 0.0f, 0.0f);
 
 			// Workstation 1
-			Task* gun1 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader);
+			Task* gun1 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, true);
 			gun1->SetZLayer(-2);
 			gun1->SetCardinalRotation('W');
 			gun1->SetScale(glm::vec2(2.0f, 2.0f));
@@ -150,7 +146,7 @@ namespace game {
 
 
 			// Workstation 2
-			Task* gun2 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader);
+			Task* gun2 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, true);
 			gun2->SetZLayer(-2);
 			gun2->SetCardinalRotation('W');
 			gun2->SetScale(glm::vec2(2.0f, 2.0f));
@@ -164,7 +160,7 @@ namespace game {
 
 
 			// Workstation 3
-			Task* gun3 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader);
+			Task* gun3 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, true);
 			gun3->SetZLayer(-2);
 			gun3->SetCardinalRotation('W');
 			gun3->SetScale(glm::vec2(2.0f, 2.0f));
@@ -183,7 +179,7 @@ namespace game {
 			glm::vec3 gun_pos = glm::vec3(0.25f, 0.0f, 0.0f);
 
 			// Workstation 1
-			Task* gun11 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader);
+			Task* gun11 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, true);
 			gun11->SetZLayer(-2);
 			gun11->SetCardinalRotation('E');
 			gun11->SetScale(glm::vec2(2.0f, 2.0f));
@@ -196,7 +192,7 @@ namespace game {
 			starboard_guns_->AddWorkstation(w1);
 
 			// Workstation 2
-			Task* gun2 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader);
+			Task* gun2 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, true);
 			gun2->SetZLayer(-2);
 			gun2->SetCardinalRotation('E');
 			gun2->SetScale(glm::vec2(2.0f, 2.0f));
@@ -210,7 +206,7 @@ namespace game {
 
 
 			// Workstation 3
-			Task* gun3 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader);
+			Task* gun3 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, true);
 			gun3->SetZLayer(-2);
 			gun3->SetCardinalRotation('E');
 			gun3->SetScale(glm::vec2(2.0f, 2.0f));
@@ -228,7 +224,7 @@ namespace game {
 			glm::vec3 gun_pos = glm::vec3(0.0f, -0.25f, 0.0f);
 
 			// Workstation 1
-			Task* gun1 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GunType::HEAVY);
+			Task* gun1 = new Gun(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, true, GunType::HEAVY);
 			gun1->SetZLayer(-2);
 			gun1->SetCardinalRotation('S');
 			gun1->SetScale(glm::vec2(2.0f, 2.0f));

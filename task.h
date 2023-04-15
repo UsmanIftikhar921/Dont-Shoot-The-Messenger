@@ -13,7 +13,7 @@ namespace game {
 
 		void Update(double delta_time) override;
 		
-		virtual void PerformTask(float efficiency_modifier) = 0;
+		virtual bool PerformTask(float efficiency_modifier) = 0;
 
 		void ResetTask();
 

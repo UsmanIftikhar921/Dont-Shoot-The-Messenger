@@ -62,6 +62,9 @@ void GameObject::Update(double delta_time) {
 	if (glm::length(velocity_ + (acceleration_ * (float)delta_time)) < max_velocity_) {
 		velocity_ += acceleration_ * ((float)delta_time);
 	}
+	else {
+				velocity_ = glm::normalize(velocity_ + acceleration_ * (float)delta_time) * max_velocity_;
+	}
 	
 	// Apply velocity to position
 	position_ += velocity_ * ((float)delta_time);

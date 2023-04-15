@@ -10,7 +10,7 @@ namespace game {
     class BigBullet : public Bullet {
 
     public:
-        BigBullet(const glm::vec3& position, Geometry* geom, Shader* shader);
+        BigBullet(const glm::vec3& position, Geometry* geom, Shader* shader, bool friendly);
 
         // Update function for moving the bullet object around
         void Update(double delta_time) override;

@@ -20,18 +20,20 @@ namespace game {
     class Gun : public Task {
 
     public:
-        Gun(const glm::vec3& position, Geometry* geom, Shader* shader, GunType type = STANDARD);
+        Gun(const glm::vec3& position, Geometry* geom, Shader* shader, bool frieindly, GunType type = STANDARD);
+        Gun(const glm::vec3& position, Geometry* geom, Shader* shader, GLuint texture, bool friendly, GunType type = STANDARD);
 		~Gun();
 
         // Update function for moving the player object around
         void Update(double delta_time) override;
 
-		void PerformTask(float efficiency_modifier) override;
+		bool PerformTask(float efficiency_modifier) override;
 
 		
 	protected:
         void Fire();
         GunType gun_type_;
+        bool friendly_;
 	};
 }
 

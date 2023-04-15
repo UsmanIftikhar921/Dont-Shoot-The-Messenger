@@ -2,14 +2,15 @@
 #define BULLET_H_
 
 #include "game_object.h"
+#include "collidable.h"
 
 namespace game {
 
     // Inherits from GameObject
-    class Bullet : public GameObject {
+    class Bullet : public Collidable {
 
         public:
-            Bullet(const glm::vec3& position, Geometry* geom, Shader* shader);
+            Bullet(const glm::vec3& position, Geometry* geom, Shader* shader, bool friendly);
 
             // Update function for moving the bullet object around
             void Update(double delta_time) override;

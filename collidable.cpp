@@ -45,16 +45,8 @@ namespace game {
 	void Collidable::HandleCollisionEvent(CollisionEvent& event) {
 		
 		switch (event.type) {
-		case ObjType::PLAYER:
-			dbg_render_red_ = true;
-			break;
-		case ObjType::BULLET:
-			dbg_render_red_ = true;
-			break;
+
 		case ObjType::COLLIDABLE:
-			dbg_render_red_ = true;
-			break;
-		case ObjType::AIRSHIP_SEGMENT:
 			dbg_render_red_ = true;
 			break;
 		}
