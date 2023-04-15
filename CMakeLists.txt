@@ -83,6 +83,7 @@ set(SRCS
     gui_elem_collection.cpp
     crew_status_gui_elem.cpp
     clickable_ship_segments.cpp
+    engine_power_gui_elem.cpp
 )
 
 # Add path name to configuration file

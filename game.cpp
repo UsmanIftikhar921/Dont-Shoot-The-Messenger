@@ -21,6 +21,11 @@
 #include "flanker.h"
 #include "powerup.h"
 
+#include "gui.h"
+#include "gui_elem.h"
+#include "clickable_gui_elem.h"
+
+
 
 namespace game {
 

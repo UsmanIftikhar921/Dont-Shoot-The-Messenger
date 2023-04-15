@@ -40,6 +40,9 @@ namespace game {
 		acceleration_ = glm::rotate(acceleration_, rotation_, glm::vec3(0.0f, 0.0f, 1.0f));
 		
 		angular_acceleration_ = port_engine_rotation_factor + starboard_engine_rotation_factor;
+
+		// decrease angular velocity by a bit
+		angular_velocity_ *= 0.99f;
 		
 		// Update Segments
 		FireSelector fs = gui_state->GetFireSelector();
@@ -227,8 +230,8 @@ namespace game {
 		starboard_guns_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(6));
 		bow_guns_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(7));
 		stern_guns_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(8));
-		port_engine_ = new Engine(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(9), 1.0f, -0.1f);
-		starboard_engine_ = new Engine(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(10), 1.0f, 0.1f);
+		port_engine_ = new Engine(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(9), 1.0f, -0.5f);
+		starboard_engine_ = new Engine(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(10), 1.0f, 0.5f);
 		boiler_room_ = new AirshipSegment(glm::vec3(0.0f, 0.0f, 0.0f), geom, shader, GameObject::textures.GetTexture(11));
 
 		port_guns_->SetPosition(glm::vec3(-0.3f, 0.0f, 0.0f));
