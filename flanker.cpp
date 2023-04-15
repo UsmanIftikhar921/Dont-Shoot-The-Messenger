@@ -11,14 +11,14 @@ namespace game {
 		AddChild(gun_);
 	}
 
-	void Flanker::Update(double delta_time) {
+	void Flanker::Update(double delta_time, GuiState* gui_state) {
 		glm::vec3 target_pos = target_->GetPosition();
 		float angle_from_enemy_to_target = -glm::atan(target_pos.x - position_.x, target_pos.y - position_.y);
 		float enemy_rotation = GetGlobalRotation();
 		float new_gun_rotation = angle_from_enemy_to_target - enemy_rotation;
 		gun_->SetRotation(new_gun_rotation);
 
-		Enemy::Update(delta_time);
+		Enemy::Update(delta_time, gui_state);
 	}
 
 	void Flanker::StateTransitionHandler(double delta_time) {

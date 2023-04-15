@@ -5,13 +5,14 @@
 
 namespace game {
     enum Segment {
+        UNASSIGNED,
         BOW,
         BOILER,
         STERN_GUNS,
         PORT_GUNS,
         STARBOARD_GUNS,
-        BOW_ENGINE,
-        STERN_ENGINE,
+        PORT_ENGINE,
+        STARBOARD_ENGINE,
     };
 
     struct CrewData {
@@ -32,7 +33,8 @@ namespace game {
 
         // Getters & Setters
         std::vector<CrewData> GetCrewDataVec() { return crew_data_vec_; }
-        void SetCrewDataVec(int index, CrewData crew_data) { crew_data_vec_[index] = crew_data; }
+        void SetCrewData(int index, CrewData crew_data) { crew_data_vec_[index] = crew_data; }
+        void SetCrewDataVec(std::vector<CrewData> crew_data_vec) { crew_data_vec_ = crew_data_vec; }
 
         float GetSteamPressure() { return steam_pressure_; }
         void SetSteamPressure(float steam_pressure) { steam_pressure_ = steam_pressure; }

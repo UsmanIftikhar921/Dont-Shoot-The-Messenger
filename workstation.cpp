@@ -10,6 +10,8 @@ namespace game {
 		task_object_ = task;
 		AddChild(task_object_);
 
+		disable_ = false;
+
 		texture_ = GameObject::textures.GetTexture(15);
 	}
 
@@ -32,7 +34,7 @@ namespace game {
 			}
 			else {
 				if (task_object_->GetReady() && crew_->GetActivityState() == ActivityState::DOING_TASK) {
-					task_object_->PerformTask(crew_->GetHealth());
+					if (!disable_) task_object_->PerformTask(crew_->GetHealth());
 				}
 			}
 		}

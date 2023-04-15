@@ -19,10 +19,14 @@ namespace game {
 
 		bool IsOccupied() { return occupied_; }
 		Crew* GetCrew() { return crew_; }
+
+		bool GetDisable() { return disable_; }
+		void SetDisable(bool disable) { disable_ = disable; }
 		
 	protected:
 		bool occupied_;
 		bool crew_arrived_;
+		bool disable_;
 		Crew* crew_;
 		
 		Task* task_object_;

@@ -6,6 +6,7 @@ namespace game {
 		z_layer_ = 10;
 		num_workstations_ = 1;
 		health_ = 1.0f;
+		disable_ = false;
 
 	}
 
@@ -38,6 +39,16 @@ namespace game {
 			}
 		}
 		// No crew member matching the one given exists in this segment
+		return false;
+	}
+
+	bool AirshipSegment::HasCrew(Crew* crew) {
+		int id = crew->GetID();
+		for (int i = 0; i < workstations_.size(); i++) {
+			if (workstations_[i]->GetCrew()->GetID() == id) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -111,6 +122,13 @@ namespace game {
 				}
 			}
 			break;
+		}
+	}
+
+	void AirshipSegment::SetDisable(bool disable) {
+		disable_ = disable;
+		for (int i = 0; i < workstations_.size(); i++) {
+			workstations_[i]->SetDisable(disable);
 		}
 	}
 }

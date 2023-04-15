@@ -2,6 +2,7 @@
 #define CREW_H_
 
 #include "game_object.h"
+#include "gui_state.h"
 
 namespace game {
 	
@@ -44,6 +45,7 @@ namespace game {
 		float t_;
 		float speed_;
 		glm::vec3 destination_vector_;
+
 
 
 	};

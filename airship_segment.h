@@ -17,6 +17,7 @@ namespace game {
 
 		bool AssignCrew(Crew* crew);
 		bool UnassignCrew(Crew* crew);
+		bool HasCrew(Crew* crew);
 
 		void SetCrewDestination(Crew* crew, Workstation* workstation);
 
@@ -25,6 +26,9 @@ namespace game {
 
 		void AddWorkstation(Workstation* workstation);
 		bool RemoveWorkstation(Workstation* workstation);
+
+		bool GetDisable() { return disable_; }
+		void SetDisable(bool disable);
 		
 	protected:
 		// Crew 
@@ -32,6 +36,7 @@ namespace game {
 		std::vector<Workstation*> workstations_;
 
 		float health_;
+		bool disable_;
 		
 
 	};

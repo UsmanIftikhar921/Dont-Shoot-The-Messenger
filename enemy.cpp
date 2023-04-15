@@ -17,7 +17,7 @@ namespace game {
 	}
 
 
-	void Enemy::Update(double delta_time) {
+	void Enemy::Update(double delta_time, GuiState* gui_state) {
 		if (glm::length(velocity_) > 0.0f) {
 			float new_rotation = glm::atan(-velocity_.x, velocity_.y);
 
@@ -51,7 +51,7 @@ namespace game {
 			
 		}
 
-		Collidable::Update(delta_time);
+		Collidable::Update(delta_time, gui_state);
 
 	}
 
