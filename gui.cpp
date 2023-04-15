@@ -16,6 +16,14 @@ namespace game {
 
 	// Update function for moving the player object around
 	void Gui::Update(double delta_time, GuiState* gui_state) {
+
+		// If number of crew in CrewDataVec is less than the number of CrewGuiElems, make new CrewGuiElem
+		if (gui_state->GetCrewDataVec().size() > crew_gui_elems_.size()) {
+			// Add new GuiElem to GuiElemCollection
+			CrewGuiElem* crew_gui_elem = new CrewGuiElem(geometry_, shader_, window_);
+			AddCrewGuiElem(crew_gui_elem);
+		}
+
 		GameObject::Update(delta_time, gui_state);
 	}
 
@@ -27,23 +35,15 @@ namespace game {
 		// Create a background gui element
 		BackgroundGuiElem* background = new BackgroundGuiElem(geometry_, shader_, window_);
 		AddGuiElem(background);
-
-		// Create a crew gui element
-		CrewGuiElem* crew1 = new CrewGuiElem(geometry_, shader_, window_);
-		AddGuiElem(crew1);
-
-		CrewGuiElem* crew2 = new CrewGuiElem(geometry_, shader_, window_);
-		AddGuiElem(crew2);
-
-		CrewGuiElem* crew3 = new CrewGuiElem(geometry_, shader_, window_);
-		AddGuiElem(crew3);
-
-		CrewGuiElem* crew4 = new CrewGuiElem(geometry_, shader_, window_);
-		AddGuiElem(crew4);
 	}
 
 	void Gui::AddGuiElem(GuiElem* elem) {
 		gui_elems_.push_back(elem);
+		AddChild(elem);
+	}
+
+	void Gui::AddCrewGuiElem(GuiElem* elem) {
+		crew_gui_elems_.push_back(elem);
 		AddChild(elem);
 	}
 

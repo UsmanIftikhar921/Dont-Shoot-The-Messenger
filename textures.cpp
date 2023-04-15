@@ -114,6 +114,23 @@ namespace game {
 
 		SetTexture(textures_[28], (resources_directory_g + std::string("/textures/gui/ship_segment_rear_inner.png")).c_str());
 		texture_map_["ship_segment_rear_inner"] = textures_[28];
+
+		// UI TEXTURES - Power Selector
+
+		SetTexture(textures_[29], (resources_directory_g + std::string("/textures/gui/ship_status_power_selector_bg.png")).c_str());
+		texture_map_["ship_status_power_selector_bg"] = textures_[29];
+
+		SetTexture(textures_[30], (resources_directory_g + std::string("/textures/gui/ship_status_power_selector_green.png")).c_str());
+		texture_map_["ship_status_power_selector_green"] = textures_[30];
+
+		SetTexture(textures_[31], (resources_directory_g + std::string("/textures/gui/ship_status_power_selector_grey.png")).c_str());
+		texture_map_["ship_status_power_selector_grey"] = textures_[31];
+
+		SetTexture(textures_[32], (resources_directory_g + std::string("/textures/gui/ship_status_power_selector_orange.png")).c_str());
+		texture_map_["ship_status_power_selector_orange"] = textures_[32];
+
+		SetTexture(textures_[33], (resources_directory_g + std::string("/textures/gui/ship_status_power_selector_red.png")).c_str());
+		texture_map_["ship_status_power_selector_red"] = textures_[33];
 		
 		glBindTexture(GL_TEXTURE_2D, textures_[0]);
 	}

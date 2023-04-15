@@ -16,11 +16,15 @@ namespace game {
 		void Update(double delta_time, GuiState* gui_state) override;
 
 		void AddGuiElem(GuiElem* elem);
+		void AddCrewGuiElem(GuiElem* elem);
 
 
 	protected:
 		// Vector of Gui elements
 		std::vector<GuiElem*> gui_elems_;
+
+		// Vector of Crew Gui elements
+		std::vector<GuiElem*> crew_gui_elems_;
 
 		// Pointer to Window
 		GLFWwindow* window_;
