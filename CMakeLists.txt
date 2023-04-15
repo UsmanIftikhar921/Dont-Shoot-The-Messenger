@@ -42,6 +42,7 @@ set(HDRS
     gui_elem_collection.h
     crew_status_gui_elem.h
     clickable_ship_segments.h
+    engine_power_gui_elem.h
 )
  
 set(SRCS

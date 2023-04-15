@@ -35,6 +35,15 @@ namespace game {
 		// Create a background gui element
 		BackgroundGuiElem* background = new BackgroundGuiElem(geometry_, shader_, window_);
 		AddGuiElem(background);
+
+		// Create an engine power gui element
+		PortEnginePowerGuiElem* port_engine_power = new PortEnginePowerGuiElem(geometry_, shader_, window_);
+		port_engine_power->SetPosition(glm::vec3(0.12f, -0.84f, 0.0f));
+		AddGuiElem(port_engine_power);
+
+		StarboardEnginePowerGuiElem* starboard_engine_power = new StarboardEnginePowerGuiElem(geometry_, shader_, window_);
+		starboard_engine_power->SetPosition(glm::vec3(0.22f, -0.84f, 0.0f));
+		AddGuiElem(starboard_engine_power);
 	}
 
 	void Gui::AddGuiElem(GuiElem* elem) {

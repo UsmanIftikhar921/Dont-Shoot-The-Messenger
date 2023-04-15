@@ -198,6 +198,4 @@ namespace game {
 			gui_state->SetCrewDataVec(crew_data);
 		}
 	}
-
-
 } // namespace game
