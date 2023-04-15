@@ -11,7 +11,7 @@ namespace game {
 	}
 
 	void BackgroundGuiElem::Update(double delta_time, GuiState* gui_state) { GuiElem::Update(delta_time, gui_state); }
-	void BackgroundGuiElem::ProcessInput() {}
+	void BackgroundGuiElem::ProcessInput(GuiState* gui_state) {}
 
 	/* Crew GUI Element: */
 	int CrewGuiElem::crew_count = 0;
@@ -30,6 +30,6 @@ namespace game {
 	}
 
 	void CrewGuiElem::Update(double delta_time, GuiState* gui_state) { GuiElem::Update(delta_time, gui_state); }
-	void CrewGuiElem::ProcessInput() {}
+	void CrewGuiElem::ProcessInput(GuiState* gui_state) {}
 
 } // namespace game

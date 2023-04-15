@@ -11,7 +11,7 @@ namespace game {
 
 		virtual void Update(double delta_time, GuiState* gui_state) override;
 
-		virtual void ProcessInput() = 0;
+		virtual void ProcessInput(GuiState* gui_state) = 0;
 
 		virtual void SetColorModifier(glm::vec3 color) { color_modifier_ = color; }
 

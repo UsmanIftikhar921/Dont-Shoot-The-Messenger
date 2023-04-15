@@ -14,11 +14,11 @@ namespace game {
 	}
 
 	void CloseButtonGuiElem::Update(double delta_time, GuiState* gui_state) {
-		ProcessInput();
+		ProcessInput(gui_state);
 		ClickableGuiElem::Update(delta_time, gui_state);
 	}
 
-	void CloseButtonGuiElem::ProcessInput() {
+	void CloseButtonGuiElem::ProcessInput(GuiState* gui_state) {
 		// If the user presses left click on the button, close the window
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
 			glfwSetWindowShouldClose(window_, true);

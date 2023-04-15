@@ -11,7 +11,7 @@ namespace game {
 		SetZLayer(-50);
 	}
 	void CrewStatusBgElem::Update(double delta_time, GuiState* gui_state) { GuiElem::Update(delta_time, gui_state); }
-	void CrewStatusBgElem::ProcessInput() {}
+	void CrewStatusBgElem::ProcessInput(GuiState* gui_state) {}
 
 	/* Health: */
 	CrewStatusHealthElem::CrewStatusHealthElem(Geometry* geom, Shader* shader, GLFWwindow* window) : GuiElem(geom, shader, window) {
@@ -22,7 +22,7 @@ namespace game {
 		SetZLayer(-50);
 	}
 	void CrewStatusHealthElem::Update(double delta_time, GuiState* gui_state) { GuiElem::Update(delta_time, gui_state); }
-	void CrewStatusHealthElem::ProcessInput() {}
+	void CrewStatusHealthElem::ProcessInput(GuiState* gui_state) {}
 
 	/* Crew Position: */
 	CrewStatusPositionElem::CrewStatusPositionElem(Geometry* geom, Shader* shader, GLFWwindow* window) : GuiElem(geom, shader, window) {
@@ -52,11 +52,11 @@ namespace game {
 
 	void CrewStatusPositionElem::Update(double delta_time, GuiState* gui_state) { 
 		GuiElem::Update(delta_time, gui_state);
-		ProcessInput();
+		ProcessInput(gui_state);
 	}
 
 	// You DO NOT want to look at whatever lies within...
-	void CrewStatusPositionElem::ProcessInput() {
+	void CrewStatusPositionElem::ProcessInput(GuiState* gui_state) {
 		// If the user presses left click on the button, close the window
 		if (head_->getHover() && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
 			// Change to green

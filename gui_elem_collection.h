@@ -9,7 +9,7 @@ namespace game {
 	public:
 		BackgroundGuiElem(Geometry* geom, Shader* shader, GLFWwindow* window);
 		virtual void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 	};
 
 	class CrewGuiElem : public GuiElem {
@@ -18,7 +18,7 @@ namespace game {
 
 		CrewGuiElem(Geometry* geom, Shader* shader, GLFWwindow* window);
 		virtual void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 
 	private:
 		CrewStatusBgElem* crew_status_bg_elem_;
