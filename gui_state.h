@@ -5,6 +5,7 @@
 
 namespace game {
     enum Segment {
+        UNASSIGNED,
         BOW,
         BOILER,
         STERN_GUNS,

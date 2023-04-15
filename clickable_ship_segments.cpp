@@ -17,7 +17,7 @@ namespace game {
 
 	void ClickableHead::ProcessInput(GuiState* gui_state) {
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			// Functionality Goes Here:
+			// Do something
 		}
 	}
 
