@@ -104,11 +104,15 @@ namespace game {
 			break;
 
 		case BULLET_ENEMY:
+			std::cout << "SEGMENT HIT" << std::endl;
 			health_ -= 0.1f;
 			for (int i = 0; i < workstations_.size(); i++) {
 				if (workstations_[i]->IsOccupied()) {
 					Crew* c = workstations_[i]->GetCrew();
+					std::cout << "	Crew health " << c->GetHealth();
 					c->SetHealth(c->GetHealth() - 0.1f);
+					std::cout << " -> " << c->GetHealth() << std::endl;
+
 				}
 			}
 			break;

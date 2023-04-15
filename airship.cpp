@@ -41,16 +41,21 @@ namespace game {
 		stern_guns_->SetDisable(!fs.stern);
 
 		// Update Crew
-		std::vector<CrewData> crew_data = gui_state->GetCrewDataVec();
-
-		// Print vec of CrewData
-		std::cout << "Crew Data" << std::endl;
-		for (int i = 0; i < crew_data.size(); i++) {
-			std::cout << "Crew Member " << i << std::endl;
-			std::cout << "	Health: " << crew_data[i].health << std::endl;
-			std::cout << "	Alive: " << crew_data[i].alive << std::endl;
-			std::cout << "	Assigned Segment: " << crew_data[i].assigned_segment << std::endl;
+		// If all crew are dead, exit
+		bool all_dead = true;
+		for (int i = 0; i < crew_members_.size(); i++) {
+			if (crew_members_[i]->GetHealth() > 0.0f) {
+				all_dead = false;
+				break;
+			}
 		}
+		if (all_dead) {
+			std::cout << "All crew members are dead. Game over." << std::endl;
+			exit(0);
+		}
+
+
+		std::vector<CrewData> crew_data = gui_state->GetCrewDataVec();
 
 		if (crew_data.size() != crew_members_.size()) {
 			// Crew has been added or removed
@@ -70,11 +75,11 @@ namespace game {
 			// Crew has not been added or removed
 			// Update health of crew members
 			for (int i = 0; i < crew_data.size(); i++) {
-				crew_members_[i]->SetHealth(crew_data[i].health);
+				crew_data[i].health = crew_members_[i]->GetHealth();
 			}
 		}
 
-		/*for (int i = 0; i < crew_members_.size(); i++) {
+		for (int i = 0; i < crew_members_.size(); i++) {
 			CrewData data;
 			data.health = crew_members_[i]->GetHealth();
 			data.alive = crew_members_[i]->GetHealth() > 0.0f;
@@ -115,7 +120,7 @@ namespace game {
 						boiler_room_->AssignCrew(crew_members_[i]);
 					break;
 			}
-		}*/
+		}
 		
 		GameObject::Update(delta_time, gui_state);
 	}
@@ -141,19 +146,19 @@ namespace game {
 		crew_->SetScale(glm::vec2(0.03f, 0.03f));
 		crew_members_.push_back(crew_);
 		AddChild(crew_);
-		//stern_guns_->AssignCrew(crew_);
+		stern_guns_->AssignCrew(crew_);
 
 		Crew* crew_2 = new Crew(position_, geom, shader, GameObject::textures.GetTexture(12));
 		crew_2->SetScale(glm::vec2(0.03f, 0.03f));
 		crew_members_.push_back(crew_2);
 		AddChild(crew_2);
-		//port_guns_->AssignCrew(crew_2);
+		port_guns_->AssignCrew(crew_2);
 
 		Crew* crew_3 = new Crew(position_, geom, shader, GameObject::textures.GetTexture(12));
 		crew_3->SetScale(glm::vec2(0.03f, 0.03f));
 		crew_members_.push_back(crew_3);
 		AddChild(crew_3);
-		//starboard_guns_->AssignCrew(crew_3);
+		starboard_guns_->AssignCrew(crew_3);
 
 	}
 

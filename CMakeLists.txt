@@ -27,20 +27,12 @@ set(HDRS
     crew.h
     workstation.h
     textures.h
-    gui.h
-    gui_elem.h
-    gui_state.h
-    wheel_gui_elem.h
-    clickable_gui_elem.h
-    buttons.h
-    gui_elem_collection.h
-    crew_status_gui_elem.h
-    clickable_ship_segments.h
     task.h
     enemy.h
     flanker.h
     rammer.h
     dreadnought.h
+    powerup.h
 )
  
 set(SRCS
@@ -66,20 +58,12 @@ set(SRCS
     crew.cpp
     workstation.cpp
     textures.cpp
-    gui.cpp
-    gui_elem.cpp
-    gui_state.cpp
-    wheel_gui_elem.cpp
-    clickable_gui_elem.cpp
-    buttons.cpp
-    gui_elem_collection.cpp
-    crew_status_gui_elem.cpp
-    clickable_ship_segments.cpp
     task.cpp
     enemy.cpp
     flanker.cpp
     rammer.cpp
     dreadnought.cpp
+    powerup.cpp
 )
 
 # Add path name to configuration file
