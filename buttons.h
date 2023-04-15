@@ -13,7 +13,7 @@ namespace game {
 
 		void Update(double delta_time, GuiState* gui_state) override;
 
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 	};
 
 	/* Other Button Class Definitions Go Here: */

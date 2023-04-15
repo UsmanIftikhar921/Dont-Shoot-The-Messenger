@@ -11,13 +11,13 @@ namespace game {
 	}
 
 	void ClickableHead::Update(double delta_time, GuiState* gui_state) {
-		ProcessInput();
+		ProcessInput(gui_state);
 		ClickableGuiElem::Update(delta_time, gui_state);
 	}
 
-	void ClickableHead::ProcessInput() {
+	void ClickableHead::ProcessInput(GuiState* gui_state) {
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			// Functionality Goes Here:
+			// Do something
 		}
 	}
 
@@ -29,11 +29,11 @@ namespace game {
 	}
 
 	void ClickableFrontBodyLeft::Update(double delta_time, GuiState* gui_state) {
-		ProcessInput();
+		ProcessInput(gui_state);
 		ClickableGuiElem::Update(delta_time, gui_state);
 	}
 
-	void ClickableFrontBodyLeft::ProcessInput() {
+	void ClickableFrontBodyLeft::ProcessInput(GuiState* gui_state) {
 		// If the user presses left click on the button, close the window
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
 			// Functionality Goes Here:
@@ -48,11 +48,11 @@ namespace game {
 	}
 
 	void ClickableFrontBodyRight::Update(double delta_time, GuiState* gui_state) {
-		ProcessInput();
+		ProcessInput(gui_state);
 		ClickableGuiElem::Update(delta_time, gui_state);
 	}
 
-	void ClickableFrontBodyRight::ProcessInput() {
+	void ClickableFrontBodyRight::ProcessInput(GuiState* gui_state) {
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
 			// Functionality Goes Here:
 		}
@@ -66,11 +66,11 @@ namespace game {
 	}
 
 	void ClickableLeftTail::Update(double delta_time, GuiState* gui_state) {
-		ProcessInput();
+		ProcessInput(gui_state);
 		ClickableGuiElem::Update(delta_time, gui_state);
 	}
 
-	void ClickableLeftTail::ProcessInput() {
+	void ClickableLeftTail::ProcessInput(GuiState* gui_state) {
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
 			// Functionality Goes Here:
 		}
@@ -84,11 +84,11 @@ namespace game {
 	}
 
 	void ClickableRightTail::Update(double delta_time, GuiState* gui_state) {
-		ProcessInput();
+		ProcessInput(gui_state);
 		ClickableGuiElem::Update(delta_time, gui_state);
 	}
 
-	void ClickableRightTail::ProcessInput() {
+	void ClickableRightTail::ProcessInput(GuiState* gui_state) {
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
 			// Functionality Goes Here:
 		}
@@ -103,11 +103,11 @@ namespace game {
 	}
 
 	void ClickableRearOuter::Update(double delta_time, GuiState* gui_state) {
-		ProcessInput();
+		ProcessInput(gui_state);
 		ClickableGuiElem::Update(delta_time, gui_state);
 	}
 
-	void ClickableRearOuter::ProcessInput() {
+	void ClickableRearOuter::ProcessInput(GuiState* gui_state){
 		// If the user presses left click on the button, close the window
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
 			// Functionality Goes Here:
@@ -123,11 +123,11 @@ namespace game {
 	}
 
 	void ClickableRearInner::Update(double delta_time, GuiState* gui_state) {
-		ProcessInput();
+		ProcessInput(gui_state);
 		ClickableGuiElem::Update(delta_time, gui_state);
 	}
 
-	void ClickableRearInner::ProcessInput() {
+	void ClickableRearInner::ProcessInput(GuiState* gui_state) {
 		// If the user presses left click on the button, close the window
 		if (hover_ && glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
 			// Functionality Goes Here:
@@ -151,13 +151,13 @@ namespace game {
 
 		if (innerHover && outerHover) { rear_outer_->setHover(false); }
 
-		ProcessInput();
+		ProcessInput(gui_state);
 
 	}
 
-	void ClickableRear::ProcessInput() {
-		rear_inner_->ProcessInput();
-		rear_outer_->ProcessInput();
+	void ClickableRear::ProcessInput(GuiState* gui_state) {
+		rear_inner_->ProcessInput(gui_state);
+		rear_outer_->ProcessInput(gui_state);
 	}
 
 } // namespace game

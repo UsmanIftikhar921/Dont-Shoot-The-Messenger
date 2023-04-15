@@ -11,7 +11,7 @@ namespace game {
 	public:
 		ClickableHead(Geometry* geom, Shader* shader, GLFWwindow* window);
 		void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 	};
 
 	/* Front Body (Left): */
@@ -20,7 +20,7 @@ namespace game {
 	public:
 		ClickableFrontBodyLeft(Geometry* geom, Shader* shader, GLFWwindow* window);
 		void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 	};
 
 	/* Front Body (Right): */
@@ -29,7 +29,7 @@ namespace game {
 	public:
 		ClickableFrontBodyRight(Geometry* geom, Shader* shader, GLFWwindow* window);
 		void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 	};
 
 	/* Left Tail */
@@ -38,7 +38,7 @@ namespace game {
 	public:
 		ClickableLeftTail(Geometry* geom, Shader* shader, GLFWwindow* window);
 		void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 	};
 
 	/* Right Tail */
@@ -47,7 +47,7 @@ namespace game {
 	public:
 		ClickableRightTail(Geometry* geom, Shader* shader, GLFWwindow* window);
 		void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 	};
 
 	/* Rear Outer */
@@ -56,7 +56,7 @@ namespace game {
 	public:
 		ClickableRearOuter(Geometry* geom, Shader* shader, GLFWwindow* window);
 		void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 	};
 
 	/* Rear Inner */
@@ -65,7 +65,7 @@ namespace game {
 	public:
 		ClickableRearInner(Geometry* geom, Shader* shader, GLFWwindow* window);
 		void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 	};
 
 	class ClickableRear : public GuiElem {
@@ -73,7 +73,7 @@ namespace game {
 	public:
 		ClickableRear(Geometry* geom, Shader* shader, GLFWwindow* window);
 		void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 		ClickableRearOuter* GetRearOuter() { return rear_outer_; }
 		ClickableRearInner* GetRearInner() { return rear_inner_; }
 

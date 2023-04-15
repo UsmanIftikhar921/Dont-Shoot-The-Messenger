@@ -9,22 +9,27 @@ namespace game {
 	public:
 		CrewStatusBgElem(Geometry* geom, Shader* shader, GLFWwindow* window);
 		virtual void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 	};
 
 	class CrewStatusHealthElem : public GuiElem {
 	public:
 		CrewStatusHealthElem(Geometry* geom, Shader* shader, GLFWwindow* window);
 		virtual void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
+	private:
+		static int NumOfCrewGuiElems;
+		int crew_gui_num_;
 	};
 
 	class CrewStatusPositionElem : public GuiElem {
 	public:
 		CrewStatusPositionElem(Geometry* geom, Shader* shader, GLFWwindow* window);
 		virtual void Update(double delta_time, GuiState* gui_state) override;
-		virtual void ProcessInput() override;
+		virtual void ProcessInput(GuiState* gui_state) override;
 	private:
+		static int NumOfCrewGuiElems;
+		int crew_gui_num_;
 		ClickableHead* head_;
 		ClickableFrontBodyLeft* front_body_left_;
 		ClickableFrontBodyRight* front_body_right_;
